@@ -2780,6 +2780,12 @@ function ensureAudioCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.
 function whenAudioRunning(){const c=ensureAudioCtx();if(c.state==='running')return Promise.resolve(c);if(!audioResumePromise)audioResumePromise=c.resume().finally(()=>{audioResumePromise=null;});return audioResumePromise.then(()=>c);}
 function tone(freq,dur=.12,type='sine',vol=.08,delay=0){whenAudioRunning().then(c=>{try{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=freq;o.connect(g);g.connect(c.destination);const t=c.currentTime+delay;g.gain.setValueAtTime(.001,t);g.gain.exponentialRampToValueAtTime(vol,t+.01);g.gain.exponentialRampToValueAtTime(.001,t+dur);o.start(t);o.stop(t+dur+.03);}catch(e){}});}
 function soundCheck(){tone(880,.1,'sine',.08);tone(1174,.14,'sine',.07,.05);}function soundUncheck(){tone(360,.08,'triangle',.05);}function soundQualify(){tone(523,.12,'sine',.07);tone(659,.14,'sine',.07,.06);tone(784,.18,'sine',.07,.12);}function soundWeekComplete(){tone(523,.12,'triangle',.06);tone(659,.12,'triangle',.06,.08);tone(784,.14,'triangle',.06,.16);tone(1047,.22,'triangle',.08,.26);}
+/* Phase C: initialise Supabase client before load()/setupScreen() — setupScreen calls authCurrentUser() which reads _authSession (TDZ if these lines ran after boot). */
+const SUPABASE_URL='https://sgnuxxqkverroxdskvrd.supabase.co';
+const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnbnV4eHFrdmVycm94ZHNrdnJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5MzExNjEsImV4cCI6MjA5MzUwNzE2MX0.HXjK5iykTvi7hIRCGU607A-ZnvrR8hbOTZyej07vMJA';
+const _supa=(typeof window!=='undefined'&&window.supabase&&typeof window.supabase.createClient==='function')?window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{autoRefreshToken:true,persistSession:true,detectSessionInUrl:true,flowType:'implicit'}}):null;
+let _authSession=null;
+let _authBusy=false;
 load();seed();themeInit();populateUI();bindTrackerSwipe();bindHabitRowsReorder();bindArchiveBankRemove();bindSettingsTabKeyboard();bindProfileDeleteButtons();bindOnboardingShellKeys();setupScreen();renderAll();showCookieBannerIfNeeded();
 if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1')){navigator.serviceWorker.register('sw.js',{scope:'./'}).catch(function(){});}
 
@@ -2798,16 +2804,9 @@ setInterval(()=>{refreshAppClockSkew().then(()=>{if(document.getElementById('tab
 setInterval(tickBrowserHabitNotifications,60000);tickBrowserHabitNotifications();
 
 /* ===========================
- * Phase C: Cloud auth (Supabase)
+ * Phase C: Cloud auth (Supabase) — behaviour (client + _authSession live above load()/setupScreen()).
  * Auth UI only — no data sync yet (Phase D adds that).
- * Anon key + project URL are public-by-design (RLS gates real access).
  * =========================== */
-const SUPABASE_URL='https://sgnuxxqkverroxdskvrd.supabase.co';
-const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnbnV4eHFrdmVycm94ZHNrdnJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5MzExNjEsImV4cCI6MjA5MzUwNzE2MX0.HXjK5iykTvi7hIRCGU607A-ZnvrR8hbOTZyej07vMJA';
-/* flowType implicit: magic links opened from email (often another device / in-app browser) cannot complete PKCE — no code_verifier in that environment. Google OAuth still returns access_token in the hash for implicit. */
-const _supa=(typeof window!=='undefined'&&window.supabase&&typeof window.supabase.createClient==='function')?window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{autoRefreshToken:true,persistSession:true,detectSessionInUrl:true,flowType:'implicit'}}):null;
-let _authSession=null;
-let _authBusy=false;
 function authReady(){return !!_supa;}
 function authCurrentUser(){return _authSession?_authSession.user:null;}
 function titleCaseWord(s){if(!s)return '';return s.charAt(0).toUpperCase()+s.slice(1).toLowerCase();}
