@@ -835,7 +835,6 @@ select#hTier.habit-tier-select-expanded{min-height:4.25rem;border-radius:var(--r
     </div>
     <div class="auth-gate-view" id="authGateViewSignIn">
       <h2 class="auth-gate-heading" id="authGateHeading">Sign in to continue</h2>
-      <p class="auth-gate-sub">Your habits, goals and history sync across all your devices — and stay private to your account.</p>
       <div class="auth-gate-actions">
         <button type="button" id="authGateGoogleBtn" class="btn btn-primary" onclick="authSignInWithGoogle()">
           <span style="display:inline-flex;align-items:center;gap:8px;justify-content:center">
@@ -2816,7 +2815,27 @@ function authSuggestedName(){const u=authCurrentUser();if(!u)return '';const can
 function applyAuthFirstNameToProfileIfNeeded(){if(!S||!S.user||S.user.setupDone)return;const u=authCurrentUser();if(!u)return;const{first,confident}=authExtractFirstNameCandidate(u);if(!confident||!first)return;if((S.user.name||'').trim())return;S.user.name=first;syncActiveProfileMetaNameFromDisplayName();save();const sn=document.getElementById('setupName');if(sn)sn.value=first;}
 function syncSetupNameRowVisibility(){const col=document.getElementById('setupNameFieldCol');const autoLine=document.getElementById('setupNameAutoLine');const autoStr=document.getElementById('setupNameAutoStrong');if(!col)return;if(S&&S.user&&S.user.setupDone){col.style.display='';if(autoLine)autoLine.style.display='none';return;}const u=authCurrentUser();if(!u){col.style.display='';if(autoLine)autoLine.style.display='none';return;}const{first,confident}=authExtractFirstNameCandidate(u);const cur=(S.user&&S.user.name||'').trim();const hide=!!(confident&&first&&cur===first);col.style.display=hide?'none':'';if(autoLine&&autoStr){if(hide){autoStr.textContent=first;autoLine.style.display='block';}else{autoLine.style.display='none';}}}
 function authUrlHasPendingCallback(){try{const u=window.location.href;if(/[?&#]code=/.test(u))return true;if(/[?&#]error_description=/.test(u)||/[?&]error=/.test(u))return true;if(/#.*access_token=/.test(u))return true;}catch(_){}return false;}
-function authStripStaleAuthParamsIfNeeded(){if(_authSession)return;if(!authUrlHasPendingCallback())return;try{const u=new URL(window.location.href);if(u.hash&&u.hash.includes('access_token'))u.hash='';u.searchParams.delete('code');u.searchParams.delete('state');const qs=u.searchParams.toString();window.history.replaceState({},document.title,u.pathname+(qs?'?'+qs:'')+u.hash);}catch(_){}}
+/** Remove OAuth/magic-link fragments from the address bar once a session exists. If there is still an access_token in the hash but no session yet, do nothing — stripping here raced ahead of GoTrue and broke sign-in. */
+function authFinalizeAuthUrl(){try{const u=new URL(window.location.href);const hasImplicitHash=u.hash&&u.hash.includes('access_token');if(_authSession){if(u.hash)u.hash='';u.searchParams.delete('code');u.searchParams.delete('state');const qs=u.searchParams.toString();window.history.replaceState({},document.title,u.pathname+(qs?'?'+qs:'')+u.hash);return;}if(hasImplicitHash)return;u.searchParams.delete('code');u.searchParams.delete('state');const qs=u.searchParams.toString();window.history.replaceState({},document.title,u.pathname+(qs?'?'+qs:'')+u.hash);}catch(_){}}
+async function authBootstrapSession(){
+  authSubscribe();
+  authHandleRedirectFromUrl();
+  await authRefresh();
+  const peekImplicit=()=>{try{return /#.*access_token=/.test(String(window.location.href||''));}catch(_){return false;}};
+  if(!_authSession&&peekImplicit()){
+    await new Promise(r=>setTimeout(r,50));
+    await authRefresh();
+  }
+  if(!_authSession&&peekImplicit()){
+    await new Promise(r=>setTimeout(r,220));
+    await authRefresh();
+  }
+  authFinalizeAuthUrl();
+  syncAccountUI();
+  syncAuthGate();
+  prefillNameFromAuth();
+  syncSetupNameRowVisibility();
+}
 async function authHandleRedirectFromUrl(){
   /* Session-from-URL is handled inside the first getSession() via GoTrueClient._initialize(). Do not call exchangeCodeForSession here — it duplicated PKCE exchange and broke Google sign-in (had to "sign in twice"). */
   if(!_supa)return;try{const url=new URL(window.location.href);const errDesc=url.searchParams.get('error_description')||url.searchParams.get('error');if(errDesc)console.warn('[auth] redirect error:',errDesc);}catch(e){console.warn('[auth] authHandleRedirectFromUrl:',e);}
@@ -2829,7 +2848,7 @@ function syncAuthGate(){const gate=document.getElementById('authGate');if(!gate)
 async function authRefresh(){if(!_supa)return null;try{const r=await _supa.auth.getSession();_authSession=(r&&r.data)?r.data.session:null;return _authSession;}catch(e){_authSession=null;return null;}}
 function persistAuthDisplayNameFromAccountIfEmpty(){if(!S||!S.user||!S.user.setupDone)return;const u=authCurrentUser();if(!u)return;if((S.user.name||'').trim())return;const s=authSuggestedName();if(!s)return;S.user.name=s;syncActiveProfileMetaNameFromDisplayName();save();const su=document.getElementById('sUserName');if(su)su.value=s;if(typeof renderHeader==='function')renderHeader();}
 function prefillNameFromAuth(){try{applyAuthFirstNameToProfileIfNeeded();persistAuthDisplayNameFromAccountIfEmpty();syncSetupNameRowVisibility();const suggested=authSuggestedName();if(!suggested)return;const sn=document.getElementById('setupName');if(sn&&!sn.value)sn.value=suggested;const su=document.getElementById('sUserName');if(su&&!su.value)su.value=suggested;}catch(_){}}
-function authSubscribe(){if(!_supa)return;try{_supa.auth.onAuthStateChange((event,session)=>{_authSession=session||null;syncAccountUI();if(event==='SIGNED_IN'||event==='INITIAL_SESSION'||event==='TOKEN_REFRESHED'||event==='USER_UPDATED'){if(event==='SIGNED_IN'){const m=document.getElementById('mAuthLogin');if(m&&m.classList.contains('show'))closeM('mAuthLogin');}prefillNameFromAuth();}});}catch(e){}}
+function authSubscribe(){if(!_supa)return;try{_supa.auth.onAuthStateChange((event,session)=>{_authSession=session||null;if(_authSession&&(event==='SIGNED_IN'||event==='INITIAL_SESSION'))authFinalizeAuthUrl();syncAccountUI();if(event==='SIGNED_IN'||event==='INITIAL_SESSION'||event==='TOKEN_REFRESHED'||event==='USER_UPDATED'){if(event==='SIGNED_IN'){const m=document.getElementById('mAuthLogin');if(m&&m.classList.contains('show'))closeM('mAuthLogin');}prefillNameFromAuth();}});}catch(e){}}
 function authRedirectURL(){return window.location.origin+window.location.pathname;}
 async function authSignInWithGoogle(){if(!_supa){alert('Auth not ready — try refreshing.');return;}authSetBusy(true);try{const r=await _supa.auth.signInWithOAuth({provider:'google',options:{redirectTo:authRedirectURL()}});if(r&&r.error)throw r.error;}catch(e){authSetBusy(false);alert('Google sign-in failed: '+(e&&e.message?e.message:e));}}
 function authFormatMagicLinkError(err){const msg=String(err&&err.message?err.message:err||'');const low=msg.toLowerCase();if(low.includes('rate limit')||low.includes('too many')){return'Too many sign-in emails were sent recently (Supabase limits how many magic links go out per hour on your plan).\n\nWhat you can do:\n• Wait an hour and try again, or use “Continue with Google” now.\n• If you are testing a lot, open your Supabase dashboard → Authentication → Rate Limits, or add custom SMTP (often higher throughput).\n\nMore detail: https://supabase.com/docs/guides/auth/rate-limits';}return msg||'Something went wrong.';}
@@ -2842,7 +2861,7 @@ function openAuthLoginModal(){closeM('mSettings');setTimeout(()=>{openM('mAuthLo
 function syncAccountUI(){const anon=document.getElementById('accountAnonView');const signed=document.getElementById('accountSignedInView');const lbl=document.getElementById('accountEmailLabel');const u=authCurrentUser();if(anon&&signed){if(u){anon.hidden=true;signed.hidden=false;if(lbl)lbl.textContent=u.email||'(signed in)';}else{anon.hidden=false;signed.hidden=true;}}syncAuthGate();}
 function confirmDeleteCloudAccount(){if(!authCurrentUser()){alert('You are not signed in.');return;}if(!confirm('This will delete your cloud row and sign you out. Local data on this device stays intact. Continue?'))return;deleteCloudAccount();}
 async function deleteCloudAccount(){if(!_supa)return;authSetBusy(true);try{const u=authCurrentUser();if(u){const del=await _supa.from('user_state').delete().eq('user_id',u.id);if(del&&del.error)throw del.error;}await _supa.auth.signOut();_authSession=null;syncAccountUI();alert('Cloud data deleted. You are now signed out. Local data on this device is untouched.');}catch(e){alert('Delete failed: '+(e&&e.message?e.message:e));}finally{authSetBusy(false);}}
-if(authReady()){authSubscribe();authHandleRedirectFromUrl();authRefresh().then(()=>{authStripStaleAuthParamsIfNeeded();syncAccountUI();syncAuthGate();prefillNameFromAuth();syncSetupNameRowVisibility();});}else{console.warn('[auth] Supabase SDK did not load — sign-in is unavailable. Gate stays visible until the SDK loads or the page is refreshed.');syncAuthGate();}
+if(authReady()){void authBootstrapSession();}else{console.warn('[auth] Supabase SDK did not load — sign-in is unavailable. Gate stays visible until the SDK loads or the page is refreshed.');syncAuthGate();}
 
 </script>
 </body>
