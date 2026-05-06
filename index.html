@@ -533,10 +533,7 @@ select#hTier.habit-tier-select-expanded{min-height:4.25rem;border-radius:var(--r
 .bank-dup-keep{width:100%;justify-content:center}
 .btn.btn-danger.btn-sm.bank-delete-btn--round{padding:0!important;width:2.125rem;height:2.125rem;min-width:2.125rem;border-radius:50%;display:inline-flex!important;align-items:center;justify-content:center;font-size:1.125rem;font-weight:700;line-height:1;box-sizing:border-box}
 .settings-modal{max-width:min(640px,100%)}
-.settings-tabs{display:flex;flex-wrap:nowrap;gap:var(--s1);overflow-x:auto;margin-bottom:var(--s4);padding-bottom:var(--s3);border-bottom:1px solid var(--divider);-webkit-overflow-scrolling:touch;scroll-behavior:smooth;overscroll-behavior-x:contain;touch-action:pan-x;cursor:grab}
-.settings-tabs.is-tab-dragging{cursor:grabbing;scroll-behavior:auto}
-.settings-tabs::-webkit-scrollbar{display:none}
-.settings-tabs{scrollbar-width:none}
+.settings-tabs{display:flex;flex-wrap:wrap;gap:var(--s1);row-gap:var(--s2);margin-bottom:var(--s4);padding-bottom:var(--s3);border-bottom:1px solid var(--divider);touch-action:manipulation}
 .settings-tab{font:inherit;font-size:var(--sm);font-weight:700;padding:8px 14px;border-radius:var(--r-md);border:1px solid transparent;background:transparent;color:var(--text-muted);cursor:pointer;transition:color var(--t),background var(--t),border-color var(--t),box-shadow var(--t);flex-shrink:0;white-space:nowrap}
 .settings-tab:hover{color:var(--text);background:var(--surface-3)}
 .settings-tab:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
@@ -596,9 +593,9 @@ select#hTier.habit-tier-select-expanded{min-height:4.25rem;border-radius:var(--r
 .form-check-row input[type=checkbox]{margin-top:4px;flex-shrink:0;width:18px;height:18px;accent-color:var(--blue-strong)}
 .form-check-row--locked{cursor:default;opacity:.95}
 .form-check-row--locked input{cursor:default}
-.advanced-cloud-backup-list{display:grid;grid-template-columns:max-content;gap:var(--s3);justify-items:stretch;width:100%}
-.advanced-cloud-backup-row{display:flex;flex-direction:column;align-items:stretch;gap:var(--s1);min-width:0}
-.advanced-cloud-backup-row .btn{width:100%;box-sizing:border-box}
+.advanced-cloud-backup-list{display:inline-flex;flex-direction:column;align-items:stretch;gap:var(--s3);max-width:100%;vertical-align:top}
+.advanced-cloud-backup-row{display:flex;flex-direction:column;align-items:stretch;gap:var(--s1);min-width:0;width:100%}
+.advanced-cloud-backup-row .btn{width:100%;box-sizing:border-box;white-space:nowrap}
 .backup-modal-actions-row{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s2)}
 .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s3)}
 .form-grid--habit-compact{grid-template-columns:repeat(3,1fr);gap:var(--s2) var(--s3)}
@@ -1422,7 +1419,7 @@ select#hTier.habit-tier-select-expanded{min-height:4.25rem;border-radius:var(--r
     <div id="advancedCloudHistorySection" class="settings-data-actions" style="margin-bottom:var(--s4);padding-bottom:var(--s4);border-bottom:1px solid var(--divider)" hidden>
       <div class="flabel" id="advancedCloudHistoryHeading" style="margin:0">Automatic cloud backups</div>
       <p class="small-note" id="advancedCloudHistoryIntro" style="margin:var(--s2) 0 0;line-height:1.55">We store up to two recent snapshots in your account while you sync — a safety net if your current data ever looks wrong. Tap an archived backup to roll back.</p>
-      <div id="advancedCloudHistoryList" style="margin-top:var(--s3);width:100%"></div>
+      <div id="advancedCloudHistoryList" style="margin-top:var(--s3)"></div>
     </div>
     <div class="settings-data-actions">
       <div class="flabel" id="settingsAdvancedBackupHeading" style="margin-bottom:var(--s2)">Manual backup &amp; restore</div>
@@ -1996,7 +1993,7 @@ async function syncCloudHistoryPanel(){
   const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();
   const labelA='Backup from yesterday';
   const labelB='Backup from 2 days ago';
-  function appendSlot(parent,label,row,disabled,hintLine){
+  function appendSlot(parent,label,row,disabled){
     const rowEl=document.createElement('div');
     rowEl.className='advanced-cloud-backup-row';
     const mainBtn=document.createElement('button');
@@ -2009,17 +2006,15 @@ async function syncCloudHistoryPanel(){
       mainBtn.setAttribute('aria-label',kid?label+' — ask a grown-up':label+' — replaces current device and cloud data');
       mainBtn.onclick=()=>promptRestoreCloudBackup(row.id,row.saved_at,label);
     }
-    const sub=document.createElement('div');
-    sub.className='small-note';
+    rowEl.appendChild(mainBtn);
     if(!disabled&&row){
+      const sub=document.createElement('div');
+      sub.className='small-note';
       const dsl=formatBackupDateDdMmYyyy(row.saved_at);
       const r=syncPayloadRichness(row.payload);
       sub.textContent=dsl+' · '+r.profiles+' profiles · '+r.weekKeys+' week logs';
-    }else{
-      sub.textContent=hintLine;
+      rowEl.appendChild(sub);
     }
-    rowEl.appendChild(mainBtn);
-    rowEl.appendChild(sub);
     parent.appendChild(rowEl);
   }
   wrap.replaceChildren();
@@ -2043,12 +2038,8 @@ async function syncCloudHistoryPanel(){
   const listRoot=document.createElement('div');
   listRoot.className='advanced-cloud-backup-list';
   wrap.appendChild(listRoot);
-  const hintNoFirst=kid?'Not ready yet — sync a few times; the first one often appears within a couple of days.':'Not available yet — your first snapshot usually appears within a couple of days of regular syncing.';
-  const hintNoSecond=kid
-    ?(r0?'Not ready yet — we need a second, older snapshot too.':'Not ready yet — unlocks after your first backup exists.')
-    :(r0?'Not available yet — unlocks when a second, older snapshot exists.':'Not available yet — appears after your first backup.');
-  appendSlot(listRoot,labelA,r0,!r0,hintNoFirst);
-  appendSlot(listRoot,labelB,r1,!r1,hintNoSecond);
+  appendSlot(listRoot,labelA,r0,!r0);
+  appendSlot(listRoot,labelB,r1,!r1);
 }
 function cancelRestoreCloudBackup(){window._pendingRestoreCloudHistoryId=null;window._pendingRestoreCloudHistoryStep=0;window._pendingRestoreCloudBackupLabel=null;closeM('mConfirmRestoreCloudBackup');}
 function promptRestoreCloudBackup(historyId,savedAtIso,backupLabel){
