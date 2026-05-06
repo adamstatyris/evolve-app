@@ -1354,6 +1354,11 @@ select#hTier.habit-tier-select-expanded{min-height:4.25rem;border-radius:var(--r
           <p class="small-note" id="accountCloudSyncStatus" style="margin:0;line-height:1.55">Sign in to sync across devices.</p>
           <button type="button" class="btn btn-ghost btn-sm" id="accountSyncNowBtn" onclick="void cloudPushNow();">Sync now</button>
         </div>
+        <div id="accountCloudHistorySection" style="margin-top:var(--s3)" hidden>
+          <div class="flabel" id="accountCloudHistoryHeading" style="margin:0">Cloud snapshots</div>
+          <p class="small-note" id="accountCloudHistoryIntro" style="margin:0;line-height:1.55">Each time your device uploads to the cloud, the previous cloud version is stored here (latest 30). Restore replaces data on this device and updates the cloud to match.</p>
+          <div id="accountCloudHistoryList" class="backup-modal-list" style="max-height:min(36dvh,280px);width:100%"></div>
+        </div>
         <p class="small-note" id="settingsAccountSignoutNote" style="margin:0;line-height:1.55">Logging out keeps data on this device; upload pauses until you sign in again.</p>
       </div>
     </div>
@@ -1835,6 +1840,59 @@ function save(opts){opts=opts||{};if(!ROOT||!S)return;annotateProfilesForSave();
 function seed(){if(!S)return;if(seedProfile(S))save();}
 let _cloudPushTimer=null;let _cloudPushInFlight=false;let _cloudSyncLastError=null;
 function cloudSyncIsEnabled(){if(!ROOT)return false;if(!ROOT._sync||ROOT._sync.cloudEnabled===undefined)return true;return ROOT._sync.cloudEnabled!==false;}
+/** True when local data is still the default shell (no goals, no logged weeks) — e.g. incognito or fresh profile. Must not overwrite richer cloud row (last-write-wins timestamps wrongly favour local after seed()+save()). */
+function rootLooksLikeUnsyncedFreshShell(R){
+  if(!R||!R.profiles||typeof R.profiles!=='object')return true;
+  const ids=Object.keys(R.profiles);
+  if(ids.length!==1)return false;
+  const P=R.profiles[ids[0]];
+  if(!P||typeof P!=='object')return true;
+  const activeGoals=(P.goals||[]).filter(g=>g&&g.status!=='completed').length;
+  const weekCount=Object.keys(P.weeks||{}).length;
+  return activeGoals===0&&weekCount===0;
+}
+function syncPayloadRichness(R){
+  if(!R||!R.profiles||typeof R.profiles!=='object')return{profiles:0,weekKeys:0,activeGoals:0};
+  const profiles=Object.keys(R.profiles).length;
+  let weekKeys=0,activeGoals=0;
+  Object.values(R.profiles).forEach(P=>{
+    if(!P)return;
+    weekKeys+=Object.keys(P.weeks||{}).length;
+    (P.goals||[]).forEach(g=>{if(g&&g.status!=='completed')activeGoals++;});
+  });
+  return{profiles,weekKeys,activeGoals};
+}
+function remotePayloadLikelyMoreValuableThanLocalFreshShell(localRoot,remotePayload){
+  const loc=syncPayloadRichness(localRoot);
+  const rem=syncPayloadRichness(remotePayload);
+  return rem.profiles>loc.profiles||rem.weekKeys>loc.weekKeys||rem.activeGoals>loc.activeGoals;
+}
+function cloudSyncPayloadIsEmpty(pl){return!pl||typeof pl!=='object'||Object.keys(pl).length===0||!pl.storageVersion;}
+function applyCloudPullMerge(pl,remoteUpdatedAtIso){
+  const merged=migrateStorageRoot(pl);
+  ROOT=merged;
+  if(!ROOT._sync||typeof ROOT._sync!=='object')ROOT._sync={};
+  ROOT._sync.lastRemoteUpdatedAt=remoteUpdatedAtIso;
+  ROOT._sync.editAt=new Date(remoteUpdatedAtIso).getTime();
+  bindActiveProfile();
+  migrate();
+  save({fromCloudMerge:true});
+  themeInit();
+  renderAll();
+  setupScreen();
+  syncProfileSelect();
+  renderHeader();
+  syncAccountUI();
+}
+async function pruneUserStateHistoryKeepNewest(userId,keep){
+  if(!_supa||!userId)return;
+  try{
+    const {data:rows}=await _supa.from('user_state_history').select('id').eq('user_id',userId).order('saved_at',{ascending:false});
+    if(!rows||rows.length<=keep)return;
+    const ids=rows.slice(keep).map(r=>r.id);
+    if(ids.length)await _supa.from('user_state_history').delete().in('id',ids);
+  }catch(e){console.warn('[sync] history prune skipped',e);}
+}
 function scheduleCloudPush(){if(typeof authCurrentUser!=='function'||!authCurrentUser()||!cloudSyncIsEnabled())return;if(typeof _supa==='undefined'||!_supa)return;clearTimeout(_cloudPushTimer);_cloudPushTimer=setTimeout(()=>{_cloudPushTimer=null;void cloudPushNow();},2000);}
 async function cloudPushNow(){
   const u=typeof authCurrentUser==='function'?authCurrentUser():null;
@@ -1843,6 +1901,20 @@ async function cloudPushNow(){
   _cloudPushInFlight=true;
   _cloudSyncLastError=null;
   try{
+    const {data:remoteRow,error:fetchErr}=await _supa.from('user_state').select('payload,updated_at').eq('user_id',u.id).maybeSingle();
+    if(fetchErr)throw fetchErr;
+    const pl=remoteRow&&remoteRow.payload;
+    const remoteNonempty=!cloudSyncPayloadIsEmpty(pl);
+    if(remoteNonempty&&rootLooksLikeUnsyncedFreshShell(ROOT)&&remotePayloadLikelyMoreValuableThanLocalFreshShell(ROOT,pl)){
+      applyCloudPullMerge(pl,remoteRow.updated_at);
+      return;
+    }
+    if(remoteNonempty){
+      try{
+        const {error:histErr}=await _supa.from('user_state_history').insert({user_id:u.id,payload:pl,saved_at:remoteRow.updated_at});
+        if(!histErr)void pruneUserStateHistoryKeepNewest(u.id,30);
+      }catch(_){/* user_state_history missing until SQL migration is applied */}
+    }
     const payload=JSON.parse(JSON.stringify(ROOT));
     const iso=new Date().toISOString();
     const {error}=await _supa.from('user_state').upsert({user_id:u.id,payload,updated_at:iso},{onConflict:'user_id'});
@@ -1852,9 +1924,10 @@ async function cloudPushNow(){
     ROOT._sync.editAt=new Date(iso).getTime();
     save({fromCloudMerge:true});
   }catch(e){_cloudSyncLastError=e;console.warn('[sync] push failed',e);}
-  finally{_cloudPushInFlight=false;if(typeof syncCloudSyncPanelUI==='function')syncCloudSyncPanelUI();}
+  finally{_cloudPushInFlight=false;if(typeof syncCloudSyncPanelUI==='function')syncCloudSyncPanelUI();if(typeof syncCloudHistoryPanel==='function')void syncCloudHistoryPanel();}
 }
 async function cloudSyncAfterAuthBootstrap(){
+  clearTimeout(_cloudPushTimer);_cloudPushTimer=null;
   _cloudSyncLastError=null;
   const u=typeof authCurrentUser==='function'?authCurrentUser():null;
   if(!u||!_supa){syncCloudSyncPanelUI();return;}
@@ -1863,31 +1936,89 @@ async function cloudSyncAfterAuthBootstrap(){
     const {data,error}=await _supa.from('user_state').select('payload,updated_at').eq('user_id',u.id).maybeSingle();
     if(error)throw error;
     const pl=data&&data.payload;
-    const empty=!pl||typeof pl!=='object'||(Object.keys(pl).length===0)||!pl.storageVersion;
-    if(!data||empty){await cloudPushNow();syncCloudSyncPanelUI();return;}
+    if(!data||cloudSyncPayloadIsEmpty(pl)){await cloudPushNow();syncCloudSyncPanelUI();syncCloudHistoryPanel();return;}
     const remoteMs=new Date(data.updated_at).getTime();
     const localEdit=(ROOT._sync&&typeof ROOT._sync.editAt==='number')?ROOT._sync.editAt:0;
-    if(localEdit>remoteMs){await cloudPushNow();syncCloudSyncPanelUI();return;}
-    if(localEdit===remoteMs){syncCloudSyncPanelUI();return;}
-    const merged=migrateStorageRoot(pl);
-    ROOT=merged;
-    if(!ROOT._sync||typeof ROOT._sync!=='object')ROOT._sync={};
-    ROOT._sync.lastRemoteUpdatedAt=data.updated_at;
-    ROOT._sync.editAt=remoteMs;
-    bindActiveProfile();
-    migrate();
-    save({fromCloudMerge:true});
-    themeInit();
-    renderAll();
-    setupScreen();
-    syncProfileSelect();
-    renderHeader();
-    syncAccountUI();
+    if(localEdit===remoteMs){syncCloudSyncPanelUI();syncCloudHistoryPanel();return;}
+    const freshLocalShell=rootLooksLikeUnsyncedFreshShell(ROOT);
+    if(localEdit>remoteMs&&!freshLocalShell){await cloudPushNow();syncCloudSyncPanelUI();syncCloudHistoryPanel();return;}
+    applyCloudPullMerge(pl,data.updated_at);
   }catch(e){
     _cloudSyncLastError=e;
     console.warn('[sync] pull failed',e);
   }
   syncCloudSyncPanelUI();
+  syncCloudHistoryPanel();
+}
+async function syncCloudHistoryPanel(){
+  const wrap=document.getElementById('accountCloudHistoryList');
+  const sec=document.getElementById('accountCloudHistorySection');
+  if(!wrap||!sec)return;
+  const u=typeof authCurrentUser==='function'?authCurrentUser():null;
+  if(!u||!_supa){sec.hidden=true;return;}
+  sec.hidden=false;
+  wrap.replaceChildren();
+  const loading=document.createElement('p');
+  loading.className='small-note';
+  loading.textContent='Loading…';
+  wrap.appendChild(loading);
+  try{
+    const {data,error}=await _supa.from('user_state_history').select('id,saved_at,payload').eq('user_id',u.id).order('saved_at',{ascending:false}).limit(15);
+    if(error)throw error;
+    wrap.replaceChildren();
+    const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();
+    if(!data||!data.length){
+      const p=document.createElement('p');
+      p.className='small-note';
+      p.textContent=kid?'No snapshots yet. They appear after you save to the cloud when a copy was already there.':'No snapshots yet. Each sync stores the previous cloud copy here (we keep the latest 30).';
+      wrap.appendChild(p);
+      return;
+    }
+    data.forEach(row=>{
+      const rowEl=document.createElement('div');
+      rowEl.className='settings-data-row';
+      rowEl.style.cssText='justify-content:space-between;align-items:center;gap:var(--s2);flex-wrap:wrap';
+      const left=document.createElement('div');
+      const dEl=document.createElement('div');
+      dEl.textContent=new Date(row.saved_at).toLocaleString();
+      const sum=document.createElement('div');
+      sum.className='small-note';
+      const r=syncPayloadRichness(row.payload);
+      sum.textContent=r.profiles+' profiles · '+r.weekKeys+' week logs';
+      left.appendChild(dEl);
+      left.appendChild(sum);
+      const btn=document.createElement('button');
+      btn.type='button';
+      btn.className='btn btn-ghost btn-sm';
+      btn.textContent=kid?'Put back':'Restore';
+      btn.onclick=()=>void confirmRestoreCloudHistory(row.id);
+      rowEl.appendChild(left);
+      rowEl.appendChild(btn);
+      wrap.appendChild(rowEl);
+    });
+  }catch(e){
+    wrap.replaceChildren();
+    const p=document.createElement('p');
+    p.className='small-note';
+    p.textContent='Could not load cloud history. Run the user_state_history SQL from the repo (Supabase) if this is new.';
+    wrap.appendChild(p);
+  }
+}
+async function confirmRestoreCloudHistory(historyId){
+  const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();
+  if(!confirm(kid?'Put this older cloud save on this device? Ask a grown-up — it replaces what you see here.':'Replace data on this device with this cloud snapshot? The current cloud copy will be archived and then updated to match.'))return;
+  const u=typeof authCurrentUser==='function'?authCurrentUser():null;
+  if(!u||!_supa)return;
+  try{
+    const {data,error}=await _supa.from('user_state_history').select('payload,saved_at').eq('id',historyId).eq('user_id',u.id).maybeSingle();
+    if(error||!data||cloudSyncPayloadIsEmpty(data.payload)){alert(kid?'Could not load that snapshot.':'Could not load that snapshot.');return;}
+    applyCloudPullMerge(data.payload,data.saved_at);
+    await cloudPushNow();
+    alert(kid?'All set!':'Restored. This device and your cloud copy now match this snapshot.');
+  }catch(e){
+    console.warn('[sync] restore history failed',e);
+    alert(kid?'Something went wrong.':'Restore failed.');
+  }
 }
 function syncCloudSyncPanelUI(){
   const cb=document.getElementById('accountCloudSyncEnabled');
@@ -2006,6 +2137,8 @@ function syncSettingsPanelsKidCopy(){
   setHtml('settingsHelpIntro',kid?'See fun facts you collected, read Tips, or replay the intro, tab tour, or guides below. Backup files are under <strong>Advanced</strong>.':'Browse insights, open Tips for the full reference, or replay orientation tours below.');
   const sb=document.getElementById('accountSignInBtn');if(sb)sb.textContent=kid?'🔑 Sign in with a grown-up':'🔑 Sign in';
   const sn=document.getElementById('accountSyncNowBtn');if(sn)sn.textContent=kid?'Upload now':'Sync now';
+  setTxt('accountCloudHistoryHeading',kid?'Old cloud saves':'Cloud snapshots');
+  setTxt('accountCloudHistoryIntro',kid?'When you upload to the cloud, we keep the last copy here so a grown-up can put an old one back if something went wrong (we save the latest 30).':'Each time your device uploads to the cloud, the previous cloud version is stored here (latest 30). Restore replaces data on this device and updates the cloud to match.');
   const stopTr=document.getElementById('btnStopTracking');if(stopTr)stopTr.textContent=kid?'Stop for a long pause…':'Stop tracking…';
 }
 function syncKidsSettingsCopy(){syncSettingsPanelsKidCopy();syncHabitPresetSearchLabels();}
@@ -2611,7 +2744,7 @@ function playProfileSwitchSound(){try{const AC=window.AudioContext||window.webki
 function switchProfileTo(newId){if(!ROOT||!ROOT.profiles[newId]||newId===ROOT.activeProfileId)return;playProfileSwitchSound();stopDashInsightCarousel();stopSublineCarousel();ROOT.activeProfileId=newId;bindActiveProfile();migrate();try{sessionStorage.removeItem('consistencyDashInsightId');}catch(e){}_insightShownThisSession=false;save();themeInit();renderAll();setupScreen();syncProfileSelect();}
 function switchProfileFromSettings(newId){if(newId===ROOT.activeProfileId)return;switchProfileTo(newId);applyGraceWindowRules();const su=document.getElementById('sUserName');if(su)su.value=S.user.name||'';const sd=document.getElementById('sDob');if(sd)sd.value=S.user.dob||'';const ss=document.getElementById('sStartDate');if(ss)ss.value=S.user.startDate||'';const uu=document.getElementById('sUnits');if(uu)uu.value=S.user.units||'metric';mountSettingsPaletteGrid();mountSettingsAvatarSwatches();syncGraceToggleButton();syncTrackingControlUI();}
 function createProfileWithName(nm,avatarHex){if(!ROOT)return;const name=(nm||'').trim()||'New profile';const id=uid('profile');const fresh=newProfileState();fresh.user.name=name;ROOT.profiles[id]=fresh;seedProfile(fresh);migrateOneProfile(fresh);if(!ROOT.profileMeta)ROOT.profileMeta={};ROOT.profileMeta[id]={name:name,avatarColor:normalizeNewProfileAvatarColor(avatarHex)};save();switchProfileTo(id);if(document.getElementById('mSettings')?.classList.contains('open')){applyGraceWindowRules();const su=document.getElementById('sUserName');if(su)su.value=S.user.name||'';const sde=document.getElementById('sDob');if(sde)sde.value=S.user.dob||'';const sst=document.getElementById('sStartDate');if(sst)sst.value=S.user.startDate||'';const sun=document.getElementById('sUnits');if(sun)sun.value=S.user.units||'metric';mountSettingsPaletteGrid();mountSettingsAvatarSwatches();syncGraceToggleButton();syncTrackingControlUI();}}
-function setSettingsTab(key){const modal=document.getElementById('mSettings');if(!modal)return;modal.querySelectorAll('.settings-tab').forEach(btn=>{const on=btn.dataset.settingsTab===key;btn.setAttribute('aria-selected',on?'true':'false');btn.tabIndex=on?0:-1;});modal.querySelectorAll('.settings-panel').forEach(p=>{if(p.dataset.settingsPanel===key)p.removeAttribute('hidden');else p.setAttribute('hidden','');});if(key==='appearance'){mountSettingsAvatarSwatches();syncKidAnimationsToggleUI();}if(key==='tracking')syncTrackingControlUI();if(key==='account')syncCloudSyncPanelUI();}
+function setSettingsTab(key){const modal=document.getElementById('mSettings');if(!modal)return;modal.querySelectorAll('.settings-tab').forEach(btn=>{const on=btn.dataset.settingsTab===key;btn.setAttribute('aria-selected',on?'true':'false');btn.tabIndex=on?0:-1;});modal.querySelectorAll('.settings-panel').forEach(p=>{if(p.dataset.settingsPanel===key)p.removeAttribute('hidden');else p.setAttribute('hidden','');});if(key==='appearance'){mountSettingsAvatarSwatches();syncKidAnimationsToggleUI();}if(key==='tracking')syncTrackingControlUI();if(key==='account'){syncCloudSyncPanelUI();void syncCloudHistoryPanel();}}
 function bindSettingsTabKeyboard(){const bar=document.querySelector('#mSettings .settings-tabs');if(!bar||bar.dataset.kbdBound)return;bar.dataset.kbdBound='1';const order=['profile','account','appearance','tracking','advanced','help'];bar.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(e.key))return;const tabs=[...bar.querySelectorAll('.settings-tab')];let i=tabs.findIndex(t=>t.getAttribute('aria-selected')==='true');if(i<0)return;e.preventDefault();if(e.key==='Home')i=0;else if(e.key==='End')i=tabs.length-1;else if(e.key==='ArrowRight'||e.key==='ArrowDown')i=(i+1)%tabs.length;else if(e.key==='ArrowLeft'||e.key==='ArrowUp')i=(i-1+tabs.length)%tabs.length;setSettingsTab(order[i]);tabs[i].focus();});}
 function openSettings(){closeAvatarBubblePicker();applyGraceWindowRules();syncProfileSelect();const su=document.getElementById('sUserName');if(su)su.value=S.user.name||(typeof authSuggestedName==='function'?authSuggestedName():'')||'';const sd=document.getElementById('sDob');if(sd)sd.value=S.user.dob||'';const ss=document.getElementById('sStartDate');if(ss)ss.value=S.user.startDate||'';const uu=document.getElementById('sUnits');if(uu)uu.value=S.user.units||'metric';mountSettingsPaletteGrid();syncGraceToggleButton();syncTrackingControlUI();syncKidAnimationsToggleUI();syncSettingsPanelsKidCopy();const sslc=document.getElementById('sSkipSecondLockConfirm');if(sslc)sslc.checked=!!S.user.skipSecondLockConfirm;setSettingsTab('profile');openM('mSettings');}
 function toggleGracePeriodFromUI(){if(!userGraceWindowOpen())return;const btn=document.getElementById('sGracePeriodToggle');if(!btn)return;const next=!btn.classList.contains('on');S.user.gracePeriodEnabled=next;btn.classList.toggle('on',next);btn.setAttribute('aria-pressed',next?'true':'false');save();renderAll();}
@@ -2966,7 +3099,7 @@ function showAuthModalSent(email){const a=document.getElementById('authModalView
 function authModalBackToSignIn(){const a=document.getElementById('authModalViewSignIn');const b=document.getElementById('authModalViewSent');if(b)b.hidden=true;if(a)a.hidden=false;const el=document.getElementById('authEmailInput');if(el){try{el.focus();el.select();}catch(_){}}}
 async function authSignOut(){if(!_supa)return;authSetBusy(true);try{clearTimeout(_cloudPushTimer);_cloudPushTimer=null;_cloudSyncLastError=null;await _supa.auth.signOut();_authSession=null;}catch(e){}finally{authSetBusy(false);syncAccountUI();}}
 function openAuthLoginModal(){closeM('mSettings');setTimeout(()=>{openM('mAuthLogin');const a=document.getElementById('authModalViewSignIn');const b=document.getElementById('authModalViewSent');if(b)b.hidden=true;if(a)a.hidden=false;const el=document.getElementById('authEmailInput');if(el)el.value='';authSetBusy(false);},120);}
-function syncAccountUI(){const anon=document.getElementById('accountAnonView');const signed=document.getElementById('accountSignedInView');const lbl=document.getElementById('accountEmailLabel');const u=authCurrentUser();if(anon&&signed){if(u){anon.hidden=true;signed.hidden=false;if(lbl)lbl.textContent=u.email||'(signed in)';}else{anon.hidden=false;signed.hidden=true;}}syncAuthGate();syncCloudSyncPanelUI();syncSettingsPanelsKidCopy();}
+function syncAccountUI(){const anon=document.getElementById('accountAnonView');const signed=document.getElementById('accountSignedInView');const lbl=document.getElementById('accountEmailLabel');const u=authCurrentUser();if(anon&&signed){if(u){anon.hidden=true;signed.hidden=false;if(lbl)lbl.textContent=u.email||'(signed in)';}else{anon.hidden=false;signed.hidden=true;}}syncAuthGate();syncCloudSyncPanelUI();syncSettingsPanelsKidCopy();void syncCloudHistoryPanel();}
 function confirmDeleteCloudAccount(){if(!authCurrentUser()){alert('You are not signed in.');return;}if(!confirm('This will delete your cloud row and sign you out. Local data on this device stays intact. Continue?'))return;deleteCloudAccount();}
 async function deleteCloudAccount(){if(!_supa)return;authSetBusy(true);try{const u=authCurrentUser();if(u){const del=await _supa.from('user_state').delete().eq('user_id',u.id);if(del&&del.error)throw del.error;}await _supa.auth.signOut();_authSession=null;syncAccountUI();alert('Cloud data deleted. You are now signed out. Local data on this device is untouched.');}catch(e){alert('Delete failed: '+(e&&e.message?e.message:e));}finally{authSetBusy(false);}}
 if(authReady()){void authBootstrapSession();}else{console.warn('[auth] Supabase SDK did not load — sign-in is unavailable. Gate stays visible until the SDK loads or the page is refreshed.');syncAuthGate();}

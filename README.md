@@ -4,7 +4,7 @@ A habit and goal tracker built around weekly consistency, gentle scoring, and we
 
 ## Status
 
-Closed beta. **Auth:** Supabase (Google + email magic link). **Cloud sync (Phase D):** signed-in users can sync the full multi-profile `ROOT` blob to Supabase (`user_state`) from **Settings → Account** (toggle, debounced upload, manual **Sync now**).
+Closed beta. **Auth:** Supabase (Google + email magic link). **Cloud sync (Phase D):** signed-in users can sync the full multi-profile `ROOT` blob to Supabase (`user_state`) from **Settings → Account** (toggle, debounced upload, manual **Sync now**). **Cloud snapshots:** after you run the `user_state_history` section of [`supabase/schema.sql`](supabase/schema.sql), each upload stores the **previous** cloud payload (app keeps the latest 30 server-side per account); **Settings → Account → Cloud snapshots** lists them with **Restore**.
 
 ## Repository layout
 
@@ -15,7 +15,7 @@ Closed beta. **Auth:** Supabase (Google + email magic link). **Cloud sync (Phase
 ├── sw.js                   # Minimal service worker (pass-through, enables installability)
 ├── _headers                # Cloudflare Pages cache rules
 ├── supabase/
-│   └── schema.sql          # `user_state` table + RLS (run once in Supabase SQL Editor)
+│   └── schema.sql          # `user_state` + `user_state_history` + RLS (run / re-run in Supabase SQL Editor)
 ├── icons/                  # PWA icons (192, 512, apple-touch)
 └── README.md
 ```
