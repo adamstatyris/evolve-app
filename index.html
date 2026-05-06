@@ -191,6 +191,12 @@ input,select,textarea{border:none}
 .brand-sub-tappable{cursor:pointer;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--text-muted) 45%,transparent);text-underline-offset:3px;outline-offset:2px}
 .brand-sub-tappable:hover,.brand-sub-tappable:focus-visible{color:var(--text)}
 .brand-sub-name{font-weight:700;color:var(--text)}
+.header-name-pill{display:inline-flex;align-items:center;gap:6px;padding:3px 11px;border-radius:var(--r-full);font-size:inherit;line-height:1.35;max-width:100%;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.header-name-pill--online{background:color-mix(in srgb,var(--green) 20%,var(--surface-3));border:1px solid color-mix(in srgb,var(--green) 48%,var(--border));box-shadow:0 0 12px color-mix(in srgb,var(--green) 18%,transparent)}
+.header-name-pill--online .brand-sub-name{color:var(--green)}
+.header-name-pill--offline{background:var(--surface-3);border:1px solid var(--border);color:var(--text-muted)}
+.header-name-pill--offline .brand-sub-name{color:var(--text-muted)}
+[data-theme="light"] .header-name-pill--online{background:color-mix(in srgb,var(--green) 12%,var(--surface-2));}
 #mProfilePicker .profile-picker-modal--avatars-only{overflow:visible;padding:var(--s8) var(--s10);width:max-content;max-width:min(92vw,640px);min-width:min(260px,92vw);margin-left:auto;margin-right:auto}
 #mProfilePicker .profile-picker-modal--avatars-only .settings-panel{gap:0;overflow:visible;max-height:none;margin:0;padding:0}
 #mProfilePicker .profile-picker-list-scroll{max-height:min(52dvh,420px);overflow-x:visible;overflow-y:auto;padding:36px 48px;margin:-20px -28px;box-sizing:border-box;-webkit-overflow-scrolling:touch}
@@ -867,14 +873,15 @@ select#hTier.habit-tier-select-expanded{min-height:4.25rem;border-radius:var(--r
    Timers are exposed on window so the main bundle can clear them once _authSession is ready. */
 (function(){try{
   function lsHasSession(){try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf('sb-')===0&&k.indexOf('-auth-token')!==-1)return true;}}catch(_){}return false;}
-  if(lsHasSession())return;
+  function deviceTrustPresent(){try{var raw=localStorage.getItem('consistency_device_auth_v1');if(!raw)return false;var o=JSON.parse(raw);return !!(o&&o.uid);}catch(_){return false;}}
+  if(lsHasSession()||deviceTrustPresent())return;
   var splash=document.getElementById('authSplash');
   var gate=document.getElementById('authGate');
   if(splash)splash.classList.add('is-visible');
   function urlLooksLikeAuthReturn(){try{var h=window.location.href;if(h.indexOf('code=')!==-1)return true;if(h.indexOf('error_description=')!==-1||/[?&]error=/.test(h))return true;if(h.indexOf('access_token=')!==-1)return true;}catch(_){}return false;}
   window.__authGateRevealTimer=setTimeout(function(){
     window.__authGateRevealTimer=null;
-    if(lsHasSession()){
+    if(lsHasSession()||deviceTrustPresent()){
       if(splash){splash.classList.remove('is-visible');splash.classList.remove('is-fading');}
       return;
     }
@@ -1206,7 +1213,7 @@ select#hTier.habit-tier-select-expanded{min-height:4.25rem;border-radius:var(--r
     <div class="guide-block"><strong>Rewards and pot</strong><div class="small-note" style="margin-top:8px">Weekly qualifying habits add a fixed amount (e.g., £30) to your savings pot—a self-commitment where you set aside real cash toward a big goal like an e-bike kit. It's not virtual money but your binding promise to fund it, aligned with your consistency floor. While a goal is <strong>below that floor (recovery)</strong>, only <strong>core</strong> habits add to the pot; <strong>growth</strong> habits add £0 until rolling % is back at the floor.</div></div>
     <div class="guide-block"><strong>Habit bank</strong><div class="small-note" style="margin-top:8px">When a goal is completed, its habits are archived and can be later reactivated toward a different goal.</div></div>
     <div class="guide-block"><strong>Below the floor: recovery mode</strong><div class="small-note" style="margin-top:8px">Each goal has a consistency <strong>floor</strong> (default 80%). Your <strong>rolling %</strong> includes every tracked scorable week (including grace-profile weeks). When rolling % is <strong>below the floor</strong>, the goal is in <strong>recovery</strong>: you still log habits as normal; only <strong>core</strong> habits add £ to the pot, and <strong>growth</strong> habits add £0 until rolling % is back at or above the floor. Recovery tracks your last rolling %: a <strong>strict drop</strong> (ties are not drops) resets the saved pot from that week onward. When rolling % reaches the floor again, recovery ends and full pot rules return. Weekly treats still follow core habit qualification — recovery changes how the <strong>pot</strong> accrues, not whether you can log.</div></div>
-    <div class="guide-block"><strong>Profiles</strong><div class="small-note" style="margin-top:8px">In <strong>Settings → Profile</strong>, tap a tile to switch, the <strong>+</strong> tile to add someone, <strong>Rename</strong> for a quick name and bubble-colour edit, or <strong>Delete this profile…</strong> when you have more than one. <strong>Settings → Appearance</strong> has the same display name and bubble colour next to accent palette and birthday. <strong>Settings → Account</strong> is for sign-in, optional <strong>cloud sync</strong>, and short-term <strong>cloud backups</strong> (rows labelled <strong>Backup (dd/mm/yyyy)</strong> appear below Sync now after uploads). <strong>Settings → Advanced</strong> exports or imports a JSON backup (import only adds new profiles; existing local data is not overwritten). When you tap your name in the header, only the profile avatars open (same tiles as <strong>Settings → Profile</strong>, without add / rename / delete). Each profile has its own goals, habits, week history, and insights.</div></div>
+    <div class="guide-block"><strong>Profiles</strong><div class="small-note" style="margin-top:8px">In <strong>Settings → Profile</strong>, tap a tile to switch, the <strong>+</strong> tile to add someone, <strong>Rename</strong> for a quick name and bubble-colour edit, or <strong>Delete this profile…</strong> when you have more than one. <strong>Settings → Appearance</strong> has the same display name and bubble colour next to accent palette and birthday. <strong>Settings → Account</strong> is for sign-in, optional <strong>cloud sync</strong>, and up to two <strong>automatic cloud archives</strong> (<strong>Backup 1</strong> / <strong>Backup 2</strong>) that the app saves when you sync—restore one only if your data looks broken (you don’t upload these). <strong>Settings → Advanced</strong> is for a <strong>manual</strong> JSON file export or import (import only adds new profiles; existing local data is not overwritten). When you tap your name in the header, only the profile avatars open (same tiles as <strong>Settings → Profile</strong>, without add / rename / delete). Each profile has its own goals, habits, week history, and insights.</div></div>
     <div class="guide-block"><strong>Insights</strong><div class="small-note" style="margin-top:8px">Insights are short, science-backed (or occasionally funny) notes about habits, the brain, and consistency. They can appear in a pop-up when you earn one, and a rotating excerpt shows under <strong>Your Goals</strong> on the dashboard. <strong>Insights n/total</strong> opens everything you’ve discovered, grouped by category with source links where available.<br><br><strong>When insights tend to fire:</strong><br>• New habit<br>• First-time <strong>Add habit</strong> Tier spotlight (unlocks “Core and growth habits”)<br>• About once per calendar week when you have any qualifying habit (participation nudge)<br>• 2-, 4-, or 8-week consistency milestones<br>• Tier shifts on the disc (red ↔ amber ↔ green)<br>• Early in a month or year when you are already in the steady band<br>• After a rough <strong>closed</strong> week, when you are back on track in the live week<br>• Sometimes a random “any time” science or fun card from the library<br><br>Copy is written for non-medical readers. Tap <strong>Got it ✓</strong> to dismiss; if another is queued, it appears next.</div></div>
   </div>
   <div class="modal-footer"><button type="button" class="btn btn-primary" onclick="closeGuide()">Got it</button></div>
@@ -1355,11 +1362,10 @@ select#hTier.habit-tier-select-expanded{min-height:4.25rem;border-radius:var(--r
           <button type="button" class="btn btn-ghost btn-sm" id="accountSyncNowBtn" onclick="void cloudPushNow();">Sync now</button>
         </div>
         <div id="accountCloudHistorySection" style="margin-top:var(--s3)" hidden>
-          <div class="flabel" id="accountCloudHistoryHeading" style="margin:0">Cloud backups</div>
-          <p class="small-note" id="accountCloudHistoryIntro" style="margin:0;line-height:1.55">While signed in, open <strong>Settings</strong> → <strong>Account</strong> (this screen). After <strong>Sync now</strong>, up to two previous cloud copies from the last 2 days may appear below as <strong>Backup (dd/mm/yyyy)</strong>. Tapping one restores that copy on this device and updates the cloud.</p>
+          <div class="flabel" id="accountCloudHistoryHeading" style="margin:0">Automatic cloud archives</div>
+          <p class="small-note" id="accountCloudHistoryIntro" style="margin:0;line-height:1.55">The app <strong>automatically</strong> creates and uploads these archived copies to the cloud when you sync—you do not upload them yourself. Up to two recent archives appear as <strong>Backup 1</strong> / <strong>Backup 2</strong>. Use one only if your current data looks wrong or lost; it replaces this device and the live cloud copy (you confirm first). Your first archives often show within about 2 days of regular syncing.</p>
           <div id="accountCloudHistoryList" class="backup-modal-list" style="max-height:min(36dvh,280px);width:100%"></div>
         </div>
-        <p class="small-note" id="settingsAccountSignoutNote" style="margin:0;line-height:1.55">Logging out keeps data on this device; upload pauses until you sign in again.</p>
       </div>
     </div>
   </div>
@@ -1413,7 +1419,7 @@ select#hTier.habit-tier-select-expanded{min-height:4.25rem;border-radius:var(--r
     </div>
   </div>
   <div class="settings-panel" role="tabpanel" id="settingsPanelAdvanced" aria-labelledby="settingsTabAdvanced" data-settings-panel="advanced" hidden>
-    <p class="settings-panel-intro" id="settingsAdvancedIntro">Backup files and app info. Cloud sync (when you sign in under <strong>Account</strong>) is separate — use this for a JSON file on your device.</p>
+    <p class="settings-panel-intro" id="settingsAdvancedIntro">Manual <strong>JSON backup</strong> files and About. <strong>Account</strong> is for sign-in, sync, and <strong>automatic</strong> cloud archives the app saves when you sync (not something you upload).</p>
     <div class="settings-data-actions">
       <div class="flabel" id="settingsAdvancedBackupHeading" style="margin-bottom:var(--s2)">Backup &amp; restore</div>
       <div class="settings-data-row">
@@ -1515,7 +1521,7 @@ select#hTier.habit-tier-select-expanded{min-height:4.25rem;border-radius:var(--r
     <p id="confirmRestoreCloudBackupText" class="small-note" style="margin-top:var(--s3);line-height:1.65;color:var(--text-muted)"></p>
     <div class="modal-footer" style="margin-top:var(--s5)">
       <button type="button" class="btn btn-ghost" id="confirmRestoreCloudBackupCancelBtn">Cancel</button>
-      <button type="button" class="btn btn-danger" id="confirmRestoreCloudBackupOkBtn">Restore backup</button>
+      <button type="button" class="btn btn-danger" id="confirmRestoreCloudBackupOkBtn">Restore archive</button>
     </div>
   </div>
 </div>
@@ -1999,11 +2005,12 @@ async function syncCloudHistoryPanel(){
     if(!filtered.length){
       const p=document.createElement('p');
       p.className='small-note';
-      p.textContent=kid?'No backups yet. They appear after you save to the cloud when a copy was already there.':'No backups in the last 2 days (at most 2 previous cloud versions are kept).';
+      p.textContent=kid?'No archives here yet. The app makes these for you when you sync — the first ones usually show within the next 2 days.':'No archives yet. The app creates and uploads these automatically when you sync; the first ones often appear within the next 2 days.';
       wrap.appendChild(p);
       return;
     }
-    filtered.forEach(row=>{
+    filtered.forEach((row,idx)=>{
+      const label='Backup '+(idx+1);
       const rowEl=document.createElement('div');
       rowEl.className='settings-data-row';
       rowEl.style.cssText='display:flex;flex-direction:column;align-items:stretch;gap:var(--s1)';
@@ -2012,13 +2019,13 @@ async function syncCloudHistoryPanel(){
       mainBtn.className='btn btn-ghost btn-sm';
       mainBtn.style.cssText='width:100%;text-align:left;justify-content:flex-start';
       const dsl=formatBackupDateDdMmYyyy(row.saved_at);
-      mainBtn.textContent='Backup ('+dsl+')';
-      mainBtn.setAttribute('aria-label',kid?'Restore backup '+dsl:'Restore backup '+dsl);
-      mainBtn.onclick=()=>promptRestoreCloudBackup(row.id,row.saved_at);
+      mainBtn.textContent=label;
+      mainBtn.setAttribute('aria-label',kid?label+' — ask a grown-up':label+' — replaces current device and cloud data');
+      mainBtn.onclick=()=>promptRestoreCloudBackup(row.id,row.saved_at,label);
       const sum=document.createElement('div');
       sum.className='small-note';
       const r=syncPayloadRichness(row.payload);
-      sum.textContent=r.profiles+' profiles · '+r.weekKeys+' week logs';
+      sum.textContent=dsl+' · '+r.profiles+' profiles · '+r.weekKeys+' week logs';
       rowEl.appendChild(mainBtn);
       rowEl.appendChild(sum);
       wrap.appendChild(rowEl);
@@ -2027,22 +2034,23 @@ async function syncCloudHistoryPanel(){
     wrap.replaceChildren();
     const p=document.createElement('p');
     p.className='small-note';
-    p.textContent='Could not load cloud backups. Run the user_state_history SQL from the repo (Supabase) if this is new.';
+    p.textContent='Could not load archives.';
     wrap.appendChild(p);
   }
 }
-function cancelRestoreCloudBackup(){window._pendingRestoreCloudHistoryId=null;window._pendingRestoreCloudHistoryStep=0;closeM('mConfirmRestoreCloudBackup');}
-function promptRestoreCloudBackup(historyId,savedAtIso){
+function cancelRestoreCloudBackup(){window._pendingRestoreCloudHistoryId=null;window._pendingRestoreCloudHistoryStep=0;window._pendingRestoreCloudBackupLabel=null;closeM('mConfirmRestoreCloudBackup');}
+function promptRestoreCloudBackup(historyId,savedAtIso,backupLabel){
   window._pendingRestoreCloudHistoryId=historyId;
   window._pendingRestoreCloudHistoryStep=1;
+  window._pendingRestoreCloudBackupLabel=backupLabel||'Backup';
   const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();
-  const dsl=formatBackupDateDdMmYyyy(savedAtIso);
+  const lbl=String(backupLabel||'Backup').trim()||'Backup';
   const title=document.getElementById('confirmRestoreCloudBackupTitle');
   const tx=document.getElementById('confirmRestoreCloudBackupText');
   const okBtn=document.getElementById('confirmRestoreCloudBackupOkBtn');
-  if(title)title.textContent=kid?'Sure?':'Are you sure?';
-  if(tx){if(kid)tx.textContent='Put backup ('+dsl+') on this device? Ask a grown-up. This swaps what you see here and in the cloud.';else tx.innerHTML='Restore backup ('+dsl+')? This replaces all data on this device with that backup and updates your live cloud copy. Consider <strong>Advanced → Export backup</strong> first if you want a JSON file.';}
-  if(okBtn)okBtn.textContent=kid?'Continue':'Restore backup';
+  if(title)title.textContent=kid?'Sure?':'Restore this archive?';
+  if(tx){if(kid)tx.textContent='Use '+lbl+'? It is an automatic cloud save from earlier — not a file you uploaded. Ask a grown-up. This replaces what you see here and in the cloud.';else tx.textContent='Restore '+lbl+'? This is an automatic archive the app stored when you previously synced — not a file you uploaded manually. It replaces your current data on this device and in the cloud.';}
+  if(okBtn)okBtn.textContent=kid?'Continue':'Continue';
   openM('mConfirmRestoreCloudBackup');
 }
 function confirmRestoreCloudBackupExecute(){
@@ -2055,26 +2063,29 @@ function confirmRestoreCloudBackupExecute(){
     const title=document.getElementById('confirmRestoreCloudBackupTitle');
     const tx=document.getElementById('confirmRestoreCloudBackupText');
     const okBtn=document.getElementById('confirmRestoreCloudBackupOkBtn');
-    if(title)title.textContent=kid?'Really sure?':'Are you sure you are sure?';
-    if(tx)tx.textContent=kid?'This will replace your app here and online with that old save.':'This replaces your current data on this device and overwrites the live cloud copy. You cannot undo except from another backup or file export.';
-    if(okBtn)okBtn.textContent=kid?'Yes, do it':'Yes, I’m sure';
+    if(title)title.textContent=kid?'Really sure?':'Last step';
+    if(tx)tx.textContent=kid?'This overwrites your app here and online. Use this if something looks broken.':'This overwrites your current app data on this device and in the cloud. Use when your data looks wrong or lost. You cannot undo except from another automatic archive or a JSON file you exported.';
+    if(okBtn)okBtn.textContent=kid?'Yes, do it':'Replace everything';
     return;
   }
+  const backupLabel=window._pendingRestoreCloudBackupLabel;
   window._pendingRestoreCloudHistoryId=null;
   window._pendingRestoreCloudHistoryStep=0;
+  window._pendingRestoreCloudBackupLabel=null;
   closeM('mConfirmRestoreCloudBackup');
-  void executeRestoreCloudBackupFromHistory(historyId);
+  void executeRestoreCloudBackupFromHistory(historyId,backupLabel);
 }
-async function executeRestoreCloudBackupFromHistory(historyId){
+async function executeRestoreCloudBackupFromHistory(historyId,backupLabel){
   const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();
   const u=typeof authCurrentUser==='function'?authCurrentUser():null;
   if(!u||!_supa)return;
+  const lbl=String(backupLabel||'Backup').trim()||'Backup';
   try{
     const {data,error}=await _supa.from('user_state_history').select('payload,saved_at').eq('id',historyId).eq('user_id',u.id).maybeSingle();
-    if(error||!data||cloudSyncPayloadIsEmpty(data.payload)){alert(kid?'Could not load that backup.':'Could not load that backup.');return;}
+    if(error||!data||cloudSyncPayloadIsEmpty(data.payload)){alert(kid?'Could not load that archive.':'Could not load that archive.');return;}
     applyCloudPullMerge(data.payload,data.saved_at);
     await cloudPushNow();
-    alert(kid?'All set!':'Restored. This device and your cloud copy now match this backup.');
+    alert(kid?'All set!':'Done. This device and the cloud now match '+lbl+'.');
   }catch(e){
     console.warn('[sync] restore backup failed',e);
     alert(kid?'Something went wrong.':'Restore failed.');
@@ -2091,6 +2102,7 @@ function syncCloudSyncPanelUI(){
   }
   if(st){
     if(!u)st.textContent=kid?'Ask a grown-up to sign in if you want cloud sync.':'Sign in to sync across devices.';
+    else if(typeof appConnectivityOnline==='function'&&!appConnectivityOnline())st.textContent=kid?'Offline — cloud sync when you are back online.':'Offline — cloud sync resumes when you reconnect.';
     else if(_cloudSyncLastError)st.textContent=(kid?'Upload problem: ':'Sync error: ')+(_cloudSyncLastError.message||String(_cloudSyncLastError));
     else if(_cloudPushInFlight)st.textContent=kid?'Sending to cloud…':'Syncing…';
     else if(ROOT&&ROOT._sync&&ROOT._sync.lastRemoteUpdatedAt)st.textContent=(kid?'Last cloud save: ':'Last cloud save: ')+new Date(ROOT._sync.lastRemoteUpdatedAt).toLocaleString();
@@ -2140,8 +2152,9 @@ function useKidsLanguage(){
 function insightForDisplay(ins){if(!ins)return ins;try{if(typeof useKidsLanguage!=='function'||!useKidsLanguage())return ins;}catch(e){return ins;}const p=INSIGHT_KID_COPY[ins.id];return p?Object.assign({},ins,p):ins;}
 function isBirthdayToday(dobStr){if(!dobStr||String(dobStr).length<10)return false;const parts=String(dobStr).slice(0,10).split('-');if(parts.length<3)return false;const m=parseInt(parts[1],10),d=parseInt(parts[2],10);if(!m||!d)return false;const t=new Date();return t.getMonth()+1===m&&t.getDate()===d;}
 function headerGreetingPlain(){const disp=S.user?.name?.trim();if(disp)return disp.replace(/</g,'');const pid=ROOT?.activeProfileId;let lbl=(pid&&ROOT?.profileMeta?.[pid]?.name||'').trim();const placeholder=!lbl||lbl==='Primary'||lbl==='Profile';if(placeholder){try{if(typeof authCurrentUser==='function'&&authCurrentUser()&&typeof authSuggestedName==='function'){const au=authSuggestedName();if(au)return au.replace(/</g,'');}}catch(_){}return'';}return lbl.replace(/</g,'');}
-function headerGreetingAriaLabel(){const nm=headerGreetingPlain();const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();if(nm&&isBirthdayToday(S.user?.dob))return'Happy birthday, '+nm;if(nm)return'Hi, '+nm;return kid?'Ask a grown-up to open Settings → Appearance and pick your name':'Pick a profile name in Settings';}
-function headerGreetingHTML(){const nm=headerGreetingPlain();const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();if(nm&&isBirthdayToday(S.user?.dob))return`🎂 Happy birthday, <strong class="brand-sub-name">${escHTML(nm)}</strong>!`;if(nm)return`Hi, <strong class="brand-sub-name">${escHTML(nm)}</strong>`;return kid?'Ask a grown-up to open <strong class="brand-sub-name">Settings → Appearance</strong> for your name':'Pick a profile name in Settings';}
+function appConnectivityOnline(){return typeof navigator==='undefined'||navigator.onLine!==false;}
+function headerGreetingAriaLabel(){const nm=headerGreetingPlain();const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();const off=typeof authCurrentUser==='function'&&!!authCurrentUser()&&!appConnectivityOnline();const offBit=off?(kid?'. Offline on this device':'. Offline on this device'):'';if(nm&&isBirthdayToday(S.user?.dob))return'Happy birthday, '+nm+offBit;if(nm)return'Hi, '+nm+offBit;return kid?'Ask a grown-up to open Settings → Appearance and pick your name':'Pick a profile name in Settings';}
+function headerGreetingHTML(){const nm=headerGreetingPlain();const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();let inner;if(nm&&isBirthdayToday(S.user?.dob))inner=`🎂 Happy birthday, <strong class="brand-sub-name">${escHTML(nm)}</strong>!`;else if(nm)inner=`Hi, <strong class="brand-sub-name">${escHTML(nm)}</strong>`;else inner=kid?'Ask a grown-up to open <strong class="brand-sub-name">Settings → Appearance</strong> for your name':'Pick a profile name in Settings';const u=typeof authCurrentUser==='function'?authCurrentUser():null;if(u){const on=appConnectivityOnline();const cls=on?'header-name-pill header-name-pill--online':'header-name-pill header-name-pill--offline';const title=on?(kid?'Connected — cloud sync available':'Connected — cloud sync available'):(kid?'Offline — signed in on this device; cloud sync when you are back online':'Offline — signed in on this device; cloud sync resumes when you are back online');return`<span class="${cls}" title="${escAttr(title)}">${inner}</span>`;}return inner;}
 const PROFILE_AVATAR_PICKER_OPTIONS=[{hex:'#e50914',lab:'Red'},{hex:'#ff7a00',lab:'Orange'},{hex:'#e6c200',lab:'Yellow'},{hex:'#1a9f3c',lab:'Green'},{hex:'#0066ff',lab:'Blue'},{hex:'#5eb8e8',lab:'Light blue'},{hex:'#6b2bd6',lab:'Violet'},{hex:'#0d0d0d',lab:'Black'}];
 const DEFAULT_AVATAR_BUBBLE_HEX='#0066ff';
 function normalizeNewProfileAvatarColor(hex){const h=String(hex||'').trim();return PROFILE_AVATAR_PICKER_OPTIONS.some(o=>o.hex===h)?h:DEFAULT_AVATAR_BUBBLE_HEX;}
@@ -2179,9 +2192,8 @@ function syncSettingsPanelsKidCopy(){
   setTxt('settingsAccountAnonNote',kid?'Without sign-in, everything stays on this tablet or computer. Sign-in lets a grown-up open the same profiles on another device.':'Without sign-in, your data lives only on this device. Sign in to access it from any browser or phone.');
   setTxt('settingsAccountSignedLeadPrefix',kid?"You're signed in as":'Signed in as');
   setTxt('settingsAccountCloudLabel',kid?'Cloud sync (grown-up): keep this device matched with your online account — uploads the full app for your signed-in account.':'Sync this device with the cloud (upload full app data for your account)');
-  setTxt('settingsAccountSignoutNote',kid?'Logging out keeps your stuff here; cloud upload pauses until someone signs in again.':'Logging out keeps data on this device; upload pauses until you sign in again.');
   setHtml('settingsTrackingIntro',kid?'Tracking start, distance units (km or miles), and Grace for the <strong>active profile</strong>. Weeks lock at <strong>Sunday midnight</strong> local time. A grown-up can help with the details — changes save automatically.':'Tracking start (Monday-Sunday weeks), distance units, and profile grace for the <strong>active profile</strong>. Each week locks automatically at <strong>midnight Sunday</strong> local time. Changes save automatically.');
-  setHtml('settingsAdvancedIntro',kid?'Backup <strong>files</strong> and a short About note. Cloud sync is under <strong>Account</strong> — this tab is for saving a JSON file on the device.':'Backup files and app info. Cloud sync (when you sign in under <strong>Account</strong>) is separate — use this for a JSON file on your device.');
+  setHtml('settingsAdvancedIntro',kid?'Manual <strong>JSON</strong> backup files and About. <strong>Account</strong> has cloud sync and <strong>automatic</strong> archives the app saves — not this tab.':'Manual <strong>JSON backup</strong> files and About. <strong>Account</strong> is for sign-in, sync, and <strong>automatic</strong> cloud archives (not something you upload).');
   setTxt('settingsAdvancedBackupHeading',kid?'Backup file':'Backup & restore');
   setHtml('settingsAdvancedExportNote',kid?'Export grabs a full snapshot when you tap it — every profile, colours, goals, habits (including the habit bank), weeks, check-ins, cool facts, and other saved bits. Import only <strong>adds</strong> copies of the people you tick as <strong>new</strong> profiles. Nothing already here is overwritten; if a saved ID is taken, that copy gets a fresh ID.':'Export is a full snapshot at the moment you tap it (all profiles, theme, names, goals, habits including banked, week history, check-ins, insights, and other saved preferences). Import only <strong>adds</strong> the profiles you pick from the file as <strong>new</strong> profiles — nothing already on this device is overwritten. If an ID from the file matches one here, that imported profile is stored under a new ID.');
   setTxt('settingsAdvancedAboutHeading','About');
@@ -2199,8 +2211,8 @@ function syncSettingsPanelsKidCopy(){
   const sb=document.getElementById('accountSignInBtn');if(sb)sb.textContent=kid?'🔑 Sign in with a grown-up':'🔑 Sign in';
   const sn=document.getElementById('accountSyncNowBtn');if(sn)sn.textContent=kid?'Upload now':'Sync now';
   const verEl=document.getElementById('settingsAboutVersion');if(verEl)verEl.textContent=APP_DISPLAY_VERSION;
-  setTxt('accountCloudHistoryHeading',kid?'Saved backups':'Cloud backups');
-  setHtml('accountCloudHistoryIntro',kid?'After you <strong>upload</strong> to the cloud, up to two older saves from the last two days can show here as <strong>Backup (dd/mm/yyyy)</strong>. Tap only with a grown-up — it changes this device and the cloud.':'While <strong>signed in</strong>, open <strong>Settings → Account</strong> (this tab). Below <strong>Sync now</strong>, you may see up to two rows labelled <strong>Backup (dd/mm/yyyy)</strong> — archived cloud copies from the last 2 days. Tap one to restore; you will be asked to confirm twice.');
+  setTxt('accountCloudHistoryHeading','Automatic cloud archives');
+  setHtml('accountCloudHistoryIntro',kid?'The app <strong>automatically</strong> makes and uploads these when you sync — you do not upload them. Up to <strong>2</strong> show as <strong>Backup 1</strong> / <strong>Backup 2</strong>. Use one with a grown-up only if something looks broken; it replaces this device and the cloud (you confirm first). First ones often appear within about <strong>2 days</strong>.':'The app <strong>automatically</strong> creates and uploads these archived states when you sync — you do not upload them yourself. Up to <strong>two</strong> recent copies appear as <strong>Backup 1</strong> / <strong>Backup 2</strong>. Restore one only if your current data looks wrong or destroyed; it replaces this device and the live cloud copy (you confirm first). First archives often appear within about <strong>2 days</strong> of regular syncing.');
   const stopTr=document.getElementById('btnStopTracking');if(stopTr)stopTr.textContent=kid?'Stop for a long pause…':'Stop tracking…';
 }
 function syncKidsSettingsCopy(){syncSettingsPanelsKidCopy();syncHabitPresetSearchLabels();}
@@ -2782,7 +2794,7 @@ function maybeStartFirstHistoryStepper(){if(!S||!S.user||!S.user.setupDone)retur
 function maybeStartFirstBankStepper(){if(!S||!S.user||!S.user.setupDone)return;if(S.user.firstBankStepperSeen)return;if(milestoneAnyOverlayActive())return;const kid=useKidsLanguage();const steps=kid?[{title:'Habit bank',html:'<p>Habits you archive (or finished goals) live here so you can bring them back later.</p>'},{title:'Reuse anytime',html:'<p>Tap a banked habit to reactivate it for a new goal — your old logs come back too.</p>'}]:[{title:'Habit Bank',html:'<p>Archived habits live here. Reactivate, edit, or permanently delete them — habits originally based on a preset can always be rebuilt fresh.</p>'},{title:'Reactivate flow',html:'<p>Tapping the banked toggle opens a small editor so you can adjust title/metric/£ before re-attaching the habit to a goal.</p>'}];startMilestoneStepper({steps:steps,onFinish:function(){S.user.firstBankStepperSeen=true;save();}});}
 function setupScreen(){const shell=document.getElementById('setupScreen'),wiz=document.getElementById('setupWizardRoot'),intro=document.getElementById('onboardingIntroRoot');if(!shell||!wiz||!intro)return;if(!S.user.setupDone){shell.classList.add('show');wiz.hidden=false;intro.hidden=true;const todayIso=isoDate(new Date());S.user.startDate=todayIso;const sdInp=document.getElementById('setupDate');if(sdInp)sdInp.value=todayIso;if(typeof applyAuthFirstNameToProfileIfNeeded==='function')applyAuthFirstNameToProfileIfNeeded();document.getElementById('setupName').value=S.user.name||(typeof authSuggestedName==='function'?authSuggestedName():'')||'';if(typeof syncSetupNameRowVisibility==='function')syncSetupNameRowVisibility();const sd=document.getElementById('setupDob');if(sd)sd.value=S.user.dob||'';const sac=document.getElementById('setupProfileAvatarColor');if(sac)sac.value=profileInitialPickerColor(ROOT&&ROOT.activeProfileId);applyUiPalette();ensureWizardProgressDots();let ws=0;try{ws=parseInt(sessionStorage.getItem(onboardingSessionKeyWizard()),10);}catch(e){}if(isNaN(ws)||ws<0||ws>=ONBOARD_WIZARD_STEP_COUNT)ws=0;showWizardStep(ws);}else{shell.classList.remove('show');wiz.hidden=false;intro.hidden=true;if(S.user.setupDone&&!S.user.introSeen){shell.classList.add('show');wiz.hidden=true;intro.hidden=false;ensureIntroProgressDots();syncOnboardingKidCopy();let is=0;try{is=parseInt(sessionStorage.getItem(onboardingSessionKeyIntro()),10);}catch(e){}if(isNaN(is)||is<0||is>=ONBOARD_INTRO_STEP_COUNT)is=0;showIntroStep(is);}}syncOnboardingKidCopy();syncUiScrollLock();syncKidCritterLoop();}
 function bindOnboardingShellKeys(){const shell=document.getElementById('setupScreen');if(!shell||shell.dataset.kbdBound)return;shell.dataset.kbdBound='1';shell.addEventListener('keydown',e=>{if(!shell.classList.contains('show'))return;if(!['ArrowLeft','ArrowRight'].includes(e.key))return;const t=e.target;if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.tagName==='SELECT'||(t.tagName==='BUTTON'&&(t.closest('.ui-palette-grid')||t.closest('.profile-avatar-swatches')||t.closest('#avatarBubblePickerWrap')||t.id==='setupAvatarBubbleBtn'||t.id==='settingsAvatarBubbleBtn'))))return;e.preventDefault();const wiz=document.getElementById('setupWizardRoot'),intro=document.getElementById('onboardingIntroRoot');if(wiz&&!wiz.hidden){if(e.key==='ArrowLeft')wizardOnboardingBack();else wizardOnboardingNext();}else if(intro&&!intro.hidden){if(e.key==='ArrowLeft')introOnboardingBack();else introOnboardingNext();}});}
-let _guideGridAdultHTML='';const GUIDE_GRID_KID_HTML=`<div class="guide-block"><strong>Consistency</strong><div class="small-note" style="margin-top:8px">This app helps you build habits with tiny rewards and a savings jar toward something you want. It should feel friendly, not scary. Ask a grown-up if anything is confusing.</div></div><div class="guide-block"><strong>Goals</strong><div class="small-note" style="margin-top:8px">A goal is something big you are saving for. Each goal has its own habits, score circle, and jar total. The <strong>% on the circle</strong> is your rolling score — good closed weeks out of <strong>all</strong> counted weeks (including easy-start weeks). It does not include the week you are still filling in. <strong>This week</strong> shows in the Log and on the dashboard snapshot.</div></div><div class="guide-block"><strong>Habits</strong><div class="small-note" style="margin-top:8px">Habits belong to one goal and need enough check-ins each week. <strong>Core</strong> habits decide if the week “counts” for your score. <strong>Growth</strong> habits add jar money when they qualify — except in recovery (below your floor), when only core adds money until your score recovers. If you start a habit mid-week, the app scales the target fairly.</div></div><div class="guide-block"><strong>Weeks & logging</strong><div class="small-note" style="margin-top:8px">Weeks run <strong>Monday–Sunday</strong>. You can fix last week until the <strong>end of Monday</strong> after that Sunday — a catch-up day.</div></div><div class="guide-block"><strong>Tiers (core & growth)</strong><div class="small-note" style="margin-top:8px"><strong>Normal weeks:</strong> Core habits are the must-dos — when a week finishes, every core habit for that goal needs to qualify so the week counts on your score and for your weekly treat. Growth habits add jar money when you do them, but they never block the week.<br><br><strong>Recovery</strong> (when your rolling score is below your floor — grown-ups set it per goal; often about 80%): only core habits add jar money; growth adds £0 until your score climbs back.<br><br><strong>Easy-start (grace):</strong> your % can look a bit friendlier at first. Ask a grown-up to open the Grace screen for details.<br><br><strong>First time you add a habit,</strong> a little spotlight sits on <strong>Tier</strong> and explains core vs growth in words meant for kids.</div></div><div class="guide-block"><strong>Rewards and pot</strong><div class="small-note" style="margin-top:8px">When habits qualify, a set amount (like £30) goes into a savings pot toward your goal — a promise to fund it for real. While you are below your floor (recovery), only core habits add to the jar; growth waits until your score recovers. A grown-up helps with the money part.</div></div><div class="guide-block"><strong>Habit bank</strong><div class="small-note" style="margin-top:8px">When a goal is done, its habits rest here until you attach them to a new goal.</div></div><div class="guide-block"><strong>What if the score drops below the floor?</strong><div class="small-note" style="margin-top:8px">Each goal has a floor (often 80%). If your rolling score goes below it, you enter <strong>recovery</strong>: you still log habits; only core habits add jar money, and growth adds £0 until your score is back at the floor. A <strong>strict drop</strong> in the score can reset the jar — ties are not drops. Ask a grown-up to read Tips for the full rules.</div></div><div class="guide-block"><strong>Profiles & settings</strong><div class="small-note" style="margin-top:8px">In <strong>Settings → Profile</strong>, tap a bubble to switch people, <strong>+</strong> to add, <strong>Rename</strong> for name and colour, or <strong>Delete this profile…</strong> when there is more than one. <strong>Settings → Appearance</strong> has your name, bubble, birthday, theme, and kid animations. <strong>Account</strong> is for grown-ups to sign in and optionally turn on <strong>cloud sync</strong>. <strong>Advanced</strong> saves a backup file to your device; <strong>import</strong> only adds new profile copies and never overwrites what is already here. Tapping your name in the header opens avatars only (same as Profile, without add/rename/delete).</div></div><div class="guide-block"><strong>Cool facts</strong><div class="small-note" style="margin-top:8px">Fun facts about habits and brains pop up when you earn them — for example when you add a habit, when you finish the first-time <strong>Tier</strong> guide (you unlock “Core and growth habits”), or when you hit milestones. A short line can show under <strong>Your Goals</strong>. The counter opens your collection. Tap <strong>OK</strong> to close; another may wait in line. Longer explanations live in <strong>Settings → Help → Tips</strong>.</div></div>`;
+let _guideGridAdultHTML='';const GUIDE_GRID_KID_HTML=`<div class="guide-block"><strong>Consistency</strong><div class="small-note" style="margin-top:8px">This app helps you build habits with tiny rewards and a savings jar toward something you want. It should feel friendly, not scary. Ask a grown-up if anything is confusing.</div></div><div class="guide-block"><strong>Goals</strong><div class="small-note" style="margin-top:8px">A goal is something big you are saving for. Each goal has its own habits, score circle, and jar total. The <strong>% on the circle</strong> is your rolling score — good closed weeks out of <strong>all</strong> counted weeks (including easy-start weeks). It does not include the week you are still filling in. <strong>This week</strong> shows in the Log and on the dashboard snapshot.</div></div><div class="guide-block"><strong>Habits</strong><div class="small-note" style="margin-top:8px">Habits belong to one goal and need enough check-ins each week. <strong>Core</strong> habits decide if the week “counts” for your score. <strong>Growth</strong> habits add jar money when they qualify — except in recovery (below your floor), when only core adds money until your score recovers. If you start a habit mid-week, the app scales the target fairly.</div></div><div class="guide-block"><strong>Weeks & logging</strong><div class="small-note" style="margin-top:8px">Weeks run <strong>Monday–Sunday</strong>. You can fix last week until the <strong>end of Monday</strong> after that Sunday — a catch-up day.</div></div><div class="guide-block"><strong>Tiers (core & growth)</strong><div class="small-note" style="margin-top:8px"><strong>Normal weeks:</strong> Core habits are the must-dos — when a week finishes, every core habit for that goal needs to qualify so the week counts on your score and for your weekly treat. Growth habits add jar money when you do them, but they never block the week.<br><br><strong>Recovery</strong> (when your rolling score is below your floor — grown-ups set it per goal; often about 80%): only core habits add jar money; growth adds £0 until your score climbs back.<br><br><strong>Easy-start (grace):</strong> your % can look a bit friendlier at first. Ask a grown-up to open the Grace screen for details.<br><br><strong>First time you add a habit,</strong> a little spotlight sits on <strong>Tier</strong> and explains core vs growth in words meant for kids.</div></div><div class="guide-block"><strong>Rewards and pot</strong><div class="small-note" style="margin-top:8px">When habits qualify, a set amount (like £30) goes into a savings pot toward your goal — a promise to fund it for real. While you are below your floor (recovery), only core habits add to the jar; growth waits until your score recovers. A grown-up helps with the money part.</div></div><div class="guide-block"><strong>Habit bank</strong><div class="small-note" style="margin-top:8px">When a goal is done, its habits rest here until you attach them to a new goal.</div></div><div class="guide-block"><strong>What if the score drops below the floor?</strong><div class="small-note" style="margin-top:8px">Each goal has a floor (often 80%). If your rolling score goes below it, you enter <strong>recovery</strong>: you still log habits; only core habits add jar money, and growth adds £0 until your score is back at the floor. A <strong>strict drop</strong> in the score can reset the jar — ties are not drops. Ask a grown-up to read Tips for the full rules.</div></div><div class="guide-block"><strong>Profiles & settings</strong><div class="small-note" style="margin-top:8px">In <strong>Settings → Profile</strong>, tap a bubble to switch people, <strong>+</strong> to add, <strong>Rename</strong> for name and colour, or <strong>Delete this profile…</strong> when there is more than one. <strong>Settings → Appearance</strong> has your name, bubble, birthday, theme, and kid animations. <strong>Account</strong> is for grown-ups to sign in, optional <strong>cloud sync</strong>, and up to two <strong>automatic cloud archives</strong> (<strong>Backup 1</strong> / <strong>Backup 2</strong>) the app saves when you sync — restore one with a grown-up only if something looks broken (you don’t upload these). <strong>Advanced</strong> is for a <strong>manual</strong> backup file on the device; <strong>import</strong> only adds new profile copies and never overwrites what is already here. Tapping your name in the header opens avatars only (same as Profile, without add/rename/delete).</div></div><div class="guide-block"><strong>Cool facts</strong><div class="small-note" style="margin-top:8px">Fun facts about habits and brains pop up when you earn them — for example when you add a habit, when you finish the first-time <strong>Tier</strong> guide (you unlock “Core and growth habits”), or when you hit milestones. A short line can show under <strong>Your Goals</strong>. The counter opens your collection. Tap <strong>OK</strong> to close; another may wait in line. Longer explanations live in <strong>Settings → Help → Tips</strong>.</div></div>`;
 function syncGuideModalLanguage(){const grid=document.querySelector('#mGuide .guide-grid');const titleEl=document.getElementById('guideModalTitle');if(!grid)return;if(!_guideGridAdultHTML)_guideGridAdultHTML=grid.innerHTML;if(useKidsLanguage()){if(titleEl)titleEl.textContent='How this app works';grid.innerHTML=GUIDE_GRID_KID_HTML;}else{if(titleEl)titleEl.textContent='How Consistency works';grid.innerHTML=_guideGridAdultHTML;}}
 function openGuide(){syncGuideModalLanguage();openM('mGuide');}
 let _guideFromSettings=false;
@@ -3070,6 +3082,11 @@ const SUPABASE_URL='https://sgnuxxqkverroxdskvrd.supabase.co';
 const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnbnV4eHFrdmVycm94ZHNrdnJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5MzExNjEsImV4cCI6MjA5MzUwNzE2MX0.HXjK5iykTvi7hIRCGU607A-ZnvrR8hbOTZyej07vMJA';
 const _supa=(typeof window!=='undefined'&&window.supabase&&typeof window.supabase.createClient==='function')?window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{autoRefreshToken:true,persistSession:true,detectSessionInUrl:true,flowType:'implicit'}}):null;
 let _authSession=null;
+let _offlineShadowUser=null;
+const DEVICE_AUTH_LS_KEY='consistency_device_auth_v1';
+function authDeviceTrustRead(){try{const raw=localStorage.getItem(DEVICE_AUTH_LS_KEY);if(!raw)return null;const o=JSON.parse(raw);if(!o||typeof o!=='object'||!o.uid)return null;return o;}catch(_){return null;}}
+function authDeviceTrustWrite(session){try{if(!session||!session.user||!session.user.id)return;const o={uid:String(session.user.id),email:String(session.user.email||''),exp:typeof session.expires_at==='number'?session.expires_at:0,meta:session.user.user_metadata&&typeof session.user.user_metadata==='object'?session.user.user_metadata:{}};localStorage.setItem(DEVICE_AUTH_LS_KEY,JSON.stringify(o));}catch(_){}}
+function authDeviceTrustClear(){try{localStorage.removeItem(DEVICE_AUTH_LS_KEY);}catch(_){}_offlineShadowUser=null;}
 let _authBusy=false;
 load();seed();themeInit();populateUI();bindTrackerSwipe();bindHabitRowsReorder();bindArchiveBankRemove();bindSettingsTabKeyboard();bindProfileDeleteButtons();bindRestoreCloudBackupDialog();bindOnboardingShellKeys();setupScreen();renderAll();showCookieBannerIfNeeded();
 if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1')){navigator.serviceWorker.register('sw.js',{scope:'./'}).catch(function(){});}
@@ -3093,7 +3110,8 @@ setInterval(tickBrowserHabitNotifications,60000);tickBrowserHabitNotifications()
  * Auth UI only — no data sync yet (Phase D adds that).
  * =========================== */
 function authReady(){return !!_supa;}
-function authCurrentUser(){return _authSession?_authSession.user:null;}
+function authGateSessionPresent(){return !!(_authSession&&_authSession.user)||!!(_offlineShadowUser&&_offlineShadowUser.id);}
+function authCurrentUser(){if(_authSession&&_authSession.user)return _authSession.user;if(_offlineShadowUser&&_offlineShadowUser.id)return _offlineShadowUser;return null;}
 function titleCaseWord(s){if(!s)return '';return s.charAt(0).toUpperCase()+s.slice(1).toLowerCase();}
 function looksLikePersonalNameToken(s){if(!s)return false;const t=String(s).trim();if(t.length<2||t.length>24)return false;if(/\d/.test(t))return false;if(!/^[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF'-]+$/.test(t))return false;const block=new Set(['mail','user','users','test','admin','info','noreply','no-reply','support','help','hello','contact','sales','team','office']);if(block.has(t.toLowerCase()))return false;return true;}
 function authExtractFirstNameCandidate(u){if(!u)return{first:'',confident:false};const meta=u.user_metadata||{};const g0=String(meta.given_name||'').trim();if(g0&&looksLikePersonalNameToken(g0))return{first:titleCaseWord(g0),confident:true};const full=(meta.full_name||meta.name||'').trim();if(full){const first=(full.split(/\s+/)[0]||'').replace(/^[^a-zA-Z\u00C0-\u024F\u1E00-\u1EFF]+/,'');if(looksLikePersonalNameToken(first))return{first:titleCaseWord(first),confident:true};}if(u.email){const local=String(u.email).split('@')[0]||'';const seg=(local.split(/[._\-+]/)[0]||'').replace(/^\d+/,'');if(looksLikePersonalNameToken(seg))return{first:titleCaseWord(seg),confident:true};}return{first:'',confident:false};}
@@ -3101,6 +3119,23 @@ function authSuggestedName(){const u=authCurrentUser();if(!u)return '';const can
 function applyAuthFirstNameToProfileIfNeeded(){if(!S||!S.user||S.user.setupDone)return;const u=authCurrentUser();if(!u)return;const{first,confident}=authExtractFirstNameCandidate(u);if(!confident||!first)return;if((S.user.name||'').trim())return;S.user.name=first;syncActiveProfileMetaNameFromDisplayName();save();const sn=document.getElementById('setupName');if(sn)sn.value=first;}
 function syncSetupNameRowVisibility(){const col=document.getElementById('setupNameFieldCol');const autoLine=document.getElementById('setupNameAutoLine');const autoStr=document.getElementById('setupNameAutoStrong');if(!col)return;if(S&&S.user&&S.user.setupDone){col.style.display='';if(autoLine)autoLine.style.display='none';return;}const u=authCurrentUser();if(!u){col.style.display='';if(autoLine)autoLine.style.display='none';return;}const{first,confident}=authExtractFirstNameCandidate(u);const cur=(S.user&&S.user.name||'').trim();const hide=!!(confident&&first&&cur===first);col.style.display=hide?'none':'';if(autoLine&&autoStr){if(hide){autoStr.textContent=first;autoLine.style.display='block';}else{autoLine.style.display='none';}}}
 function authUrlHasPendingCallback(){try{const u=window.location.href;if(/[?&#]code=/.test(u))return true;if(/[?&#]error_description=/.test(u)||/[?&]error=/.test(u))return true;if(/#.*access_token=/.test(u))return true;}catch(_){}return false;}
+function authApplyOfflineShadowIfNeeded(){
+  if(typeof navigator!=='undefined'&&navigator.onLine!==false)return false;
+  if(_authSession)return false;
+  if(authUrlHasPendingCallback())return false;
+  const t=authDeviceTrustRead();
+  if(!t||!t.uid)return false;
+  _offlineShadowUser={id:t.uid,email:t.email||'',user_metadata:t.meta||{}};
+  return true;
+}
+function bindAppConnectivityListeners(){
+  if(window._consistencyConnectivityBound)return;
+  window._consistencyConnectivityBound=true;
+  const onOn=()=>{if(typeof authRefresh==='function')void authRefresh().then(()=>{syncAuthGate();syncAccountUI();renderHeader();syncCloudSyncPanelUI();void syncCloudHistoryPanel();});};
+  const onOff=()=>{void authApplyOfflineShadowIfNeeded();syncAuthGate();syncAccountUI();renderHeader();syncCloudSyncPanelUI();};
+  window.addEventListener('online',onOn,{passive:true});
+  window.addEventListener('offline',onOff,{passive:true});
+}
 function authPeekImplicitHash(){try{return /#(?:.*&)?access_token=/.test(String(window.location.hash||''))||/#.*access_token=/.test(String(window.location.href||''));}catch(_){return false;}}
 /** Some mobile mail apps (Gmail in-app browser, etc.) deliver #access_token after first paint or on a second navigation; listen so we still pick up the session. */
 function authBindDeferredHashSessionRecovery(){
@@ -3123,21 +3158,25 @@ function authBindDeferredHashSessionRecovery(){
 /** Remove OAuth/magic-link fragments from the address bar once a session exists. If there is still an access_token in the hash but no session yet, do nothing — stripping here raced ahead of GoTrue and broke sign-in. */
 function authFinalizeAuthUrl(){try{const u=new URL(window.location.href);const hasImplicitHash=u.hash&&u.hash.includes('access_token');if(_authSession){if(u.hash)u.hash='';u.searchParams.delete('code');u.searchParams.delete('state');const qs=u.searchParams.toString();window.history.replaceState({},document.title,u.pathname+(qs?'?'+qs:'')+u.hash);return;}if(hasImplicitHash)return;u.searchParams.delete('code');u.searchParams.delete('state');const qs=u.searchParams.toString();window.history.replaceState({},document.title,u.pathname+(qs?'?'+qs:'')+u.hash);}catch(_){}}
 async function authBootstrapSession(){
+  bindAppConnectivityListeners();
   authBindDeferredHashSessionRecovery();
   authSubscribe();
   authHandleRedirectFromUrl();
   await authRefresh();
+  if(!authGateSessionPresent())authApplyOfflineShadowIfNeeded();
   const delays=[50,120,280,450,900];
   for(let i=0;i<delays.length&&!_authSession&&authPeekImplicitHash();i++){
     await new Promise(r=>setTimeout(r,delays[i]));
     await authRefresh();
   }
+  if(!authGateSessionPresent())authApplyOfflineShadowIfNeeded();
   authFinalizeAuthUrl();
   syncAccountUI();
   syncAuthGate();
   await cloudSyncAfterAuthBootstrap();
   prefillNameFromAuth();
   syncSetupNameRowVisibility();
+  renderHeader();
 }
 async function authHandleRedirectFromUrl(){
   /* Session-from-URL is handled inside the first getSession() via GoTrueClient._initialize(). Do not call exchangeCodeForSession here — it duplicated PKCE exchange and broke Google sign-in (had to "sign in twice"). */
@@ -3147,11 +3186,11 @@ function authSetBusy(busy){_authBusy=!!busy;['authGoogleBtn','authMagicBtn','aut
 function authSendMagicLinkFromGate(){const el=document.getElementById('authGateEmail');if(!el)return;authSendMagicLink(el.value,{onSent:showAuthGateSent});}
 function showAuthGateSent(email){const a=document.getElementById('authGateViewSignIn');const b=document.getElementById('authGateViewSent');const lbl=document.getElementById('authGateSentEmail');if(lbl)lbl.textContent=email||'';if(a)a.hidden=true;if(b)b.hidden=false;}
 function authGateBackToSignIn(){const a=document.getElementById('authGateViewSignIn');const b=document.getElementById('authGateViewSent');if(b)b.hidden=true;if(a)a.hidden=false;const el=document.getElementById('authGateEmail');if(el){try{el.focus();el.select();}catch(_){}}}
-function syncAuthGate(){const gate=document.getElementById('authGate');if(!gate)return;if(_authSession){if(typeof window!=='undefined'){if(window.__authGateRevealTimer){try{clearTimeout(window.__authGateRevealTimer);}catch(_){}window.__authGateRevealTimer=null;}if(window.__authSplashFadeTimer){try{clearTimeout(window.__authSplashFadeTimer);}catch(_){}window.__authSplashFadeTimer=null;}}gate.classList.remove('is-visible');authGateBackToSignIn();const splash=document.getElementById('authSplash');if(splash){splash.classList.remove('is-visible');splash.classList.remove('is-fading');splash.style.pointerEvents='';}}else{if(authUrlHasPendingCallback())return;gate.classList.add('is-visible');}}
-async function authRefresh(){if(!_supa)return null;try{const r=await _supa.auth.getSession();_authSession=(r&&r.data)?r.data.session:null;return _authSession;}catch(e){_authSession=null;return null;}}
+function syncAuthGate(){const gate=document.getElementById('authGate');if(!gate)return;if(authGateSessionPresent()){if(typeof window!=='undefined'){if(window.__authGateRevealTimer){try{clearTimeout(window.__authGateRevealTimer);}catch(_){}window.__authGateRevealTimer=null;}if(window.__authSplashFadeTimer){try{clearTimeout(window.__authSplashFadeTimer);}catch(_){}window.__authSplashFadeTimer=null;}}gate.classList.remove('is-visible');authGateBackToSignIn();const splash=document.getElementById('authSplash');if(splash){splash.classList.remove('is-visible');splash.classList.remove('is-fading');splash.style.pointerEvents='';}}else{if(authUrlHasPendingCallback())return;gate.classList.add('is-visible');}}
+async function authRefresh(){if(!_supa)return null;try{const r=await _supa.auth.getSession();_authSession=(r&&r.data)?r.data.session:null;}catch(e){_authSession=null;} if(_authSession){_offlineShadowUser=null;authDeviceTrustWrite(_authSession);return _authSession;} if(authApplyOfflineShadowIfNeeded())return null;return null;}
 function persistAuthDisplayNameFromAccountIfEmpty(){if(!S||!S.user||!S.user.setupDone)return;const u=authCurrentUser();if(!u)return;if((S.user.name||'').trim())return;const s=authSuggestedName();if(!s)return;S.user.name=s;syncActiveProfileMetaNameFromDisplayName();save();const su=document.getElementById('sUserName');if(su)su.value=s;if(typeof renderHeader==='function')renderHeader();}
 function prefillNameFromAuth(){try{applyAuthFirstNameToProfileIfNeeded();persistAuthDisplayNameFromAccountIfEmpty();syncSetupNameRowVisibility();const suggested=authSuggestedName();if(!suggested)return;const sn=document.getElementById('setupName');if(sn&&!sn.value)sn.value=suggested;const su=document.getElementById('sUserName');if(su&&!su.value)su.value=suggested;}catch(_){}}
-function authSubscribe(){if(!_supa)return;try{_supa.auth.onAuthStateChange((event,session)=>{_authSession=session||null;if(_authSession&&(event==='SIGNED_IN'||event==='INITIAL_SESSION'))authFinalizeAuthUrl();syncAccountUI();if(event==='SIGNED_IN'||event==='INITIAL_SESSION'||event==='TOKEN_REFRESHED'||event==='USER_UPDATED'){if(event==='SIGNED_IN'){const m=document.getElementById('mAuthLogin');if(m&&m.classList.contains('show'))closeM('mAuthLogin');}if(event==='INITIAL_SESSION')return;if(event==='SIGNED_IN'||event==='USER_UPDATED'){void (async()=>{if(event==='SIGNED_IN')await cloudSyncAfterAuthBootstrap();prefillNameFromAuth();syncSetupNameRowVisibility();})();return;}prefillNameFromAuth();syncSetupNameRowVisibility();}});}catch(e){}}
+function authSubscribe(){if(!_supa)return;try{_supa.auth.onAuthStateChange((event,session)=>{_authSession=session||null;if(_authSession){_offlineShadowUser=null;authDeviceTrustWrite(_authSession);}else if(typeof navigator!=='undefined'&&navigator.onLine===false){authApplyOfflineShadowIfNeeded();}else{_offlineShadowUser=null;}if(_authSession&&(event==='SIGNED_IN'||event==='INITIAL_SESSION'))authFinalizeAuthUrl();syncAccountUI();if(event==='SIGNED_IN'||event==='INITIAL_SESSION'||event==='TOKEN_REFRESHED'||event==='USER_UPDATED'){if(event==='SIGNED_IN'){const m=document.getElementById('mAuthLogin');if(m&&m.classList.contains('show'))closeM('mAuthLogin');}if(event==='INITIAL_SESSION')return;if(event==='SIGNED_IN'||event==='USER_UPDATED'){void (async()=>{if(event==='SIGNED_IN')await cloudSyncAfterAuthBootstrap();prefillNameFromAuth();syncSetupNameRowVisibility();renderHeader();})();return;}prefillNameFromAuth();syncSetupNameRowVisibility();renderHeader();}});}catch(e){}}
 function authRedirectURL(){return window.location.origin+window.location.pathname;}
 async function authSignInWithGoogle(){if(!_supa){alert('Auth not ready — try refreshing.');return;}authSetBusy(true);try{const r=await _supa.auth.signInWithOAuth({provider:'google',options:{redirectTo:authRedirectURL()}});if(r&&r.error)throw r.error;}catch(e){authSetBusy(false);alert('Google sign-in failed: '+(e&&e.message?e.message:e));}}
 function authFormatMagicLinkError(err){const msg=String(err&&err.message?err.message:err||'');const low=msg.toLowerCase();if(low.includes('rate limit')||low.includes('too many')){return'Too many sign-in emails were sent recently (Supabase limits how many magic links go out per hour on your plan).\n\nWhat you can do:\n• Wait an hour and try again, or use “Continue with Google” now.\n• If you are testing a lot, open your Supabase dashboard → Authentication → Rate Limits, or add custom SMTP (often higher throughput).\n\nMore detail: https://supabase.com/docs/guides/auth/rate-limits';}return msg||'Something went wrong.';}
@@ -3159,11 +3198,11 @@ async function authSendMagicLink(email,opts){opts=opts||{};if(!_supa){alert('Aut
 function authSendMagicLinkFromUI(){const el=document.getElementById('authEmailInput');if(!el)return;authSendMagicLink(el.value,{onSent:showAuthModalSent});}
 function showAuthModalSent(email){const a=document.getElementById('authModalViewSignIn');const b=document.getElementById('authModalViewSent');const lbl=document.getElementById('authModalSentEmail');if(lbl)lbl.textContent=email||'';if(a)a.hidden=true;if(b)b.hidden=false;}
 function authModalBackToSignIn(){const a=document.getElementById('authModalViewSignIn');const b=document.getElementById('authModalViewSent');if(b)b.hidden=true;if(a)a.hidden=false;const el=document.getElementById('authEmailInput');if(el){try{el.focus();el.select();}catch(_){}}}
-async function authSignOut(){if(!_supa)return;authSetBusy(true);try{clearTimeout(_cloudPushTimer);_cloudPushTimer=null;_cloudSyncLastError=null;await _supa.auth.signOut();_authSession=null;}catch(e){}finally{authSetBusy(false);syncAccountUI();}}
+async function authSignOut(){if(!_supa)return;authSetBusy(true);try{clearTimeout(_cloudPushTimer);_cloudPushTimer=null;_cloudSyncLastError=null;authDeviceTrustClear();try{await _supa.auth.signOut();}catch(_){}_authSession=null;}catch(e){}finally{authSetBusy(false);syncAccountUI();renderHeader();}}
 function openAuthLoginModal(){closeM('mSettings');setTimeout(()=>{openM('mAuthLogin');const a=document.getElementById('authModalViewSignIn');const b=document.getElementById('authModalViewSent');if(b)b.hidden=true;if(a)a.hidden=false;const el=document.getElementById('authEmailInput');if(el)el.value='';authSetBusy(false);},120);}
 function syncAccountUI(){const anon=document.getElementById('accountAnonView');const signed=document.getElementById('accountSignedInView');const lbl=document.getElementById('accountEmailLabel');const u=authCurrentUser();if(anon&&signed){if(u){anon.hidden=true;signed.hidden=false;if(lbl)lbl.textContent=u.email||'(signed in)';}else{anon.hidden=false;signed.hidden=true;}}syncAuthGate();syncCloudSyncPanelUI();syncSettingsPanelsKidCopy();void syncCloudHistoryPanel();}
 function confirmDeleteCloudAccount(){if(!authCurrentUser()){alert('You are not signed in.');return;}if(!confirm('This will delete your cloud row and sign you out. Local data on this device stays intact. Continue?'))return;deleteCloudAccount();}
-async function deleteCloudAccount(){if(!_supa)return;authSetBusy(true);try{const u=authCurrentUser();if(u){const del=await _supa.from('user_state').delete().eq('user_id',u.id);if(del&&del.error)throw del.error;}await _supa.auth.signOut();_authSession=null;syncAccountUI();alert('Cloud data deleted. You are now signed out. Local data on this device is untouched.');}catch(e){alert('Delete failed: '+(e&&e.message?e.message:e));}finally{authSetBusy(false);}}
+async function deleteCloudAccount(){if(!_supa)return;const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();if(authCurrentUser()&&!_authSession){alert(kid?'You need the internet to delete cloud data. Ask a grown-up to connect.':'Connect to the internet to delete cloud data, then try again.');return;}authSetBusy(true);try{const u=authCurrentUser();if(u&&_authSession){const del=await _supa.from('user_state').delete().eq('user_id',u.id);if(del&&del.error)throw del.error;}try{await _supa.auth.signOut();}catch(_){}_authSession=null;authDeviceTrustClear();syncAccountUI();renderHeader();alert('Cloud data deleted. You are now signed out. Local data on this device is untouched.');}catch(e){alert('Delete failed: '+(e&&e.message?e.message:e));}finally{authSetBusy(false);}}
 if(authReady()){void authBootstrapSession();}else{console.warn('[auth] Supabase SDK did not load — sign-in is unavailable. Gate stays visible until the SDK loads or the page is refreshed.');syncAuthGate();}
 
 </script>

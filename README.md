@@ -4,7 +4,7 @@ A habit and goal tracker built around weekly consistency, gentle scoring, and we
 
 ## Status
 
-Closed beta (**v1.2beta**). **Auth:** Supabase (Google + email magic link). **Cloud sync:** signed-in users sync the full multi-profile `ROOT` to Supabase (`user_state`) from **Settings → Account**. **Cloud backups:** after you run the SQL in [`supabase/schema.sql`](supabase/schema.sql) (see [Supabase setup](#supabase-setup-cloud-sync--backups)), each upload can archive the **previous** cloud payload; the app keeps **at most 2 cloud backups per account from the last 2 days** (rolling 48 hours). **Settings → Account → Cloud backups** lists them as **Backup (dd/mm/yyyy)**.
+Closed beta (**v1.2beta**). **Auth:** Supabase (Google + email magic link). **Cloud sync:** signed-in users sync the full multi-profile `ROOT` to Supabase (`user_state`) from **Settings → Account**. **Automatic cloud archives:** these are **not** manual uploads. After you run the SQL in [`supabase/schema.sql`](supabase/schema.sql) (see [Supabase setup](#supabase-setup-cloud-sync--backups)), each successful sync can archive the **previous** cloud payload on the server; the app keeps **at most 2 archived states per account from the last 2 days** (rolling 48 hours). **Settings → Account → Automatic cloud archives** lists them as **Backup 1** / **Backup 2** (newest first) for **manual restore** if live data looks wrong—the app creates and uploads the archives when you sync.
 
 ## Repository layout
 
@@ -30,7 +30,7 @@ Do this in the [Supabase Dashboard](https://supabase.com/dashboard) for **the sa
    - **Already migrated `user_state`:** if the editor reports errors such as *policy already exists* for `user_state_*`, do **not** re-run those lines — copy only the block in `schema.sql` from `-- Previous cloud payloads` through the last `user_state_history` policy and run **that** once to add cloud backup history.
 3. Click **Run** (or **Ctrl+Enter**). You should see success; no rows returned is normal.
 4. Quick check: **Table Editor** → confirm tables **`user_state`** and **`user_state_history`** exist and RLS is enabled (shield icon).
-5. Deploy or refresh the app; sign in and use **Sync now** once. After the **second** upload (when a previous cloud version exists), **Cloud backups** on the Account tab should list **Backup (dd/mm/yyyy)** rows.
+5. Deploy or refresh the app; sign in and use **Sync now** once. After the **second** upload (when a previous cloud version exists), **Automatic cloud archives** on the Account tab should list **Backup 1** / **Backup 2** rows.
 
 Snapshots are optional for sync itself: if `user_state_history` is missing, uploads still work; the app just cannot list or restore older cloud copies.
 
