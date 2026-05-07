@@ -1,0 +1,851 @@
+id	category	variant	adult	kid	html
+insight.adult.I1.title	insights_adult		Sleep helps memories stick		no
+insight.adult.I1.body	insights_adult		While you sleep, your brain files away everything from the day. Miss too many nights and it starts to show — names, meetings, where you put things. Regular sleep does more than one long lie-in ever could.		no
+insight.adult.I1.sourceText	insights_adult		Walker — Why We Sleep (overview)		no
+insight.adult.I2.title	insights_adult		Your body likes a rhythm		no
+insight.adult.I2.body	insights_adult		Light, meals, and bedtime are all signals your body reads to know what time it is. Scramble them and you'll feel it — in your mood, your focus, your energy. A boring wind-down routine is actually doing a lot.		no
+insight.adult.I2.sourceText	insights_adult		NIH — circadian health		no
+insight.adult.I3.title	insights_adult		Late meals shift your body clock		no
+insight.adult.I3.body	insights_adult		Your body's glucose rhythm runs on a clock. Eating a big meal late shifts that rhythm by hours — even when the calories are identical to an earlier meal. It's a timing issue, not a food issue.nnEarlier eating keeps your internal clocks in sync. Later eating pulls them apart.		no
+insight.adult.I3.sourceText	insights_adult		Baron et al., 2013		no
+insight.adult.I4.title	insights_adult		Movement sharpens thinking		no
+insight.adult.I4.body	insights_adult		Ten minutes of walking, cycling, or anything that gets you moving tends to clear the mental fog pretty reliably. It's one of the more consistent findings in cognitive research.nnYou don't need a full session. You just need to move.		no
+insight.adult.I4.sourceText	insights_adult		Hillman et al. — exercise & cognition		no
+insight.adult.I5.title	insights_adult		Piggyback on what you already do		no
+insight.adult.I5.body	insights_adult		"After I make coffee, I do two minutes of stretching." The existing habit does the reminding — you don't have to remember anything new.nnSmall links are more durable than big resolutions.		no
+insight.adult.I5.sourceText	insights_adult		Lally et al. — habit formation		no
+insight.adult.I6.title	insights_adult		u201cIf this, then thatu201d really works		no
+insight.adult.I6.body	insights_adult		"If it's Tuesday at 7pm, I go to the gym" outperforms "I should exercise more" every time. Specificity removes the daily decision.nnWriting the when and where is most of the work done.		no
+insight.adult.I6.sourceText	insights_adult		Gollwitzer — implementation intentions		no
+insight.adult.I7.title	insights_adult		Why checking a box feels good		no
+insight.adult.I7.body	insights_adult		Your brain pays attention to better-than-expected outcomes. A small visible win — a tick, a streak — registers as one. That's not shallow; it's just how learning works.nnAim that wiring at things worth repeating.		no
+insight.adult.I7.sourceText	insights_adult		Schultz — reward learning (overview)		no
+insight.adult.I8.title	insights_adult		When time feels slippery		no
+insight.adult.I8.body	insights_adult		Some brains genuinely struggle to feel how long things take without external cues. Calendars, alarms, and timers aren't crutches — they're just the right tool for that particular wiring.nnVague plans fail specific people. Specificity is the fix.		no
+insight.adult.I8.sourceText	insights_adult		Barkley — ADHD & time		no
+insight.adult.I9.title	insights_adult		Beating yourself up is expensive		no
+insight.adult.I9.body	insights_adult		Research is pretty consistent: self-criticism after a slip makes quitting more likely, not less. A calm restart keeps more people going long-term.nnFlat tyre. Fix it. Drive on.		no
+insight.adult.I9.sourceText	insights_adult		Neff — self-compassion research		no
+insight.adult.I10.title	insights_adult		Paper as a pressure valve		no
+insight.adult.I10.body	insights_adult		Writing about tangled thoughts for a few minutes consistently reduces rumination in study after study. You're not trying to write well — you're just clearing the inbox.nnMessy notes count. Full sentences not required.		no
+insight.adult.I10.sourceText	insights_adult		Pennebaker — expressive writing		no
+insight.adult.I11.title	insights_adult		Reading grows your words		no
+insight.adult.I11.body	insights_adult		Regular readers carry larger vocabularies even when their formal education looks identical on paper. Fifteen minutes a day compounds over years.nnSpeed-reading trophies optional.		no
+insight.adult.I11.sourceText	insights_adult		Cunningham & Stanovich		no
+insight.adult.I12.title	insights_adult		Meditation as attention gym		no
+insight.adult.I12.body	insights_adult		Mindfulness practice produces modest but reliable gains on attention measures — not magic, just practice applied to a specific skill.nnShort and daily beats long and occasional.		no
+insight.adult.I12.sourceText	insights_adult		Tang et al. — mindfulness reviews		no
+insight.adult.I13.title	insights_adult		Little and often wins		no
+insight.adult.I13.body	insights_adult		Spreading practice across days beats cramming it all into one session — for skills, facts, and habits alike. Your brain consolidates better with gaps in between.nnShow up regularly. Let the gaps do half the work.		no
+insight.adult.I13.sourceText	insights_adult		Cepeda et al. — spacing effect		no
+insight.adult.I14.title	insights_adult		Who you think you are matters		no
+insight.adult.I14.body	insights_adult		"I'm someone who exercises" sticks longer than "I'm trying to exercise more." Identity outruns motivation.nnThe story you tell on good days is the voice you hear on hard ones.		no
+insight.adult.I14.sourceText	insights_adult		Identity & habits (research reviews)		no
+insight.adult.I15.title	insights_adult		Make the good thing easier		no
+insight.adult.I15.body	insights_adult		Shoes by the door. Gym bag already packed. Water bottle already filled. Environment design consistently beats willpower when you're tired.nnReduce friction. Future-you will be grateful.		no
+insight.adult.I15.sourceText	insights_adult		Wood & Neal — habits		no
+insight.adult.I16.title	insights_adult		Other people help you show up		no
+insight.adult.I16.body	insights_adult		Knowing someone is loosely watching — a friend, a partner, a group chat — reliably nudges follow-through. You don't need a coach.nnSometimes one text buddy is enough.		no
+insight.adult.I16.sourceText	insights_adult		Health behaviour trials (overview)		no
+insight.adult.I17.title	insights_adult		Stress loves the old playlist		no
+insight.adult.I17.body	insights_adult		Under pressure, the brain defaults to its most familiar routines — fast. If those routines are good ones, great. If not, stress will find that out.nnSimplify the plan before stress does it for you.		no
+insight.adult.I17.sourceText	insights_adult		Schwabe & Wolf — stress & habits		no
+insight.adult.I18.title	insights_adult		Sleep debt hits your brakes		no
+insight.adult.I18.body	insights_adult		The first thing poor sleep dulls is your ability to pause before reacting. Everything gets louder, smaller decisions feel bigger.nnProtecting sleep is protecting your judgement — not a soft priority.		no
+insight.adult.I18.sourceText	insights_adult		Killgore — sleep & cognition		no
+insight.adult.I19.title	insights_adult		Two minutes of moving counts		no
+insight.adult.I19.body	insights_adult		Short breaks from sitting improve energy and help blood-sugar regulation after long desk stretches. The bar is genuinely low.nnStand up, walk to the kitchen, come back. That counts.		no
+insight.adult.I19.sourceText	insights_adult		Owen et al. — sitting breaks		no
+insight.adult.I20.title	insights_adult		Habits feel automatic slowly		no
+insight.adult.I20.body	insights_adult		Real-world studies put habit formation at weeks to months, not the famous 21 days. Early repetitions are the investment. Ease is what you get later.nnYou're not slow. You're just early.		no
+insight.adult.I20.sourceText	insights_adult		Lally et al.		no
+insight.adult.I21.title	insights_adult		Skills can grow		no
+insight.adult.I21.body	insights_adult		People who treat ability as buildable come back after setbacks more readily than those who see it as fixed. A bad week is noise, not a ceiling.nnThe only thing a slip proves is that you're still in the game.		no
+insight.adult.I21.sourceText	insights_adult		Dweck — mindset research		no
+insight.adult.I22.title	insights_adult		Earlier eating, calmer numbers		no
+insight.adult.I22.body	insights_adult		Shifting the bulk of eating earlier in the day consistently shows better metabolic patterns in trials. Same food, different clock.nnTiming is a lever. Not a moral position.		no
+insight.adult.I22.sourceText	insights_adult		Sutton et al.		no
+insight.adult.I23.title	insights_adult		Muscles pay rent on independence		no
+insight.adult.I23.body	insights_adult		Strength training supports bones, metabolism, and your ability to carry your own shopping decades from now. Two sessions a week is a legitimate longevity habit.nnNot about aesthetics. About function.		no
+insight.adult.I23.sourceText	insights_adult		Westcott — resistance training		no
+insight.adult.I24.title	insights_adult		One block, one job		no
+insight.adult.I24.body	insights_adult		Every task switch leaves residual mental noise that slows down whatever comes next. Protecting a block of uninterrupted time isn't a luxury — it's how actual deep work gets done.nnBatch the similar stuff. Guard the focused time.		no
+insight.adult.I24.sourceText	insights_adult		Newport — deep work / cognitive load		no
+insight.adult.I25.title	insights_adult		A gap is not a verdict		no
+insight.adult.I25.body	insights_adult		Missing once doesn't erase progress. Shame spirals do. The quickest recovery is the next small win — not a Monday restart ceremony.nnComebacks count as data too.		no
+insight.adult.I25.sourceText	insights_adult		Norcross — change maintenance		no
+insight.adult.I26.title	insights_adult		Screens and sleepy chemistry		no
+insight.adult.I26.body	insights_adult		Evening light from phones delays melatonin — the signal that tells your body it's time to wind down. Your brain can't quite tell a screen from a sunny window.nnDimming helps. Distance helps more.		no
+insight.adult.I26.sourceText	insights_adult		Chang et al.		no
+insight.adult.I27.title	insights_adult		Thirst sneaks into focus		no
+insight.adult.I27.body	insights_adult		Mild dehydration — the kind where you don't feel particularly thirsty — is enough to measurably dent concentration and mood. Most people walk around in it.nnFull water bottle on the desk. Boring and effective.		no
+insight.adult.I27.sourceText	insights_adult		Armstrong et al.		no
+insight.adult.I28.title	insights_adult		Walk, then think		no
+insight.adult.I28.body	insights_adult		People consistently generate more ideas while walking than sitting still. If you're stuck, a lap around the block is not procrastination.nnMove first. Judge the ideas when you're back.		no
+insight.adult.I28.sourceText	insights_adult		Oppezzo & Schwartz		no
+insight.adult.I29.title	insights_adult		Pedal power and the heart		no
+insight.adult.I29.body	insights_adult		Large studies show people who cycle to work have meaningfully lower heart disease rates than those who drive the same route.nnNo lycra required.		no
+insight.adult.I29.sourceText	insights_adult		Celis-Morales et al., 2017		no
+insight.adult.I30.title	insights_adult		Ink beats hope		no
+insight.adult.I30.body	insights_adult		Writing a goal down with a concrete plan consistently outperforms keeping it in your head. The act of writing forces enough specificity to make it real.nnPaper is cheap accountability.		no
+insight.adult.I30.sourceText	insights_adult		Matthews — goal writing		no
+insight.adult.I31.title	insights_adult		Tasks leave echoes		no
+insight.adult.I31.body	insights_adult		Switch tasks before finishing a thought and part of your brain stays on the old one. That leftover hum makes the new task harder than it actually is.nnJot a quick note before you jump. Costs ten seconds.		no
+insight.adult.I31.sourceText	insights_adult		Leroy — attention residue		no
+insight.adult.I32.title	insights_adult		Start so small it feels silly		no
+insight.adult.I32.body	insights_adult		"Two push-ups" beats "get fit" because it's impossible to argue with. The first step should have no resistance at all.nnWin first. Scale later.		no
+insight.adult.I32.sourceText	insights_adult		Fogg — Tiny Habits		no
+insight.adult.I33.title	insights_adult		Rest is part of the program		no
+insight.adult.I33.body	insights_adult		Adaptation happens during recovery, not during effort. Skipping rest doesn't add progress — it just delays it and increases the chance something breaks.nnSchedule it. Treat it like a set.		no
+insight.adult.I33.sourceText	insights_adult		Sports medicine consensus		no
+insight.adult.I34.title	insights_adult		Kids feel steady rhythms		no
+insight.adult.I34.body	insights_adult		Children in households with predictable routines show calmer, healthier patterns across multiple measures of wellbeing. Not rigid — just consistent.nnYou're building a felt sense of safety. That's the whole point.		no
+insight.adult.I34.sourceText	insights_adult		Fiese et al.		no
+insight.adult.I35.title	insights_adult		Watching spending changes it		no
+insight.adult.I35.body	insights_adult		Just logging purchases — without any budget lecture attached — tends to reduce discretionary spending on its own. Awareness does most of the work.nnThe log is the intervention.		no
+insight.adult.I35.sourceText	insights_adult		Behavioural finance reviews		no
+insight.adult.I36.title	insights_adult		Consistency is a muscle		no
+insight.adult.I36.body	insights_adult		Self-control isn't a fixed gift — it trains like anything else. Each time you follow through, the next start gets a little easier to reach.nnYou're not faking discipline; you're collecting receipts.		no
+insight.adult.I36.sourceText	insights_adult		Baumeister & Vohs — self-regulation		no
+insight.adult.I37.title	insights_adult		“I cannot” often arrives early		no
+insight.adult.I37.body	insights_adult		Sports science shows people often feel maxed out while their body still has a large reserve. The brain calls "stop" before the tank is actually empty.nnOn a brutal habit day, slow down — but question the story that you have nothing left.		no
+insight.adult.I37.sourceText	insights_adult		Marcora et al.		no
+insight.adult.I38.title	insights_adult		Tools are not cheating		no
+insight.adult.I38.body	insights_adult		Some nervous systems need louder outside cues — calendars, lists, apps — to feel time and reward fairly. That's biology, not laziness.nnUse the scaffolding that lets you live the life you chose.		no
+insight.adult.I38.sourceText	insights_adult		Barkley — executive function		no
+insight.adult.I39.title	insights_adult		The brain loves any win		no
+insight.adult.I39.body	insights_adult		The same circuits that light up for a gold star can light up for a workout or a slot machine. Healthy systems borrow that wiring on purpose.nnDirection matters more than the fact that chemistry notices.		no
+insight.adult.I39.sourceText	insights_adult		Berridge & Robinson — wanting vs liking		no
+insight.adult.I40.title	insights_adult		Focus is a bundle of skills		no
+insight.adult.I40.body	insights_adult		Planning, starting, sticking, and switching are related but separate mental skills. They differ between people and can improve with practice.nnEvery steady week is training for all of them.		no
+insight.adult.I40.sourceText	insights_adult		Miyake et al. — executive function		no
+insight.adult.I41.title	insights_adult		Surprise keeps attention awake		no
+insight.adult.I41.body	insights_adult		When rewards arrive on an unpredictable rhythm, behaviour tends to stick harder than with a clockwork prize — that's old psychology lab wisdom.nnRandom insights here echo mild curiosity — separate from your weekly treats and pot rules, not an extra game layered on top.		no
+insight.adult.I41.sourceText	insights_adult		Skinner — schedules of reinforcement (textbooks)		no
+insight.adult.I42.title	insights_adult		Being watched helps, even quietly		no
+insight.adult.I42.body	insights_adult		Knowing someone else knows your goal nudges follow-through even if they never comment.nnPick an audience you trust; visibility is the tool.		no
+insight.adult.I42.sourceText	insights_adult		Zentall — social facilitation		no
+insight.adult.I43.title	insights_adult		Time sense varies		no
+insight.adult.I43.body	insights_adult		Some people genuinely mis-feel how long tasks take without clocks and reminders. That's not a character flaw — it's a mismatch between brain and vague plans.nnConcrete times and places are the kind fix.		no
+insight.adult.I43.sourceText	insights_adult		Barkley — time estimation		no
+insight.adult.I44.title	insights_adult		Spell it out		no
+insight.adult.I44.body	insights_adult		"If X happens, I will do Y" plans routinely beat "I will try harder" in study after study.nnThe sentence is the intervention.		no
+insight.adult.I44.sourceText	insights_adult		Gollwitzer		no
+insight.adult.I45.title	insights_adult		Motivation is a fair-weather friend		no
+insight.adult.I45.body	insights_adult		Rooms, layouts, and visible cues predict doing the habit better than how motivated you felt that morning.nnDesign for Tuesday-you, not Sunday-night-you.		no
+insight.adult.I45.sourceText	insights_adult		Wood & Neal		no
+insight.adult.I46.title	insights_adult		We copy the crowd		no
+insight.adult.I46.body	insights_adult		People often follow what they think peers do — sometimes more than their own stated values.nnUse that wisely: find a group where the normal thing is showing up.		no
+insight.adult.I46.sourceText	insights_adult		Cialdini — influence		no
+insight.adult.I47.title	insights_adult		Attention differences are common		no
+insight.adult.I47.body	insights_adult		A noticeable share of adults meet criteria for attention-deficit conditions; many never get a label but still benefit from structure.nnIf a system helps you function, that's the outcome that counts.		no
+insight.adult.I47.sourceText	insights_adult		Faraone et al.		no
+insight.adult.I48.title	insights_adult		Structure soothes		no
+insight.adult.I48.body	insights_adult		Having several small, dependable habits correlates with life satisfaction even when the habits themselves are humble.nnRhythm is its own kind of rest.		no
+insight.adult.I48.sourceText	insights_adult		Fleeson — trait consistency		no
+insight.adult.I49.title	insights_adult		Fresh starts are real		no
+insight.adult.I49.body	insights_adult		People restart goals more often after Mondays, month beginnings, or birthdays — "temporal landmarks" in the research.nnA Wednesday miss is not a season finale; Thursday can be episode two.		no
+insight.adult.I49.sourceText	insights_adult		Milkman & Dai		no
+insight.adult.I50.title	insights_adult		You beat the averages		no
+insight.adult.I50.body	insights_adult		Industry data suggests only a sliver of people who download habit apps are still active two months later. Logging here already puts you on the uncommon side of the curve.nnCredit the structure you built, not luck.		no
+insight.adult.I50.sourceText	insights_adult		Mixpanel — app retention		no
+insight.adult.F1.title	insights_adult		Snooze is a human specialty		no
+insight.adult.F1.body	insights_adult		Plenty of animals wake on cue, but only humans set an alarm, understand what it means, and then debate whether nine more minutes is "strategic rest."nnThe snooze button is a tiny comedy about self-control every morning.		no
+insight.adult.F1.sourceText	insights_adult		Sleep Foundation		no
+insight.adult.F2.title	insights_adult		You will sleep for years		no
+insight.adult.F2.body	insights_adult		Over a life, sleep adds up to decades — more than many mortgages last. Unlike a mortgage, good sleep pays you back in mood and focus.nnTreat the mattress like infrastructure, not luxury.		no
+insight.adult.F2.sourceText	insights_adult		Sleep Foundation		no
+insight.adult.F3.title	insights_adult		The liver keeps its own clock		no
+insight.adult.F3.body	insights_adult		Roughly one standard drink per hour is what a typical liver clears — coffee, cold showers, and pep talks don't speed the chemistry.nnPatience is the only life hack here.		no
+insight.adult.F3.sourceText	insights_adult		NHS — alcohol		no
+insight.adult.F4.title	insights_adult		Eleven days awake (please do not try)		no
+insight.adult.F4.body	insights_adult		A famous 1964 stunt: eleven days awake under medical supervision. He recovered. He also said he'd never do it again.nnYour late scroll session isn't that experiment, but it rhymes.		no
+insight.adult.F4.sourceText	insights_adult		Guinness / Gardner record		no
+insight.adult.F5.title	insights_adult		January gyms, March quiet		no
+insight.adult.F5.body	insights_adult		Gyms spike in early January, then go quiet by February. March regulars rarely have more "motivation" — they just have a plan that survived February.nnSystems beat vibes.		no
+insight.adult.F5.sourceText	insights_adult		Industry surveys (e.g. Statista)		no
+insight.adult.F6.title	insights_adult		The body moves before the story		no
+insight.adult.F6.body	insights_adult		Classic lab work found brain activity shifting before people reported a conscious choice to move. Much of life is noticing yourself mid-habit.nnAutomatic isn't the enemy — it's the finish line.		no
+insight.adult.F6.sourceText	insights_adult		Libet et al., 1983		no
+insight.adult.F7.title	insights_adult		Made beds, clearer heads		no
+insight.adult.F7.body	insights_adult		People who make the bed often report feeling more on top of the day. Causation is fuzzy; the easy win is not.nnTwo minutes for a visible "already done" badge.		no
+insight.adult.F7.sourceText	insights_adult		Popular psychology summaries		no
+insight.adult.F8.title	insights_adult		Phones trained you well		no
+insight.adult.F8.body	insights_adult		Some surveys find phones checked nearly a hundred times a day — tiny hits of novelty all waking hours.nnIf your habit app feels sticky, you're competing with world-class designers. Fair fight.		no
+insight.adult.F8.sourceText	insights_adult		Asurion survey		no
+insight.adult.F9.title	insights_adult		Miles and pastries		no
+insight.adult.F9.body	insights_adult		A mile of jogging burns less energy than a fancy pastry contains — annoying math, true math.nnStill worth it for heart, mood, and bones; health is not a spreadsheet duel.		no
+insight.adult.F9.sourceText	insights_adult		Harvard Health — activity & calories		no
+insight.adult.F10.title	insights_adult		Deadline used to be literal		no
+insight.adult.F10.body	insights_adult		"Deadline" once meant a line prisoners could not cross — serious consequences. Now it means spreadsheets.nnYour week still has a firm line: logs lock after Sunday — gentler stakes, same human love of a boundary.		no
+insight.adult.F10.sourceText	insights_adult		Merriam-Webster — word history		no
+insight.adult.F11.title	insights_adult		Judges and lunch breaks		no
+insight.adult.F11.body	insights_adult		A well-known study found judges' leniency dipped before meal breaks and rose after — probably fatigue and timing, not cruelty.nnYour 4pm self isn't morally worse; just running low.		no
+insight.adult.F11.sourceText	insights_adult		Danziger et al., 2011		no
+insight.adult.F12.title	insights_adult		Not twenty-one days flat		no
+insight.adult.F12.body	insights_adult		The "three-week habit" story came from a surgeon's guess decades ago. Real studies show weeks to many months depending on the habit and the person.nnYou're not behind — you're on a real curve.		no
+insight.adult.F12.sourceText	insights_adult		Lally et al.		no
+insight.adult.F13.title	insights_adult		Lifetime mileage		no
+insight.adult.F13.body	insights_adult		Average humans walk enough miles in a life to circle Earth several times — mostly in small trips.nnThe "extra" walks for health are a rounding error that still changes risk.		no
+insight.adult.F13.sourceText	insights_adult		APMA — walking facts		no
+insight.adult.F14.title	insights_adult		Bike commuters, calmer hearts		no
+insight.adult.F14.body	insights_adult		Big studies link cycling to work with much lower heart-disease risk than driving the same route.nnLycra optional; pedals sufficient.		no
+insight.adult.F14.sourceText	insights_adult		Celis-Morales et al., 2017		no
+insight.adult.F15.title	insights_adult		Kids are kettlebells		no
+insight.adult.F15.body	insights_adult		Muscles don't care if the weight has opinions. Carrying a toddler upstairs still counts as load.nnParenting: accidental gym.		no
+insight.adult.F15.sourceText	insights_adult		Strength training primers		no
+insight.adult.F16.title	insights_adult		Ancient life expectancy math		no
+insight.adult.F16.body	insights_adult		Roman "average lifespan ~35" mostly reflects child mortality. Adults who survived childhood often reached their sixties and seventies.nnAverages hide different stories.		no
+insight.adult.F16.sourceText	insights_adult		Historical demography		no
+insight.adult.F17.title	insights_adult		Your body rebuilds itself		no
+insight.adult.F17.body	insights_adult		Most cells replace on a multi-year rhythm — you're a slow ship of Theseus.nnToday's habits feed tomorrow's replacement crew.		no
+insight.adult.F17.sourceText	insights_adult		BBC Future		no
+insight.adult.F18.title	insights_adult		Procrastination protects feelings		no
+insight.adult.F18.body	insights_adult		Putting things off often dodges boredom, anxiety, or shame — not a calendar glitch.nnName the feeling, shrink the task, start ugly.		no
+insight.adult.F18.sourceText	insights_adult		Sirois & Pychyl		no
+insight.adult.F19.title	insights_adult		Stress whispers “eat dense”		no
+insight.adult.F19.body	insights_adult		Long-term stress nudges appetite toward quick calories — an old survival script.nnNot weakness; wiring you can plan around.		no
+insight.adult.F19.sourceText	insights_adult		Dallman et al.		no
+insight.adult.F20.title	insights_adult		Cute aggression is normal		no
+insight.adult.F20.body	insights_adult		That urge to squeeze a puppy? Researchers gave it a name: cute aggression. Harmless, common, weirdly sweet.nnTotally unrelated to your streak — just a smile break.		no
+insight.adult.F20.sourceText	insights_adult		Aragón et al., 2015		no
+insight.adult.ME1.title	insights_adult		Losses feel louder than wins		no
+insight.adult.ME1.body	insights_adult		Classic decision research found people hate losing about twice as much as they enjoy gaining the same amount. A clear "floor" uses that honestly: protecting progress hits different emotional notes than a vague "do better."nnThe app names the stakes so your attention has somewhere real to stand.nnBelow the floor, recovery keeps rules transparent — core-only pot accrual and strict-drop resets — all explicit, with no random layer on top of your treats or pot.		no
+insight.adult.ME1.sourceText	insights_adult		Kahneman & Tversky — prospect theory		no
+insight.adult.ME2.title	insights_adult		Locking money on purpose works		no
+insight.adult.ME2.body	insights_adult		In real-world trials, savers who chose accounts that locked funds until a date often built bigger balances than people left totally free — even when freedom sounds nicer.nnA named pot is a soft version of that contract with yourself.		no
+insight.adult.ME2.sourceText	insights_adult		Ashraf, Karlan & Yin — commitment savings		no
+insight.adult.ME3.title	insights_adult		The last steps feel fastest		no
+insight.adult.ME3.body	insights_adult		Coffee-shop studies showed people speed up purchases as a loyalty card nears full — effort rises near the finish. A filling progress bar borrows the same nudge.nnClose targets feel magnetic; use that instead of guilt.		no
+insight.adult.ME3.sourceText	insights_adult		Kivetz, Urminsky & Zheng		no
+insight.adult.ME4.title	insights_adult		Now-you and later-you disagree		no
+insight.adult.ME4.body	insights_adult		Economists model a pattern many people feel: distant rewards shrink in our minds while tonight's treat grows huge. Pairing a small weekly win with a slow-building pot feeds both versions of you.nnStructure ends the argument instead of moralising it.		no
+insight.adult.ME4.sourceText	insights_adult		Laibson — present bias (QJE)		no
+insight.adult.ME5.title	insights_adult		Checking boxes is real medicine		no
+insight.adult.ME5.body	insights_adult		A large review of health programmes found keeping track of behaviour — food, steps, sleep — was one of the strongest ingredients that made interventions work.nnYour taps aren't theatre; they're a proven behaviour-change tool.		no
+insight.adult.ME5.sourceText	insights_adult		Michie et al. — behaviour change techniques		no
+insight.adult.ME6.title	insights_adult		Earn the fun, enjoy it harder		no
+insight.adult.ME6.body	insights_adult		Researchers boosted gym visits by pairing addictive audiobooks with treadmill time only. Your weekly treat after qualifying is the same bargain: joy rides on the habit, not beside it.nnPleasure with a gate stays memorable longer.		no
+insight.adult.ME6.sourceText	insights_adult		Milkman, Minson & Volpp		no
+insight.adult.ME7.title	insights_adult		Progress feels like property		no
+insight.adult.ME7.body	insights_adult		Give someone a random mug and they suddenly price it like treasure. Streaks and pots inherit that quirk — losing ground stings because it feels like giving something up.nnThe design respects that feeling instead of pretending you're a spreadsheet.		no
+insight.adult.ME7.sourceText	insights_adult		Kahneman, Knetsch & Thaler — endowment effect		no
+insight.adult.ME8.title	insights_adult		The screen is a thermostat		no
+insight.adult.ME8.body	insights_adult		Self-regulation research says we compare "where I am" to "where I want to be," then adjust. Colours, chips, and week rows make that comparison visible and friendly.nnYou get direction without drowning in shame.		no
+insight.adult.ME8.sourceText	insights_adult		Carver & Scheier — control theory		no
+insight.adult.ME9.title	insights_adult		Labels change spending in your head		no
+insight.adult.ME9.body	insights_adult		"Holiday money" and "bill money" feel different even in the same account. Separate goal pots ride that habit so wins stay attached to their story.nnCompartmentalising can be a feature.		no
+insight.adult.ME9.sourceText	insights_adult		Thaler — mental accounting		no
+insight.adult.ME10.title	insights_adult		Little surprises, steady attention		no
+insight.adult.ME10.body	insights_adult		Brain studies show cells that learn from "better than expected" moments. A pop-up fact you didn't schedule is a mild version of that — curiosity without turning insights into a wager.nnSmall novelty can support focus when kept kind.		no
+insight.adult.ME10.sourceText	insights_adult		Schultz, Dayan & Montague — reward learning		no
+insight.adult.ME11.title	insights_adult		Green means online		no
+insight.adult.ME11.body	insights_adult		The green pill around your name shows you're currently online. When it's grey, you've lost connection — but your data keeps saving on this device until the next sync.		no
+insight.adult.ME11.sourceText	insights_adult		Consistency app — online / offline indicator		no
+insight.adult.RG1.title	insights_adult		From red to green		no
+insight.adult.RG1.body	insights_adult		When consistency jumps straight from struggling to solid, it usually means several closed weeks lined up behind the number — not one fluke week.nnLet the colour change be a gentle "keep going," not pressure to be perfect next week.		no
+insight.adult.RG1.sourceText	insights_adult		Consistency app — tier colours		no
+insight.adult.MY1.title	insights_adult		Month on track		no
+insight.adult.MY1.body	insights_adult		Early in a month, people often lean on fresh-start energy. Research on "temporal landmarks" shows Mondays and month beginnings nudge new attempts without needing a dramatic reboot.nnIf your goals sit in the steady band, you're allowed to ride that tailwind.		no
+insight.adult.MY1.sourceText	insights_adult		Milkman & Dai — fresh starts		no
+insight.adult.MY2.title	insights_adult		Year, same lane		no
+insight.adult.MY2.body	insights_adult		Big studies on habits stress boring repetition over hero weeks. A new calendar year is just another Monday in a longer chain — useful if it helps you show up, not if it becomes all-or-nothing.nnSteady beats dramatic when the year gets noisy.		no
+insight.adult.MY2.sourceText	insights_adult		Wood & Neal — habits (overview)		no
+insight.adult.CB1.title	insights_adult		You came back		no
+insight.adult.CB1.body	insights_adult		Maintenance research keeps repeating one lesson: slips are normal; re-entry predicts long-term change more than a spotless streak.nnOpening the log again after a rough week is already the behaviour that matters.		no
+insight.adult.CB1.sourceText	insights_adult		Norcross — change maintenance		no
+insight.adult.CA1.title	insights_adult		Habits added mid-week get a fair start		no
+insight.adult.CA1.body	insights_adult		If you add a habit on a day other than Monday, that first partial week uses proportional targets — your threshold is scaled down based on how many days remain in the week.nnFor example, if your goal is 5 days per week and you start on Thursday, you only need to hit roughly 2 days (floor of 5 × 4/7). This keeps scoring fair without blocking your goal on a week you could never fully complete.		no
+insight.adult.CA1.sourceText	insights_adult		Consistency — week & habit rules		no
+insight.adult.CA2.title	insights_adult		Core and growth habits		no
+insight.adult.CA2.body	insights_adult		Core habits must all qualify for a closed week to count toward your % and weekly treats; growth habits add pot money when they qualify but never block the week. In recovery (rolling % below that goal's consistency floor), only core habits add to the pot; growth adds £0 until rolling % reaches the floor again. Each goal's floor is set in Add/Edit goal (default often 80%).		no
+insight.adult.CA2.sourceText	insights_adult		Consistency app — habit tiers		no
+insight.adult.NH1.title	insights_adult		Dopamine is more “go” than “ahh”		no
+insight.adult.NH1.body	insights_adult		Popular books like "The Molecule of More" and "Dopamine Nation" stress one idea: much of what people call "reward" is wanting and momentum, not the cosy feeling after a good meal.nnChasing the next tick is dopamine-heavy; deep rest after is often different chemistry entirely.		no
+insight.adult.NH1.sourceText	insights_adult		Lieberman & Long; Lembke (overview)		no
+insight.adult.NH2.title	insights_adult		Two styles of dopamine, one you		no
+insight.adult.NH2.body	insights_adult		Lieberman and Long describe a "here-and-now" chemical chorus and a "future-and-possible" dopamine track that loves novelty and goals — both matter.nnBalance is the game: enough future-pull to plan, enough present chemistry to enjoy arriving.		no
+insight.adult.NH2.sourceText	insights_adult		Lieberman & Long — The Molecule of More		no
+insight.adult.NH3.title	insights_adult		Why streaks feel magnetic		no
+insight.adult.NH3.body	insights_adult		Dopamine-related circuits learn from surprises and progress signals — "better than expected" keeps attention. That's why visible streaks and near-complete bars tug harder than abstract goals.nnYou're not weak; you're using a loud channel wisely.		no
+insight.adult.NH3.sourceText	insights_adult		Schultz et al.; Lieberman & Long (popular synthesis)		no
+insight.adult.NH4.title	insights_adult		Pleasure and pain share a balance beam		no
+insight.adult.NH4.body	insights_adult		Psychiatrist Anna Lembke argues endless easy hits — scrolls, snacks, buys — can tilt the brain toward needing more just to feel normal. Brief, chosen discomfort (effort, delay) resets the scale.nnHabit apps that add friction on purpose echo that clinical lesson gently.		no
+insight.adult.NH4.sourceText	insights_adult		Lembke — Dopamine Nation		no
+insight.adult.NH5.title	insights_adult		Oxytocin is a trust hormone, not only a cuddle hormone		no
+insight.adult.NH5.body	insights_adult		Studies tie oxytocin to bonding cues: touch, warm voice, shared meals. It nudges social calm and "we" feelings.nnAccountability partners and family habits may ride social chemistry, not just willpower.		no
+insight.adult.NH5.sourceText	insights_adult		Carter — oxytocin & attachment (review)		no
+insight.adult.NH6.title	insights_adult		Oxytocin has more than one mood		no
+insight.adult.NH6.body	insights_adult		Researchers note context matters: the same hormone that supports closeness can sharpen feelings about "us versus them" in some settings.nnKindness with boundaries stays wise — chemistry is not a morality tale.		no
+insight.adult.NH6.sourceText	insights_adult		Shamay-Tsoory & Abu-Akel — oxytocin context		no
+insight.adult.NH7.title	insights_adult		Serotonin is a stabiliser, not a smile pill		no
+insight.adult.NH7.body	insights_adult		Most brain serotonin doesn't come with simple labels. It helps regulate mood, sleep timing, and even gut signalling — a steadying hand, not a happy switch.nnMedication stories are separate from daily habits; both deserve nuance.		no
+insight.adult.NH7.sourceText	insights_adult		NIH News in Health — serotonin		no
+insight.adult.NH8.title	insights_adult		Daylight, movement, and calm chemistry		no
+insight.adult.NH8.body	insights_adult		Exercise and outdoor light are linked to better mood and sleep in large studies — serotonin-related pathways are part of the story, alongside many other systems.nnA walk is low-tech support for a complicated brain.		no
+insight.adult.NH8.sourceText	insights_adult		Harvard Health — exercise, light & mood		no
+insight.adult.NH9.title	insights_adult		Prolactin: the afterglow manager		no
+insight.adult.NH9.body	insights_adult		After intense pleasure or orgasm, prolactin often rises — part of why excitement eases and the body pivots toward rest. It's normal biology, not failure.nnUnderstanding the cooldown helps you plan recovery, not judge it.		no
+insight.adult.NH9.sourceText	insights_adult		Endocrine Society — prolactin		no
+insight.adult.NH10.title	insights_adult		Prolactin shows up for caregivers too		no
+insight.adult.NH10.body	insights_adult		Hormone research links prolactin to nurturing behaviours in many mammals — milk production in some contexts and caregiving tone more broadly.nnBodies reward tending others with their own chemistry.		no
+insight.adult.NH10.sourceText	insights_adult		Torner & Neumann — prolactin review		no
+insight.adult.NH11.title	insights_adult		No molecule works alone		no
+insight.adult.NH11.body	insights_adult		Sapolsky's "Behave" walks one behaviour through genes, hormones, context, and culture — dopamine, serotonin, oxytocin, and more act in concert like instruments, not soloists.nnWhen you change a habit, you're conducting the whole band slowly.		no
+insight.adult.NH11.sourceText	insights_adult		Sapolsky — Behave		no
+insight.adult.NH12.title	insights_adult		Books beat doom-scrolling for the same circuits		no
+insight.adult.NH12.body	insights_adult		Writers like Lembke and Lieberman describe how cheap digital hits train dopamine shortcuts. Swapping some scroll time for long-form reading rebuilds patience — the same patience habits need.nnThis app's slower rewards are a cousin of that swap.		no
+insight.adult.NH12.sourceText	insights_adult		Lembke; Lieberman & Long		no
+insight.kid.I1.title	insights_kid			Sleep helps you remember	no
+insight.kid.I1.body	insights_kid			While you sleep, your brain tidies up the day — putting things where they belong. Miss a lot of sleep and remembering gets trickier. Going to bed at the same time most nights works better than one big sleep-in.	no
+insight.kid.I1.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I2.title	insights_kid			Your body likes a rhythm	no
+insight.kid.I2.body	insights_kid			Sunlight, meals, and bedtime tell your body what time it is. Mixed signals can make you feel off.\n\nA calm wind-down routine is doing real work, even if it feels a bit boring.	no
+insight.kid.I2.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I3.title	insights_kid			Late snacks and your body	no
+insight.kid.I3.body	insights_kid			A very big meal late at night can make blood sugar trickier to handle — even with the same food eaten earlier in the day.\n\nIt's a body clock thing, not a "being bad" thing.	no
+insight.kid.I3.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I4.title	insights_kid			Moving wakes up your brain	no
+insight.kid.I4.body	insights_kid			About ten minutes of walking or moving often clears a fuzzy head.\n\nYou don't need a huge workout — wiggle, walk, dance. Whatever gets you going.	no
+insight.kid.I4.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I5.title	insights_kid			Hook new habits to old ones	no
+insight.kid.I5.body	insights_kid			"After I brush my teeth, I do two stretches." The old habit reminds you — no extra remembering needed.\n\nTiny links beat giant promises.	no
+insight.kid.I5.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I6.title	insights_kid			Say when and where	no
+insight.kid.I6.body	insights_kid			"Tuesday after school I ride my bike" beats "I should move more."\n\nBrains love a clear plan.	no
+insight.kid.I6.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I7.title	insights_kid			Why ticks feel good	no
+insight.kid.I7.body	insights_kid			Your brain loves little wins — checkmarks, stars, streaks.\n\nUse that power for habits that actually help you.	no
+insight.kid.I7.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I8.title	insights_kid			When time feels slippery	no
+insight.kid.I8.body	insights_kid			Some brains need clocks, timers, or lists to feel how long things take. That's completely fine — tools are helpers.\n\n"Someday" is fuzzy; "after snack" is something your brain can work with.	no
+insight.kid.I8.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I9.title	insights_kid			Be kind after a miss	no
+insight.kid.I9.body	insights_kid			Being mean to yourself after a slip makes it harder to try again.\n\nFix it like a flat bike tyre: patch it and ride on.	no
+insight.kid.I9.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I10.title	insights_kid			Writing calms a busy head	no
+insight.kid.I10.body	insights_kid			A few minutes of messy writing can untangle worried thoughts.\n\nYou don't need perfect sentences — just get it out.	no
+insight.kid.I10.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I11.title	insights_kid			Reading grows words	no
+insight.kid.I11.body	insights_kid			Reading a little most days grows your vocabulary over time.\n\nShort, cosy reading still counts.	no
+insight.kid.I11.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I12.title	insights_kid			Quiet focus practice	no
+insight.kid.I12.body	insights_kid			Calm attention practice can train focus a bit like practice trains sport skills.\n\nShort and often beats rare and long.	no
+insight.kid.I12.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I13.title	insights_kid			Little and often wins	no
+insight.kid.I13.body	insights_kid			A bit on many days beats one giant cram — for skills and habits alike.\n\nGaps between tries help your brain learn.	no
+insight.kid.I13.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I14.title	insights_kid			“I am someone who…”	no
+insight.kid.I14.body	insights_kid			"I am a reader" or "I move my body" can stick better than "I am trying."\n\nTell a story that helps you on hard days.	no
+insight.kid.I14.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I15.title	insights_kid			Make the good thing easy	no
+insight.kid.I15.body	insights_kid			Lay out clothes, fill a water bottle, put shoes by the door — easy setups beat arguing with a tired brain.\n\nLess friction, more follow-through.	no
+insight.kid.I15.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I16.title	insights_kid			Buddies help you show up	no
+insight.kid.I16.body	insights_kid			When someone kind knows your plan, you're more likely to do it.\n\nA friend, parent, or coach counts.	no
+insight.kid.I16.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I17.title	insights_kid			Stress picks the old habit	no
+insight.kid.I17.body	insights_kid			When stressed, brains reach for familiar routines fast — good or not.\n\nKeep your plan simple before stress arrives.	no
+insight.kid.I17.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I18.title	insights_kid			Tired brains react fast	no
+insight.kid.I18.body	insights_kid			Poor sleep makes it harder to pause before you snap or give up.\n\nSleep protects your choices.	no
+insight.kid.I18.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I19.title	insights_kid			Two minutes of moving	no
+insight.kid.I19.body	insights_kid			Short breaks from sitting help energy and sugar levels.\n\nStand, stretch, grab water — it counts.	no
+insight.kid.I19.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I20.title	insights_kid			Habits take weeks	no
+insight.kid.I20.body	insights_kid			Real life habits often need weeks or months to stick — not a magic "21 days."\n\nEarly tries aren't failure — they're the start.	no
+insight.kid.I20.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I21.title	insights_kid			You can grow skills	no
+insight.kid.I21.body	insights_kid			People who believe skills can grow bounce back after a bad day.\n\nA rough week is a bump, not the end.	no
+insight.kid.I21.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I22.title	insights_kid			Earlier food, calmer body	no
+insight.kid.I22.body	insights_kid			More food earlier in the day often suits the body better than only big late meals.\n\nTiming is a tool, not a rule about "good" or "bad."	no
+insight.kid.I22.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I23.title	insights_kid			Strong muscles help forever	no
+insight.kid.I23.body	insights_kid			Strength helps bones and everyday jobs like carrying bags.\n\nTwo short sessions a week is a big win.	no
+insight.kid.I23.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I24.title	insights_kid			One thing at a time	no
+insight.kid.I24.body	insights_kid			Switching tasks leaves mental "echoes" that slow you down.\n\nGive one job a protected block of time.	no
+insight.kid.I24.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I25.title	insights_kid			A miss is not the end	no
+insight.kid.I25.body	insights_kid			Skipping once doesn't erase progress — shame spirals do more damage.\n\nThe next small win is the comeback.	no
+insight.kid.I25.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I26.title	insights_kid			Screens and sleepy feelings	no
+insight.kid.I26.body	insights_kid			Bright screens at night can delay the chemistry that makes you sleepy.\n\nDim screens or move them farther away before bed.	no
+insight.kid.I26.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I27.title	insights_kid			Water and focus	no
+insight.kid.I27.body	insights_kid			Even mild thirst can ding your mood and attention.\n\nKeep water handy — boring and useful.	no
+insight.kid.I27.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I28.title	insights_kid			Walk, then ideas	no
+insight.kid.I28.body	insights_kid			Walking often brings more ideas than sitting still.\n\nStuck? Try a lap before deciding.	no
+insight.kid.I28.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I29.title	insights_kid			Bikes and hearts	no
+insight.kid.I29.body	insights_kid			Big studies link biking with healthier hearts than only driving.\n\nPedals don't need fancy clothes.	no
+insight.kid.I29.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I30.title	insights_kid			Write the plan down	no
+insight.kid.I30.body	insights_kid			Goals with a written plan beat goals only in your head.\n\nPaper or phone notes both work.	no
+insight.kid.I30.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I31.title	insights_kid			Finish a thought before you jump	no
+insight.kid.I31.body	insights_kid			If you switch tasks mid-thought, part of your brain stays behind.\n\nJot a note in ten seconds, then switch.	no
+insight.kid.I31.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I32.title	insights_kid			Start silly-small	no
+insight.kid.I32.body	insights_kid			"Two jumps" beats "get fit forever" for actually starting.\n\nMake step one too easy to argue with.	no
+insight.kid.I32.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I33.title	insights_kid			Rest builds strength	no
+insight.kid.I33.body	insights_kid			Muscles and skills grow during recovery, not only during effort.\n\nRest is part of training.	no
+insight.kid.I33.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I34.title	insights_kid			Kids like steady routines	no
+insight.kid.I34.body	insights_kid			Predictable rhythms help kids feel safe and healthy — not rigid, just steady.\n\nYou're building a calm home feeling.	no
+insight.kid.I34.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I35.title	insights_kid			Watching spending helps	no
+insight.kid.I35.body	insights_kid			Just noticing what you buy often lowers extra spending — no lecture needed.\n\nThe list is the magic.	no
+insight.kid.I35.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I36.title	insights_kid			Self-control is practice	no
+insight.kid.I36.body	insights_kid			"Stop and go" skills train like sport practice — every small keep-going counts.	no
+insight.kid.I36.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I37.title	insights_kid			“I cannot” can show up early	no
+insight.kid.I37.body	insights_kid			Bodies often have more energy than the brain admits on hard days.\n\nSlow down, but question "I have nothing left."	no
+insight.kid.I37.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I38.title	insights_kid			Lists and alarms are tools	no
+insight.kid.I38.body	insights_kid			Some brains need louder outside reminders. That's wiring, not laziness.\n\nUse what works for you.	no
+insight.kid.I38.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I39.title	insights_kid			Wins light up the brain	no
+insight.kid.I39.body	insights_kid			Stars, ticks, and games use similar "win" brain wiring — healthy apps borrow that on purpose.\n\nSteer the wins toward good habits.	no
+insight.kid.I39.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I40.title	insights_kid			Focus has many parts	no
+insight.kid.I40.body	insights_kid			Planning, starting, sticking, and switching are different skills.\n\nSteady weeks train all of them.	no
+insight.kid.I40.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I41.title	insights_kid			Surprises keep attention	no
+insight.kid.I41.body	insights_kid			Random little rewards can make habits stickier than perfectly timed ones.\n\nThis app's surprise facts are gentle curiosity — separate from weekly treats and jar rules, not an extra game on top.	no
+insight.kid.I41.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I42.title	insights_kid			Someone knowing helps	no
+insight.kid.I42.body	insights_kid			When a trusted person knows your goal, you're more likely to try.\n\nThey don't have to nag.	no
+insight.kid.I42.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I43.title	insights_kid			Time guesses vary	no
+insight.kid.I43.body	insights_kid			Some people mis-guess how long tasks take without a clock. That's human, not "lazy."\n\nConcrete times fix it kindly.	no
+insight.kid.I43.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I44.title	insights_kid			If-then plans work	no
+insight.kid.I44.body	insights_kid			"If it rains, I dance inside" beats "I will try harder."\n\nThe sentence is the superpower.	no
+insight.kid.I44.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I45.title	insights_kid			Rooms matter more than mood	no
+insight.kid.I45.body	insights_kid			Visible cues and room layouts predict habits better than morning excitement.\n\nDesign for Tuesday-you.	no
+insight.kid.I45.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I46.title	insights_kid			We copy our crew	no
+insight.kid.I46.body	insights_kid			People often copy what friends seem to do.\n\nPick friends or groups where showing up is normal.	no
+insight.kid.I46.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I47.title	insights_kid			Attention comes in flavours	no
+insight.kid.I47.body	insights_kid			Many people have attention differences — structure helps everyone.\n\nIf a tool helps you live your plan, it wins.	no
+insight.kid.I47.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I48.title	insights_kid			Rhythms feel good	no
+insight.kid.I48.body	insights_kid			Several small, steady habits link to happier days — even humble ones.\n\nRhythm can feel like rest.	no
+insight.kid.I48.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I49.title	insights_kid			Fresh starts are real	no
+insight.kid.I49.body	insights_kid			Mondays, month starts, and birthdays nudge new tries.\n\nA Wednesday miss is not the finale.	no
+insight.kid.I49.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.I50.title	insights_kid			You are already rare	no
+insight.kid.I50.body	insights_kid			Most habit apps lose people in a couple of months. Logging here already puts you on the uncommon side.\n\nCredit your effort.	no
+insight.kid.I50.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.F1.title	insights_kid			Snooze is a human thing	no
+insight.kid.F1.body	insights_kid			Only humans set alarms… then negotiate nine more minutes.\n\nThe snooze button is a tiny morning comedy.	no
+insight.kid.F1.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F2.title	insights_kid			You will sleep for years	no
+insight.kid.F2.body	insights_kid			Sleep adds up to a huge slice of life — like a long holiday every year.\n\nGood sleep pays you back in mood.	no
+insight.kid.F2.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F3.title	insights_kid			Bodies clear drinks slowly	no
+insight.kid.F3.body	insights_kid			Grown-up bodies clear about one standard drink per hour — coffee and pep talks don't speed it up.\n\nWaiting is the only real shortcut.	no
+insight.kid.F3.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F4.title	insights_kid			Eleven days awake (!)	no
+insight.kid.F4.body	insights_kid			A famous stunt: someone stayed awake for eleven days with doctors watching. He recovered — and said never again.\n\nDon't try this. Your sleep matters.	no
+insight.kid.F4.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F5.title	insights_kid			January gyms, March calm	no
+insight.kid.F5.body	insights_kid			Gyms get busy in January, then quieter. March regulars have plans that survived February.\n\nSystems beat vibes.	no
+insight.kid.F5.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F6.title	insights_kid			Body first, story second	no
+insight.kid.F6.body	insights_kid			Brains sometimes start moving before we notice we made a choice.\n\nMuch of life is catching yourself mid-habit.	no
+insight.kid.F6.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F7.title	insights_kid			Made beds, brighter mornings	no
+insight.kid.F7.body	insights_kid			People who make the bed often feel more on top of the day.\n\nTwo minutes, one easy win.	no
+insight.kid.F7.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F8.title	insights_kid			Phones are designed to stick	no
+insight.kid.F8.body	insights_kid			Some people check their phone nearly a hundred times a day.\n\nYour habit app competes with world-class designers — fair fight.	no
+insight.kid.F8.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F9.title	insights_kid			Miles and treats	no
+insight.kid.F9.body	insights_kid			A run burns less energy than a fancy pastry — annoying math.\n\nStill worth it for heart, mood, and bones.	no
+insight.kid.F9.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F10.title	insights_kid			“Deadline” used to be scarier	no
+insight.kid.F10.body	insights_kid			Long ago a "deadline" was a line you must not cross — serious trouble. Now it means rows in an app.\n\nGentler stakes, same human love of a finish line.	no
+insight.kid.F10.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F11.title	insights_kid			Judges and lunch	no
+insight.kid.F11.body	insights_kid			A famous study: judges were stricter before lunch and kinder after — tired brains, not mean hearts.\n\nAfternoon you isn't "worse," just running low.	no
+insight.kid.F11.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F12.title	insights_kid			Not always twenty-one days	no
+insight.kid.F12.body	insights_kid			The "three-week habit" story was a rough guess. Real habits take weeks to months.\n\nYou're not behind.	no
+insight.kid.F12.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F13.title	insights_kid			Walking adds up	no
+insight.kid.F13.body	insights_kid			Average humans walk enough in a life to circle Earth several times — in tiny trips.\n\nExtra walks still change health.	no
+insight.kid.F13.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F14.title	insights_kid			Bikes and hearts	no
+insight.kid.F14.body	insights_kid			Big studies say bike commuters often have calmer hearts than drivers on the same route.\n\nLycra optional.	no
+insight.kid.F14.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F15.title	insights_kid			Kids count as weights	no
+insight.kid.F15.body	insights_kid			Muscles don't care if the weight giggles. Carrying little ones upstairs still counts.\n\nAccidental gym.	no
+insight.kid.F15.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F16.title	insights_kid			Old average ages were tricky	no
+insight.kid.F16.body	insights_kid			Ancient "average lifespan ~35" mostly counted young kids dying early. Adults often lived decades longer.\n\nAverages hide stories.	no
+insight.kid.F16.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F17.title	insights_kid			Your body rebuilds	no
+insight.kid.F17.body	insights_kid			Most cells replace on a slow rhythm — you're a ship rebuilt plank by plank.\n\nToday's habits feed tomorrow's you.	no
+insight.kid.F17.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F18.title	insights_kid			Delay dodges feelings	no
+insight.kid.F18.body	insights_kid			Putting things off often hides boredom, worry, or shame.\n\nName the feeling, shrink the task, start messy.	no
+insight.kid.F18.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F19.title	insights_kid			Stress and snack cravings	no
+insight.kid.F19.body	insights_kid			Long stress nudges appetite toward quick calories — old survival wiring.\n\nNot weakness; you can plan snacks kindly.	no
+insight.kid.F19.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.F20.title	insights_kid			Cute squeeze feelings	no
+insight.kid.F20.body	insights_kid			Wanting to squeeze a puppy? Scientists called it "cute aggression" — common and harmless.\n\nTotally unrelated to your streak — just silly joy.	no
+insight.kid.F20.sourceText	insights_kid			Fun read (grown-ups)	no
+insight.kid.ME1.title	insights_kid			Losses feel louder than wins	no
+insight.kid.ME1.body	insights_kid			People hate losing about twice as much as they enjoy gaining the same amount.\n\nA clear "floor" in the app makes the stakes honest.\n\nBelow the floor, recovery keeps jar rules clear — core-only money until the score recovers. Ask a grown-up for the full picture.	no
+insight.kid.ME1.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.ME2.title	insights_kid			Locked savings help	no
+insight.kid.ME2.body	insights_kid			Savers who chose "locked until a date" accounts often saved more than those with total freedom.\n\nGoal pots here echo that gentle lock.	no
+insight.kid.ME2.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.ME3.title	insights_kid			The last steps feel fastest	no
+insight.kid.ME3.body	insights_kid			People speed up when a punch-card is almost full.\n\nProgress bars use the same "almost there" pull.	no
+insight.kid.ME3.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.ME4.title	insights_kid			Now-you vs later-you	no
+insight.kid.ME4.body	insights_kid			Tonight's treat feels huge; faraway rewards feel tiny.\n\nWeekly treats plus a slow-building pot feed both versions of you.	no
+insight.kid.ME4.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.ME5.title	insights_kid			Tracking really helps	no
+insight.kid.ME5.body	insights_kid			Big reviews say logging food, steps, or sleep is one of the strongest helpers in health programmes.\n\nYour taps are real tools.	no
+insight.kid.ME5.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.ME6.title	insights_kid			Earn the fun	no
+insight.kid.ME6.body	insights_kid			Researchers paired audiobooks with treadmill time only — gym visits went up.\n\nYour weekly treat after qualifying uses the same idea.	no
+insight.kid.ME6.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.ME7.title	insights_kid			Progress feels like “mine”	no
+insight.kid.ME7.body	insights_kid			We care extra about things we feel we own — streaks and pots use that.\n\nThe app respects feelings, not only numbers.	no
+insight.kid.ME7.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.ME8.title	insights_kid			The screen is a thermostat	no
+insight.kid.ME8.body	insights_kid			Brains compare "where I am" to "where I want to be," then adjust.\n\nColours and chips make that comparison kind.	no
+insight.kid.ME8.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.ME9.title	insights_kid			Separate jars in your head	no
+insight.kid.ME9.body	insights_kid			"Holiday money" and "bill money" feel different even in one account.\n\nSeparate goal pots work the same way.	no
+insight.kid.ME9.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.ME10.title	insights_kid			Small surprises, steady attention	no
+insight.kid.ME10.body	insights_kid			Brains learn from "better than expected" moments.\n\nSurprise facts here are mild curiosity — little brain teasers, not bets.	no
+insight.kid.ME10.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.ME11.title	insights_kid			Online?	no
+insight.kid.ME11.body	insights_kid			Green around your name means you're online! Grey means you're not connected right now.	no
+insight.kid.ME11.sourceText	insights_kid			How the app works	no
+insight.kid.RG1.title	insights_kid			From red to green	no
+insight.kid.RG1.body	insights_kid			Jumping from struggling to solid usually means several good closed weeks — not one lucky week.\n\nLet the colour change say "keep going," not "be perfect."	no
+insight.kid.RG1.sourceText	insights_kid			How the app works	no
+insight.kid.MY1.title	insights_kid			Month on track	no
+insight.kid.MY1.body	insights_kid			Month starts give many people a fresh-start boost.\n\nIf you're in the steady band, ride that tailwind.	no
+insight.kid.MY1.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.MY2.title	insights_kid			New year, same steady	no
+insight.kid.MY2.body	insights_kid			Habits love boring repetition more than hero weeks.\n\nA new year is useful if it helps you show up — not if it becomes all-or-nothing.	no
+insight.kid.MY2.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.CB1.title	insights_kid			You came back	no
+insight.kid.CB1.body	insights_kid			Slips are normal. What matters most is coming back.\n\nOpening the log after a rough week already counts.	no
+insight.kid.CB1.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.CA1.title	insights_kid			Fair start mid-week	no
+insight.kid.CA1.body	insights_kid			If you add a habit mid-week, your first partial week uses a smaller target so it stays fair.\n\nExample: starting Thursday with a 5-day goal might only ask for about 2 days that week.	no
+insight.kid.CA1.sourceText	insights_kid			How scoring works	no
+insight.kid.CA2.title	insights_kid			Core and growth habits	no
+insight.kid.CA2.body	insights_kid			Core habits are your must-do habits: when a week closes, they all need to qualify so the week counts on your score and for your treat.\n\nGrowth habits add jar money when you do them — they never block the week.\n\nIn recovery (below your floor), only core adds jar money until your score climbs back; growth waits. A grown-up can help with the numbers.	no
+insight.kid.CA2.sourceText	insights_kid			How the app works	no
+insight.kid.NH1.title	insights_kid			“Reward” chemistry is tricky	no
+insight.kid.NH1.body	insights_kid			A lot of what people call "reward" is wanting and go-go energy, not only cosy afterglow.\n\nChasing the next tick uses different chemistry than deep rest.	no
+insight.kid.NH1.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.NH1.blogText	insights_kid			Blog for grown-ups	no
+insight.kid.NH2.title	insights_kid			Two dopamine flavours	no
+insight.kid.NH2.body	insights_kid			"Here-and-now" chemistry and "future-and-maybe" chemistry are both real — both matter.\n\nBalance planning with enjoying the moment.	no
+insight.kid.NH2.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.NH2.blogText	insights_kid			Blog for grown-ups	no
+insight.kid.NH3.title	insights_kid			Why streaks tug	no
+insight.kid.NH3.body	insights_kid			Brains learn from surprises and progress signals.\n\nVisible streaks use a loud, honest channel — not a weakness.	no
+insight.kid.NH3.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.NH3.blogText	insights_kid			Blog for grown-ups	no
+insight.kid.NH4.title	insights_kid			Easy hits and balance	no
+insight.kid.NH4.body	insights_kid			Endless quick hits — scrolls, snacks — can tilt the brain toward needing more to feel normal.\n\nChosen effort and breaks can reset the scale.	no
+insight.kid.NH4.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.NH4.blogText	insights_kid			Blog for grown-ups	no
+insight.kid.NH5.title	insights_kid			Oxytocin and trust	no
+insight.kid.NH5.body	insights_kid			Oxytocin links to bonding cues: touch, warm voices, shared meals.\n\nFamily habits ride social chemistry, not only willpower.	no
+insight.kid.NH5.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.NH5.blogText	insights_kid			Blog for grown-ups	no
+insight.kid.NH6.title	insights_kid			Chemistry has moods	no
+insight.kid.NH6.body	insights_kid			The same hormone can nudge closeness or "us vs them" feelings, depending on context.\n\nKindness plus boundaries stays wise.	no
+insight.kid.NH6.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.NH6.blogText	insights_kid			Blog for grown-ups	no
+insight.kid.NH7.title	insights_kid			Serotonin steadies	no
+insight.kid.NH7.body	insights_kid			Serotonin helps mood, sleep timing, and even gut signals — a steadying hand, not a simple "happy switch."\n\nMedicine stories are separate from daily habits.	no
+insight.kid.NH7.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.NH7.blogText	insights_kid			Blog for grown-ups	no
+insight.kid.NH8.title	insights_kid			Sun, move, mood	no
+insight.kid.NH8.body	insights_kid			Exercise and outdoor light link to better mood and sleep in big studies.\n\nA walk is simple support for a complicated brain.	no
+insight.kid.NH8.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.NH8.blogText	insights_kid			Blog for grown-ups	no
+insight.kid.NH9.title	insights_kid			After big excitement	no
+insight.kid.NH9.body	insights_kid			After very intense fun, the body shifts toward calm chemistry — that's normal biology.\n\nUnderstanding the cooldown helps you plan rest, not worry.	no
+insight.kid.NH9.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.NH9.blogText	insights_kid			Blog for grown-ups	no
+insight.kid.NH10.title	insights_kid			Caring and chemistry	no
+insight.kid.NH10.body	insights_kid			Hormone research ties prolactin to nurturing behaviours in many mammals.\n\nBodies reward caring for others with their own chemistry.	no
+insight.kid.NH10.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.NH10.blogText	insights_kid			Blog for grown-ups	no
+insight.kid.NH11.title	insights_kid			No chemical works alone	no
+insight.kid.NH11.body	insights_kid			One behaviour involves genes, hormones, context, and culture together — like a band, not one instrument.\n\nChanging a habit slowly conducts the whole band.	no
+insight.kid.NH11.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.NH11.blogText	insights_kid			Blog for grown-ups	no
+insight.kid.NH12.title	insights_kid			Books vs endless scrolls	no
+insight.kid.NH12.body	insights_kid			Cheap digital hits train shortcuts; longer reading rebuilds patience.\n\nThis app's slower rewards echo that gentler pace.	no
+insight.kid.NH12.sourceText	insights_kid			Science link (grown-ups)	no
+insight.kid.NH12.blogText	insights_kid			Blog for grown-ups	no
+settings.dynamic.settingsProfileBlockHeading	settings_kid_toggle		Profile	Profiles	no
+settings.dynamic.settingsAccountBlockHeading	settings_kid_toggle		Sign-in & sync	Sign in & cloud	no
+settings.dynamic.settingsAccountAnonNote	settings_kid_toggle		Without signing in, your data lives only on this device. Sign in to access it from any browser or phone.	Without sign-in, everything stays on this tablet or computer. A grown-up can sign in to open the same profiles on another device.	no
+settings.dynamic.settingsAccountCloudLabel	settings_kid_toggle		Sync this device with the cloud (uploads your full app data for this account)	Cloud sync (grown-up): keeps this device matched with your online account — uploads everything for your signed-in account.	no
+settings.dynamic.settingsAdvancedBackupHeading	settings_kid_toggle		Manual backup & restore	Save / add a backup file	no
+settings.dynamic.settingsAboutBlurb	settings_kid_toggle		A personal habit tracker built around weekly consistency — for anyone who wants to show up for themselves and actually stick with it.	A friendly habit app for weekly habits. For anyone who wants to show up for themselves and keep it up.	no
+settings.dynamic.importProfileSectionLabel	settings_kid_toggle		Profiles to add from file	People to add from this file	no
+settings.dynamic.lblSettingsDisplayName	settings_kid_toggle		Display name	Your name	no
+settings.dynamic.advancedCloudHistoryHeading	settings_kid_toggle		Automatic cloud backups	Cloud backups (automatic)	no
+settings.dynamic.settingsAdvancedExportNote.html	settings_kid_toggle		Save your data locally. Import only adds the profiles you pick from the file as new profiles — nothing already on this device is overwritten.	Save your data on this device. Import only <strong>adds</strong> the people you tick from the file as <strong>new</strong> profiles — nothing already here is overwritten.	yes
+settings.dynamic.importBackupWarnLine.html	settings_kid_toggle		This only <strong>adds</strong> copies of the profiles you choose. Everything already on this device stays exactly as it is (even if an ID in the file matches one here — that copy gets a new ID).	This only <strong>adds</strong> profile copies you choose. Everything already on this device stays the same (even if an ID in the file matches — that copy gets a new ID).	yes
+settings.dynamic.advancedCloudHistoryIntro.html	settings_kid_toggle		We keep up to two recent backups in your account when you sync — handy if something ever looks off. Tap a saved backup to restore it.	We save two backups of your stuff when you sync. If something looks wrong, tap one to go back to how it was before today.	yes
+onboarding.wizard.wizard.adult.brandSub	onboarding_wizard	adult	Build better habits, week by week.		no
+onboarding.wizard.wizard.adult.step0.title	onboarding_wizard	adult	Welcome		no
+onboarding.wizard.wizard.adult.step0.sub	onboarding_wizard	adult	Small steps, every week. That's all this takes — and we'll help you stick with it.		no
+onboarding.wizard.wizard.adult.step1.title	onboarding_wizard	adult	Profile & dates		no
+onboarding.wizard.wizard.adult.step1.sub	onboarding_wizard	adult	Pop in your name and birth date if you like. If you're 0–8, things look a little different. Your tracking kicks off from today.		no
+onboarding.wizard.wizard.adult.step1.lblName	onboarding_wizard	adult	Display name		no
+onboarding.wizard.wizard.adult.step1.lblDob	onboarding_wizard	adult	Date of birth		no
+onboarding.wizard.wizard.adult.step1.lblStart	onboarding_wizard	adult	Tracking start date		no
+onboarding.wizard.wizard.adult.step2.title	onboarding_wizard	adult	Appearance		no
+onboarding.wizard.wizard.adult.step2.note	onboarding_wizard	adult	Pick a theme that feels like you.		no
+onboarding.wizard.wizard.kid.brandSub	onboarding_wizard	kid		Build good habits, one week at a time.	no
+onboarding.wizard.wizard.kid.step0.title	onboarding_wizard	kid		Welcome	no
+onboarding.wizard.wizard.kid.step0.sub	onboarding_wizard	kid		Small steps, every week — and they add up faster than you think!	no
+onboarding.wizard.wizard.kid.step1.title	onboarding_wizard	kid		Profile & dates	no
+onboarding.wizard.wizard.kid.step1.sub	onboarding_wizard	kid		Add your name and birthday if you like. If you're 0–8, things look a bit friendlier. Tracking starts today — a grown-up can help with dates.	no
+onboarding.wizard.wizard.kid.step1.lblName	onboarding_wizard	kid		Your name	no
+onboarding.wizard.wizard.kid.step1.lblDob	onboarding_wizard	kid		Birthday	no
+onboarding.wizard.wizard.kid.step1.lblStart	onboarding_wizard	kid		Start counting weeks from	no
+onboarding.wizard.wizard.kid.step2.title	onboarding_wizard	kid		Appearance	no
+onboarding.wizard.wizard.kid.step2.note	onboarding_wizard	kid		Pick a theme that feels like you.	no
+onboarding.intro.adult.brandTitle	onboarding_intro	adult	How it works		no
+onboarding.intro.adult.brandSub	onboarding_intro	adult	Here's how it all fits together.		no
+onboarding.intro.adult.steps[0].title	onboarding_intro	adult	Three mechanisms		no
+onboarding.intro.adult.steps[0].html	onboarding_intro	adult	<p style="margin:0 0 var(--s3)">Consistency works best with a little structure. This app gives you three things to keep you on track:</p><ul><li><strong>Goal</strong> — a long-term reward to keep your eyes on the big picture.</li><li><strong>Weekly treat</strong> — a small reward so you feel the win often.</li><li><strong>Consistency</strong> — a streak worth protecting.</li></ul>		yes
+onboarding.intro.adult.steps[1].title	onboarding_intro	adult	Consistency		no
+onboarding.intro.adult.steps[1].html	onboarding_intro	adult	<p style="margin:0 0 var(--s3)"><strong>Consistency</strong> is really just doing things repeatedly — nothing magic about it. But we've made it satisfying. Life gets in the way sometimes, and that's fine. Hitting <strong>80%</strong> of the time? That's genuinely good.</p>		yes
+onboarding.intro.adult.steps[2].title	onboarding_intro	adult	Qualify		no
+onboarding.intro.adult.steps[2].html	onboarding_intro	adult	<p style="margin:0">Stay consistent for <strong>80%</strong> of your weeks and you'll unlock your <strong>big Goal</strong> reward — plus you'll have actually built the habits that got you there.</p>		yes
+onboarding.intro.adult.steps[3].title	onboarding_intro	adult	Core habits		no
+onboarding.intro.adult.steps[3].html	onboarding_intro	adult	<p style="margin:0 0 var(--s3)">A week counts when your <strong>core</strong> habits are done. We'll explain more as you go.</p><p style="margin:0">For now — let's set your first <strong>Goal</strong>.</p>		yes
+onboarding.intro.kid.brandTitle	onboarding_intro	kid		How it works	no
+onboarding.intro.kid.brandSub	onboarding_intro	kid		Here's what this app does.	no
+onboarding.intro.kid.steps[0].title	onboarding_intro	kid		Three helpers	no
+onboarding.intro.kid.steps[0].html	onboarding_intro	kid		<p style="margin:0 0 var(--s3)">This app uses three ideas:</p><ul><li>A big <strong>Goal</strong> to save toward.</li><li>A small weekly <strong>Treat</strong> when you do well.</li><li>A <strong>Consistency</strong> streak you'll want to protect.</li></ul><p style="margin:0">Ask a grown-up if anything feels tricky.</p>	yes
+onboarding.intro.kid.steps[1].title	onboarding_intro	kid		Consistency	no
+onboarding.intro.kid.steps[1].html	onboarding_intro	kid		<p style="margin:0 0 var(--s3)"><strong>Consistency</strong> means showing up again and again. This app tries to make that feel fair and a bit fun. Aim to be on track most weeks — grown-ups often use about <strong>80%</strong> as a guide.</p>	yes
+onboarding.intro.kid.steps[2].title	onboarding_intro	kid		Qualify	no
+onboarding.intro.kid.steps[2].html	onboarding_intro	kid		<p style="margin:0">When your week <strong>qualifies</strong>, you stay <strong>Consistent</strong> and move closer to your big <strong>Goal</strong> — while building habits along the way.</p>	yes
+onboarding.intro.kid.steps[3].title	onboarding_intro	kid		Ready	no
+onboarding.intro.kid.steps[3].html	onboarding_intro	kid		<p style="margin:0 0 var(--s3)">A week qualifies when its <strong>core</strong> habits qualify. Grown-ups can read more in <strong>Settings → Help</strong>.</p><p style="margin:0">Next: add your first <strong>Goal</strong>.</p>	yes
+fieldTip.goalName.adult.title	field_tips		Goal name		no
+fieldTip.goalName.adult.body	field_tips		Pick something you're genuinely working toward — the kind of thing worth saving up for over weeks or months. Make it feel like a real destination, not a to-do.		no
+fieldTip.goalName.kid.title	field_tips			Goal name	no
+fieldTip.goalName.kid.body	field_tips			Think of something you really want to work toward — maybe something you'd love to save up for. Pick something that gets you excited!	no
+fieldTip.goalReward.adult.title	field_tips		Weekly treat		no
+fieldTip.goalReward.adult.body	field_tips		A small treat for a good week — like a film night or a favourite snack. It should feel like a genuine reward, not a health target. Goals and treats are for staying on track, not for outcomes like losing weight.		no
+fieldTip.goalReward.kid.title	field_tips			Weekly treat	no
+fieldTip.goalReward.kid.body	field_tips			Pick something fun for a good week — like a game, a snack, or a movie night. Keep it small and enjoyable, not a big task or a goal.	no
+fieldTip.habitTitle.adult.title	field_tips		Habit		no
+fieldTip.habitTitle.adult.body	field_tips		Go for specific, repeatable actions — "walk 20 minutes" or "read before bed" work well. Avoid broad outcomes like "lose 30kg", and keep your weekly treat separate from your habits.		no
+fieldTip.habitTitle.kid.title	field_tips			Habit	no
+fieldTip.habitTitle.kid.body	field_tips			Write a small thing you do again and again — like "read 10 minutes". Big goals and treats go in the other boxes.	no
+habitTierTutorial.adult.title	habit_editor_tour		Core vs Growth habits		no
+habitTierTutorial.adult.body	habit_editor_tour		<strong>Core</strong> — Every core habit must qualify in a week for that week to count as "on track".<br><br><strong>Growth</strong> — Both core and growth habits add money to your pots at the end of the week when they qualify.<br><br><strong>Recovery mode</strong> — When your consistency % drops below the floor, only core habits add to your pot until you recover (more on this later).		yes
+habitTierTutorial.kid.title	habit_editor_tour			Core or growth — what's the difference?	no
+habitTierTutorial.kid.body	habit_editor_tour			Core habits are the big “must-do” ones for a goal. After a week closes, every core habit for that goal needs to qualify so that week counts on your score circle and for your weekly treat.\n\nGrowth habits are extra helpful habits. When they qualify, they add jar money — but missing them never blocks the week from counting.\n\nRecovery means your rolling score dropped below your floor (grown-ups pick the number per goal; it is often around 80%). Then only core habits add jar money until your score climbs back to the floor; growth habits wait and add £0 so you focus on the must-dos first.\n\nAsk a grown-up if you want help reading the Grace screen — it explains easy-start weeks.	yes
+insightCategoryLabel.kid.sleep	insight_category_labels_kid			Sleep	no
+insightCategoryLabel.kid.eating	insight_category_labels_kid			Food & meals	no
+insightCategoryLabel.kid.cardio	insight_category_labels_kid			Moving & heart	no
+insightCategoryLabel.kid.consistency	insight_category_labels_kid			Habits & sticking with it	no
+insightCategoryLabel.kid.neuroscience	insight_category_labels_kid			Your brain	no
+insightCategoryLabel.kid.adhd	insight_category_labels_kid			Focus & attention	no
+insightCategoryLabel.kid.journal	insight_category_labels_kid			Writing things down	no
+insightCategoryLabel.kid.reading	insight_category_labels_kid			Reading	no
+insightCategoryLabel.kid.meditation	insight_category_labels_kid			Calm focus	no
+insightCategoryLabel.kid.workout	insight_category_labels_kid			Exercise & strength	no
+insightCategoryLabel.kid.productivity	insight_category_labels_kid			Getting things done	no
+insightCategoryLabel.kid.family	insight_category_labels_kid			Family & home	no
+insightCategoryLabel.kid.finance	insight_category_labels_kid			Money habits	no
+insightCategoryLabel.kid.health	insight_category_labels_kid			Healthy habits	no
+insightCategoryLabel.kid.funny	insight_category_labels_kid			Silly facts	no
+insightCategoryLabel.kid.myth	insight_category_labels_kid			Myth-busting	no
+insightCategoryLabel.kid.inside_the_app	insight_category_labels_kid			Inside this app	no
+insightCategoryLabel.kid.how_the_consistency_app_works	insight_category_labels_kid			How this app works	no
+insightCategoryLabel.kid.molecules_and_mood	insight_category_labels_kid			Moods & brain chemistry	no
+habitPresetCategoryLabel.self_care	habit_preset_category		Self-care		no
+habitPresetCategoryLabel.wellbeing	habit_preset_category		Wellbeing		no
+habitPresetCategoryLabel.mindfulness	habit_preset_category		Mindfulness		no
+habitPresetCategoryLabel.religion	habit_preset_category		Faith & spirituality		no
+habitPresetCategoryLabel.hygiene	habit_preset_category		Hygiene		no
+habitPresetCategoryLabel.social	habit_preset_category		Social		no
+habitPresetCategoryLabel.exercise	habit_preset_category		Exercise		no
+habitPresetCategoryLabel.creativity	habit_preset_category		Creativity		no
+habitPresetCategoryLabel.work_study	habit_preset_category		Work & study		no
+habitPresetCategoryLabel.home_space	habit_preset_category		Home & space		no
+habitPresetCategoryLabel.finance	habit_preset_category		Finance		no
+habitPresetCategoryLabel.other	habit_preset_category		Other		no
+habitPreset.sleep.label	habit_preset		Sleep by target time		no
+habitPreset.sleep.title	habit_preset		Asleep by 11pm		no
+habitPreset.nap.label	habit_preset		Afternoon nap		no
+habitPreset.nap.title	habit_preset		Nap (20 min)		no
+habitPreset.screenoff.label	habit_preset		Screens off before bed		no
+habitPreset.screenoff.title	habit_preset		Screens off by 10:30pm		no
+habitPreset.wakeup.label	habit_preset		Wake up by target time		no
+habitPreset.wakeup.title	habit_preset		Wake by 6:30am		no
+habitPreset.winddown.label	habit_preset		Wind-down routine		no
+habitPreset.winddown.title	habit_preset		Wind-down routine		no
+habitPreset.eating.label	habit_preset		No eating after cutoff		no
+habitPreset.eating.title	habit_preset		No eating after 7:30pm		no
+habitPreset.water.label	habit_preset		Daily water target		no
+habitPreset.water.title	habit_preset		2.5L water daily		no
+habitPreset.breakfast.label	habit_preset		Eat breakfast		no
+habitPreset.breakfast.title	habit_preset		Eat breakfast		no
+habitPreset.alcohol.label	habit_preset		Alcohol-free days		no
+habitPreset.alcohol.title	habit_preset		Alcohol-free day		no
+habitPreset.sugar.label	habit_preset		No added sugar		no
+habitPreset.sugar.title	habit_preset		No added sugar		no
+habitPreset.workout.label	habit_preset		Workout session		no
+habitPreset.workout.title	habit_preset		Workout session		no
+habitPreset.running.label	habit_preset		Weekly running distance		no
+habitPreset.running.title	habit_preset		Running (10km/wk)		no
+habitPreset.cycling.label	habit_preset		Weekly cycling distance		no
+habitPreset.cycling.title	habit_preset		Cycling (50km/wk)		no
+habitPreset.walk.label	habit_preset		Daily steps / walk		no
+habitPreset.walk.title	habit_preset		10,000 steps		no
+habitPreset.swim.label	habit_preset		Swimming session		no
+habitPreset.swim.title	habit_preset		Swim session		no
+habitPreset.badminton.label	habit_preset		Badminton session		no
+habitPreset.badminton.title	habit_preset		Badminton session		no
+habitPreset.yoga.label	habit_preset		Yoga / stretching		no
+habitPreset.yoga.title	habit_preset		Yoga / stretch		no
+habitPreset.martial.label	habit_preset		Martial arts session		no
+habitPreset.martial.title	habit_preset		Martial arts		no
+habitPreset.hiit.label	habit_preset		HIIT session		no
+habitPreset.hiit.title	habit_preset		HIIT session		no
+habitPreset.mobility.label	habit_preset		Mobility / physio routine		no
+habitPreset.mobility.title	habit_preset		Mobility routine		no
+habitPreset.journal.label	habit_preset		Journaling session		no
+habitPreset.journal.title	habit_preset		Journal session		no
+habitPreset.reading.label	habit_preset		Reading session		no
+habitPreset.reading.title	habit_preset		Reading (30 min)		no
+habitPreset.meditation.label	habit_preset		Meditation / mindfulness		no
+habitPreset.meditation.title	habit_preset		Meditation (10 min)		no
+habitPreset.learning.label	habit_preset		Deliberate learning		no
+habitPreset.learning.title	habit_preset		Learn something new		no
+habitPreset.focus.label	habit_preset		Deep focus work block		no
+habitPreset.focus.title	habit_preset		Deep work (90 min)		no
+habitPreset.writing.label	habit_preset		Creative / fiction writing		no
+habitPreset.writing.title	habit_preset		Writing session		no
+habitPreset.3dprint.label	habit_preset		3D printing project		no
+habitPreset.3dprint.title	habit_preset		3D printing session		no
+habitPreset.music.label	habit_preset		Music practice		no
+habitPreset.music.title	habit_preset		Music practice		no
+habitPreset.language.label	habit_preset		Language learning		no
+habitPreset.language.title	habit_preset		Language study		no
+habitPreset.coding.label	habit_preset		Coding / dev project		no
+habitPreset.coding.title	habit_preset		Coding session		no
+habitPreset.coldcall.label	habit_preset		Business outreach / calls		no
+habitPreset.coldcall.title	habit_preset		Business outreach		no
+habitPreset.content.label	habit_preset		Social media content post		no
+habitPreset.content.title	habit_preset		Post content		no
+habitPreset.admin.label	habit_preset		Admin / paperwork cleared		no
+habitPreset.admin.title	habit_preset		Clear admin		no
+habitPreset.cme.label	habit_preset		CPD / medical learning		no
+habitPreset.cme.title	habit_preset		CPD session		no
+habitPreset.review.label	habit_preset		Weekly review / planning		no
+habitPreset.review.title	habit_preset		Weekly review		no
+habitPreset.family.label	habit_preset		Quality family time		no
+habitPreset.family.title	habit_preset		Quality time with family		no
+habitPreset.date.label	habit_preset		Date / partner time		no
+habitPreset.date.title	habit_preset		Date / partner time		no
+habitPreset.friends.label	habit_preset		Social time with friends		no
+habitPreset.friends.title	habit_preset		See friends		no
+habitPreset.call.label	habit_preset		Call a loved one		no
+habitPreset.call.title	habit_preset		Call family / friend		no
+habitPreset.gratitude.label	habit_preset		Gratitude practice		no
+habitPreset.gratitude.title	habit_preset		Gratitude note		no
+habitPreset.meds.label	habit_preset		Take medication / supplements		no
+habitPreset.meds.title	habit_preset		Take supplements		no
+habitPreset.posture.label	habit_preset		Posture check / ergonomics		no
+habitPreset.posture.title	habit_preset		Posture check		no
+habitPreset.eyerest.label	habit_preset		Screen eye rest (20-20-20)		no
+habitPreset.eyerest.title	habit_preset		20-20-20 eye rest		no
+habitPreset.nosnack.label	habit_preset		No late-night snacking		no
+habitPreset.nosnack.title	habit_preset		No late snack		no
+habitPreset.meal_replace.label	habit_preset		No replacing meals with snacks		no
+habitPreset.meal_replace.title	habit_preset		No replacing normal meals with snacking		no
+habitPreset.outdoor.label	habit_preset		Time outdoors / sunlight		no
+habitPreset.outdoor.title	habit_preset		20 min outdoors		no
+habitPreset.budget.label	habit_preset		Log daily spending		no
+habitPreset.budget.title	habit_preset		Log spending		no
+habitPreset.savings.label	habit_preset		Transfer to savings		no
+habitPreset.savings.title	habit_preset		Transfer to savings		no
+habitPreset.declutter.label	habit_preset		Declutter / tidy session		no
+habitPreset.declutter.title	habit_preset		Tidy one area		no
+habitPreset.meal_prep.label	habit_preset		Meal prep session		no
+habitPreset.meal_prep.title	habit_preset		Meal prep		no
+habitPreset.tasks.label	habit_preset		Clear daily task list		no
+habitPreset.tasks.title	habit_preset		Clear today's tasks		no
+habitPreset.rel_practice.label	habit_preset		Daily prayer or contemplation		no
+habitPreset.rel_practice.title	habit_preset		Prayer or contemplation		no
+habitPreset.rel_reading.label	habit_preset		Devotional or sacred reading		no
+habitPreset.rel_reading.title	habit_preset		Sacred reading (20 min)		no
+habitPreset.rel_gathering.label	habit_preset		Community worship or gathering		no
+habitPreset.rel_gathering.title	habit_preset		Community gathering		no
+habitPreset.rel_study.label	habit_preset		Study group or spiritual class		no
+habitPreset.rel_study.title	habit_preset		Study / discussion group		no
+habitPreset.rel_service.label	habit_preset		Service, giving, or volunteering		no
+habitPreset.rel_service.title	habit_preset		Act of service or giving		no
+habitPreset.rel_reflection.label	habit_preset		Spiritual reflection or examen		no
+habitPreset.rel_reflection.title	habit_preset		Spiritual reflection		no
+habitPreset.rel_rest.label	habit_preset		Rest day or intentional pause		no
+habitPreset.rel_rest.title	habit_preset		Rest or pause day		no
+habitPreset.rel_fasting.label	habit_preset		Observance day (e.g. fasting)		no
+habitPreset.rel_fasting.title	habit_preset		Observance day kept		no
+rewardPreset[0]	reward_presets		Badminton		no
+rewardPreset[1]	reward_presets		Cinema		no
+rewardPreset[2]	reward_presets		Gaming session		no
+rewardPreset[3]	reward_presets		Massage		no
+rewardPreset[4]	reward_presets		Takeaway		no
+rewardPreset[5]	reward_presets		Coffee out		no
+rewardPreset[6]	reward_presets		Book time		no
+rewardPreset[7]	reward_presets		Sauna		no
+rewardPreset[8]	reward_presets		Family outing		no
+rewardPreset[9]	reward_presets		New gadget time		no
+rewardPreset[10]	reward_presets		Custom		no
+uiPalette.neutral.label	ui_palette		Slate		no
+uiPalette.neutral.sub	ui_palette		Neutral & calm		no
+uiPalette.navy.label	ui_palette		Navy		no
+uiPalette.navy.sub	ui_palette		Deep blue focus		no
+uiPalette.graphite.label	ui_palette		Graphite		no
+uiPalette.graphite.sub	ui_palette		Black & gray		no
+uiPalette.burgundy.label	ui_palette		Burgundy		no
+uiPalette.burgundy.sub	ui_palette		Warm wine tone		no
+uiPalette.teal.label	ui_palette		Teal		no
+uiPalette.teal.sub	ui_palette		Fresh aqua		no
+uiPalette.purple.label	ui_palette		Purple		no
+uiPalette.purple.sub	ui_palette		Soft lilac		no
+uiPalette.sage.label	ui_palette		Sage		no
+uiPalette.sage.sub	ui_palette		Muted green		no
+uiPalette.rose.label	ui_palette		Rose		no
+uiPalette.rose.sub	ui_palette		Dusty mauve		no
