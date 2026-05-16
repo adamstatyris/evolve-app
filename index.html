@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Consistency v2.1beta — habit mastery (Premium), completed goals, goal celebration; new profile data syncs via existing cloud payload -->
+<!-- Consistency v2.2beta — daily habit reminders, Sunday nudge coverage, in-browser notification limits -->
 <html lang="en" data-theme="dark" data-palette="neutral">
 <head>
 <meta charset="UTF-8">
@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Consistency">
 <meta name="mobile-web-app-capable" content="yes">
-<title>Consistency (v2.1beta)</title>
+<title>Consistency (v2.2beta)</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1172,7 +1172,7 @@ select#hTier.habit-tier-select-expanded{min-height:4.25rem;border-radius:var(--r
 
 <div class="whats-new-float" id="whatsNewFloat" hidden role="dialog" aria-modal="true" aria-labelledby="wnTitle">
   <button type="button" class="btn btn-ghost btn-sm" style="position:absolute;top:var(--s2);right:var(--s2);padding:var(--s1) var(--s2)" onclick="hideWhatsNewFloat()" aria-label="Dismiss">×</button>
-  <div class="wn-kicker" id="wnKicker">v2.1beta</div>
+  <div class="wn-kicker" id="wnKicker">v2.2beta</div>
   <div class="wn-title" id="wnTitle">What's new</div>
   <div class="wn-body">
     <div class="wn-section">
@@ -1610,7 +1610,7 @@ select#hTier.habit-tier-select-expanded{min-height:4.25rem;border-radius:var(--r
     <div style="text-align:center;padding:var(--s3) 0">
       <div style="font-size:2rem;margin-bottom:var(--s2)">🎯</div>
       <div style="font-size:var(--xl);font-weight:800;color:var(--text)">Consistency</div>
-      <div style="font-size:var(--sm);color:var(--text-muted);margin-top:var(--s1)" id="settingsAboutVersion">v2.1beta</div>
+      <div style="font-size:var(--sm);color:var(--text-muted);margin-top:var(--s1)" id="settingsAboutVersion">v2.2beta</div>
       <p class="small-note" id="settingsAboutBlurb" style="margin-top:var(--s4);line-height:1.65;max-width:340px;margin-left:auto;margin-right:auto">A personal habit-tracking tool built around weekly consistency. Made for those who want to meet their better self and keep it.</p>
     </div>
   </div>
@@ -2057,12 +2057,12 @@ function uid(p='id'){return p+'_'+Math.random().toString(36).slice(2,9)}
 function isoDate(d){return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)}
 // Key stays at 'v4' to preserve existing user data; migrate() handles schema changes on load.
 const STORAGE_KEY='consistency-app-v4';
-const APP_DISPLAY_VERSION='v2.1beta';
+const APP_DISPLAY_VERSION='v2.2beta';
 /** Bump when shipping user-facing release notes; shown once per profile via S.user.lastSeenWhatsNewVersion. */
-const CURRENT_VERSION='9.3';
+const CURRENT_VERSION='v2.2beta';
 const WHATS_NEW_FOR_VERSION={
-'9.3':{
-kicker:'Version 9.3',
+'v2.2beta':{
+kicker:'v2.2beta',
 headline:'Per-habit daily nudges, fuller Sunday coverage, and clear limits on background “push”.',
 bullets:[
 'Daily reminders (adults): new collapsible block in the habit editor — toggle on, choose how many times per day (1–8), and times are filled automatically from each template’s defaults or an even spread between 8:00 and 21:00 (rounded to 5 minutes). The browser asks for permission the first time you enable this; it also enables notifications under Settings → Tracking.',
@@ -2083,7 +2083,7 @@ bullets:[
 foot:'Nothing changes on its own; restores still need you to confirm.'
 }
 };
-const WHATS_NEW_PROMPT_ID='v2.1beta-whats-new-1';
+const WHATS_NEW_PROMPT_ID='v2.2beta-whats-new-1';
 function formatBackupDateDdMmYyyy(savedAt){
   const d=new Date(savedAt);
   if(!Number.isFinite(d.getTime()))return'—';
