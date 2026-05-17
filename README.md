@@ -4,7 +4,7 @@ A habit and goal tracker built around weekly consistency, gentle scoring, and we
 
 ## Status
 
-Closed beta (**v2.2beta**). **Auth:** Supabase (Google + email magic link). **Cloud sync:** signed-in users sync the full multi-profile `ROOT` to Supabase (`user_state`) from **Settings ÔåÆ Account**. **Automatic cloud archives:** these are **not** manual uploads. After you run the SQL in [`supabase/schema.sql`](supabase/schema.sql) (see [Supabase setup](#supabase-setup-cloud-sync--backups)), each successful sync can archive the **previous** cloud payload on the server; the app keeps **at most 2 archived states per account from the last 2 days** (rolling 48 hours). **Settings ÔåÆ Account ÔåÆ Automatic cloud archives** lists them as **Backup 1** / **Backup 2** (newest first) for **manual restore** if live data looks wrongÔÇöthe app creates and uploads the archives when you sync.
+Closed beta (**v2.2.1**). **Auth:** Supabase (Google + email magic link). **Cloud sync:** signed-in users sync the full multi-profile `ROOT` to Supabase (`user_state`) from **Settings ÔåÆ Account**. **Automatic cloud archives:** these are **not** manual uploads. After you run the SQL in [`supabase/schema.sql`](supabase/schema.sql) (see [Supabase setup](#supabase-setup-cloud-sync--backups)), each successful sync can archive the **previous** cloud payload on the server; the app keeps **at most 2 archived states per account from the last 2 days** (rolling 48 hours). **Settings ÔåÆ Account ÔåÆ Automatic cloud archives** lists them as **Backup 1** / **Backup 2** (newest first) for **manual restore** if live data looks wrongÔÇöthe app creates and uploads the archives when you sync.
 
 ## Repository layout
 
@@ -39,7 +39,7 @@ Snapshots are optional for sync itself: if `user_state_history` is missing, uplo
 
 **All** reminder delivery when the app is closed is **Web Push** through Supabase: the client writes pending rows to **`reminder_schedule`** and registers a **VAPID** subscription in **`push_subscriptions`**. A scheduled job calls the **`push-reminders`** Edge Function ( `web-push` ) to deliver notifications. The service worker **only** handles `push` and `fetch` (no Periodic Background Sync reminder snapshot).
 
-Included in the server schedule (local wall times when the client syncs): **per-habit exact times** (not in kid mode), **Sunday / grace-window** nudges at fixed times, one **habits_day** nudge (14:00) when any **core or growth** habit is still unlogged that day, plus the optional dev test slot (`CONSISTENCY_TEMP_PUSH_TEST_2350`). **`CONSISTENCY_VAPID_PUBLIC_KEY`** must be set in `index.html` for scheduling to run; users must be **signed in** with sync-capable session.
+Included in the server schedule (local wall times when the client syncs): **per-habit exact times** (not in kid mode), **Sunday week-close** nudges at fixed times (spread through the day), one **habits_day** nudge (14:00) when any **core or growth** habit is still unlogged that day, plus the optional dev test slot (`CONSISTENCY_TEMP_PUSH_TEST_2350`). **`CONSISTENCY_VAPID_PUBLIC_KEY`** must be set in `index.html` for scheduling to run; users must be **signed in** with sync-capable session.
 
 **Billing:** delivery uses normal Edge Function invocations. On the free tier, projects include a large monthly Edge quota (see [Supabase pricing](https://supabase.com/pricing)); a cron every 1ÔÇô5 minutes stays far below typical free limits for a personal app.
 
