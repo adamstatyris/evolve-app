@@ -1,7 +1,7 @@
 /* Service worker: fetch pass-through + Web Push only.
  * Scheduled reminders are delivered via Supabase Edge (push) — no Periodic Background Sync snapshot.
  */
-var CONSISTENCY_SW_CACHE = 'consistency-sw-v8';
+var CONSISTENCY_SW_CACHE = 'consistency-sw-v9';
 
 function notifIconUrl() {
   try {
@@ -23,7 +23,20 @@ self.addEventListener('fetch', function (e) {
   if (e.request.mode === 'navigate' || e.request.destination === 'document') {
     return;
   }
-  e.respondWith(fetch(e.request));
+  try {
+    var reqUrl = new URL(e.request.url);
+    var swUrl = new URL(self.location.href);
+    if (reqUrl.origin !== swUrl.origin) {
+      return;
+    }
+  } catch (err) {
+    return;
+  }
+  e.respondWith(
+    fetch(e.request).catch(function () {
+      return Response.error();
+    })
+  );
 });
 
 self.addEventListener('push', function (event) {
