@@ -24,7 +24,7 @@ node tools/extract-ui-copy.mjs
 - **Settings (dynamic)** — Adult vs kid strings from `syncSettingsPanelsKidCopy()` (`setTxt` / `setHtml`).
 - **Onboarding** — `ONBOARDING_WIZARD_COPY` and `ONBOARDING_INTRO_COPY` (adult + kid), including HTML intro steps.
 - **Field tips** — `FIELD_TIP_COPY` (goal name, reward, habit title).
-- **Grace offer stepper** — `GRACE_OFFER_STEPS_ADULT` / `_KID`.
+- **(Removed)** Legacy grace-offer stepper constants are gone from the app; do not reintroduce `GRACE_OFFER_STEPS_*` in copy exports.
 - **Habit tier spotlight** — `HABIT_TIER_TUTORIAL_COPY`.
 - **Insight category labels (kid)** — `INSIGHT_CATEGORY_LABELS_KID`.
 - **Habit preset category labels** — `HABIT_PRESET_CATEGORY_LABELS`.
@@ -36,7 +36,7 @@ node tools/extract-ui-copy.mjs
 
 The app is mostly one large `index.html`. The extractor does not yet harvest:
 
-- Static **HTML** copy: cookie banner, many **modals** (grace info, stop tracking, auth gate, guide / Tips article, goal & habit forms, import backup, confirmations, etc.).
+- Static **HTML** copy: cookie banner, many **modals** (stop tracking, auth gate, guide / Tips article, goal & habit forms, import backup, confirmations, etc.).
 - **Main chrome**: tab labels, section titles, button labels that are not wired through `syncSettingsPanelsKidCopy`.
 - **Guided tour** — `_guidedTourSteps` / `_guidedTourStepsKid` (long inline objects).
 - **Runtime UI** — strings built in `renderDashboard`, `renderTracker`, `renderHistory`, coaches, steppers, **browser notifications**, `alert()` / `confirm()` text, sync/auth messages, **aria-label** / **title** attributes.
@@ -53,7 +53,7 @@ You are editing **user-facing copy** for **Consistency**, a browser-based weekly
 ### Product context
 
 - **Audience:** Adults and **children (roughly 0–8)**. Kid mode uses simpler vocabulary, shorter sentences, and often points caregivers to **Settings** or “grown-ups” for cloud, account, and complex rules.
-- **Core ideas:** Goals with a savings **pot**, **weekly treats**, **habits** (core vs growth), **Monday–Sunday weeks**, **consistency %** on a disc, **grace period** for early weeks, **recovery** when a goal’s rolling % drops below its **floor** (often ~80%).
+- **Core ideas:** Goals with a savings **pot**, **weekly treats**, **habits** (core vs growth), **Monday–Sunday weeks** (each week **locks at local midnight Sunday**), **consistency %** on a disc, **recovery** when a goal’s rolling % drops below its **floor** (often ~80%), optional **Web Push** reminders for Sunday week-close and missing logs when signed in.
 - **Tabs:** Dashboard, Log, Habits, History, Habit Bank. **Settings** includes Account (profiles + sign-in/sync), Appearance, Tracking, Advanced (backup / cloud snapshots), Help (tours, Tips), About.
 - **Insights / “fun facts”:** Short optional reads; kid variants must stay **non-frightening**, non-clinical, and **not** promise medical outcomes.
 

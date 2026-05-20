@@ -27,16 +27,20 @@ create policy "user_state_delete_own"
   on public.user_state for delete
   using (auth.uid() = user_id);
 
--- Previous cloud payloads (archived before each upload when a prior cloud row exists).
--- Prune (client): keeps at most one archived row per local calendar day for yesterday and two days ago; deletes all other history rows for that user. Live row stays in user_state.
+-- Rolling cloud backups: slots T-1 / T-2 (maintained by nightly Edge Function + pre-delete snapshots), plus optional auto-revert audit rows.
 create table if not exists public.user_state_history (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users (id) on delete cascade,
   payload jsonb not null,
-  saved_at timestamptz not null
+  saved_at timestamptz not null,
+  slot text
 );
 
 create index if not exists user_state_history_user_saved_idx on public.user_state_history (user_id, saved_at desc);
+
+create unique index if not exists user_state_history_user_slot_t1_t2_uidx
+  on public.user_state_history (user_id, slot)
+  where (slot is not null and slot in ('T-1', 'T-2'));
 
 alter table public.user_state_history enable row level security;
 
@@ -50,6 +54,10 @@ create policy "user_state_history_insert_own"
 
 create policy "user_state_history_delete_own"
   on public.user_state_history for delete
+  using (auth.uid() = user_id);
+
+create policy "user_state_history_update_own"
+  on public.user_state_history for update
   using (auth.uid() = user_id);
 
 -- Web Push: one row per browser subscription (VAPID). Edge Function uses service role to send.

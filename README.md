@@ -1,10 +1,10 @@
-﻿# Consistency
+# Consistency
 
 A habit and goal tracker built around weekly consistency, gentle scoring, and weekly treats. Single-file PWA ÔÇö installable on Android and iOS.
 
 ## Status
 
-Closed beta (**v2.2.1**). **Auth:** Supabase (Google + email magic link). **Cloud sync:** signed-in users sync the full multi-profile `ROOT` to Supabase (`user_state`) from **Settings ÔåÆ Account**. **Automatic cloud archives:** these are **not** manual uploads. After you run the SQL in [`supabase/schema.sql`](supabase/schema.sql) (see [Supabase setup](#supabase-setup-cloud-sync--backups)), each successful sync can archive the **previous** cloud payload on the server; the app keeps **at most 2 archived states per account from the last 2 days** (rolling 48 hours). **Settings ÔåÆ Account ÔåÆ Automatic cloud archives** lists them as **Backup 1** / **Backup 2** (newest first) for **manual restore** if live data looks wrongÔÇöthe app creates and uploads the archives when you sync.
+Closed beta (**v2.2.1**). **Auth:** Supabase (Google + email magic link). **Cloud sync:** signed-in users sync the full multi-profile `ROOT` to Supabase (`user_state`) from **Settings ÔåÆ Account**. **Automatic cloud backups:** two rolling snapshots per account (**T-1** / **T-2**) live in `user_state_history` (column **`slot`**). They are updated **server-side** by the **`nightly-backup-roll`** Edge Function (e.g. daily at 00:10 UTC). The app also refreshes **T-1** / **T-2** immediately before a **destructive profile or goal delete** when sync is on. **Settings ÔåÆ Advanced ÔåÆ Automatic cloud backups** lists **Revert to yesterday** (T-1) and **Revert to 2 days ago** (T-2) when those rows exist.
 
 ## Repository layout
 
@@ -15,8 +15,9 @@ Closed beta (**v2.2.1**). **Auth:** Supabase (Google + email magic link). **Clou
 Ôö£ÔöÇÔöÇ sw.js                   # Service worker: fetch + Web Push handler only
 Ôö£ÔöÇÔöÇ _headers                # Cloudflare Pages cache rules
 Ôö£ÔöÇÔöÇ supabase/
-Ôöé   Ôö£ÔöÇÔöÇ schema.sql          # `user_state`, `user_state_history`, Web Push tables + RLS
-Ôöé   ÔööÔöÇÔöÇ functions/push-reminders/   # Edge Function: cron sends due rows via Web Push
+Ôöé   Ôö£ÔöÇÔöÇ migrations/            # Incremental SQL (e.g. slot column for existing DBs)
+Ôöé   Ôö£ÔöÇÔöÇ functions/push-reminders/      # Edge Function: cron sends due rows via Web Push
+Ôöé   ÔööÔöÇÔöÇ functions/nightly-backup-roll/ # Edge Function: nightly T-1/T-2 rolling backups
 Ôö£ÔöÇÔöÇ icons/                  # PWA icons (192, 512, apple-touch)
 ÔööÔöÇÔöÇ README.md
 ```
@@ -28,18 +29,47 @@ Do this in the [Supabase Dashboard](https://supabase.com/dashboard) for **the sa
 1. Open your project ÔåÆ **SQL Editor** (left sidebar) ÔåÆ **New query**.
 2. Open [`supabase/schema.sql`](supabase/schema.sql) in this repo and **copy the entire file** into the editor.  
    - **New project:** run the full script once.  
-   - **Already migrated `user_state`:** if the editor reports errors such as *policy already exists* for `user_state_*`, do **not** re-run those lines ÔÇö copy only the block in `schema.sql` from `-- Previous cloud payloads` through the last `user_state_history` policy and run **that** once to add cloud backup history. For **Web Push**, copy from `-- Web Push:` through the last `reminder_schedule` policy and run that once (see [Web Push](#web-push-supabase-edge-function--cron)).
+   - **Already migrated `user_state`:** if the editor reports errors such as *policy already exists* for `user_state_*`, do **not** re-run those lines ÔÇö copy only the block in `schema.sql` from `-- Rolling cloud backups` through the last `user_state_history` policy and run **that** once (or run [`supabase/migrations/20260209000000_user_state_history_slot.sql`](supabase/migrations/20260209000000_user_state_history_slot.sql) to add `slot` + policies on an older database). For **Web Push**, copy from `-- Web Push:` through the last `reminder_schedule` policy and run that once (see [Web Push](#web-push-supabase-edge-function--cron)).
 3. Click **Run** (or **Ctrl+Enter**). You should see success; no rows returned is normal.
 4. Quick check: **Table Editor** ÔåÆ confirm **`user_state`** and **`user_state_history`** exist and RLS is enabled (shield icon). If you ran the Web Push block, **`push_subscriptions`** and **`reminder_schedule`** should also appear.
-5. Deploy or refresh the app; sign in and use **Sync now** once. After the **second** upload (when a previous cloud version exists), **Automatic cloud archives** on the Account tab should list **Backup 1** / **Backup 2** rows.
+5. Deploy or refresh the app; sign in and use **Sync now** once. **Advanced → Automatic cloud backups** fills in after the **`nightly-backup-roll`** job has run at least once (or after you trigger the function manually). If `user_state_history` is missing, uploads still work; revert buttons stay disabled.
 
-Snapshots are optional for sync itself: if `user_state_history` is missing, uploads still work; the app just cannot list or restore older cloud copies.
+### Nightly rolling backups (`nightly-backup-roll`)
+
+1. Run the migration in [`supabase/migrations/20260209000000_user_state_history_slot.sql`](supabase/migrations/20260209000000_user_state_history_slot.sql) (or ensure [`supabase/schema.sql`](supabase/schema.sql) is applied) so `user_state_history.slot` exists and **`user_state_history_update_own`** RLS is present.
+2. Deploy: `supabase functions deploy nightly-backup-roll --no-verify-jwt`
+3. Reuse the same secrets as **`push-reminders`**: **`CRON_SECRET`**, and set **`SUPABASE_SERVICE_ROLE_KEY`** (and **`SUPABASE_URL`** if not auto-injected) via `supabase secrets set` when required by your environment.
+4. Schedule a daily **HTTP POST** to  
+   `https://<project-ref>.supabase.co/functions/v1/nightly-backup-roll`  
+   with header **`x-cron-secret: <same as CRON_SECRET>`**, at **00:10 UTC** (or your preferred time). Example with **pg_cron** + **`pg_net`** (adjust URL and secret; enable extensions in the dashboard if needed):
+
+```sql
+select cron.schedule(
+  'nightly-backup-roll',
+  '10 0 * * *',
+  $$
+  select net.http_post(
+    url := 'https://YOUR_PROJECT_REF.supabase.co/functions/v1/nightly-backup-roll',
+    headers := '{"Content-Type": "application/json", "x-cron-secret": "YOUR_CRON_SECRET"}'::jsonb,
+    body := '{}'::jsonb
+  );
+  $$
+);
+```
+
+**Order per user (inside the function):** (1) if **T-1** exists in `user_state_history`, copy it to **T-2**; (2) rebuild **`reminder_schedule`** pending rows from **live** `user_state.payload` for the next **~7 days** (Web Push); (3) snapshot **live** `user_state.payload` into **T-1**. Step 3 is the current save slot becoming “yesterday’s backup,” not a copy into T-2.
 
 ## Web Push (Supabase Edge Function + cron)
 
-**All** reminder delivery when the app is closed is **Web Push** through Supabase: the client writes pending rows to **`reminder_schedule`** and registers a **VAPID** subscription in **`push_subscriptions`**. A scheduled job calls the **`push-reminders`** Edge Function ( `web-push` ) to deliver notifications. The service worker **only** handles `push` and `fetch` (no Periodic Background Sync reminder snapshot).
+**All** reminder delivery when the app is closed is **Web Push** through Supabase: the client writes pending rows to **`reminder_schedule`** (and the **nightly-backup-roll** job refreshes them from cloud state at **00:10 UTC**), and registers a **VAPID** subscription in **`push_subscriptions`**. A scheduled job calls the **`push-reminders`** Edge Function ( `web-push` ) to deliver notifications. The service worker **only** handles `push` and `fetch` (no Periodic Background Sync reminder snapshot).
 
-Included in the server schedule (local wall times when the client syncs): **per-habit exact times** (not in kid mode), **Sunday week-close** nudges at fixed times (spread through the day), one **habits_day** nudge (14:00) when any **core or growth** habit is still unlogged that day, plus the optional dev test slot (`CONSISTENCY_TEMP_PUSH_TEST_2350`). **`CONSISTENCY_VAPID_PUBLIC_KEY`** must be set in `index.html` for scheduling to run; users must be **signed in** with sync-capable session.
+**Due-row window (staleness):** each cron run only sends rows whose `fire_at_utc` is **in the past** but **not older than 7 days** (see `STALE_MS` in `push-reminders/index.ts`). That matches the schedule horizon so a long outage can still flush pending pushes; rows older than that are skipped. Your cron interval (e.g. every **3 minutes**) only controls *how often* the function runs, not that cap.
+
+**Client “signed in” for scheduling:** the app keeps reminders and `push_subscriptions` only when **`_authSession`** is set (live Supabase session from storage + refresh), not only offline device-trust. While the app is used periodically, the client **refreshes the access token automatically**; users typically stay signed in for a long time until they sign out or the **refresh token** expires. Exact lifetimes are **project-specific** — check **Supabase Dashboard → Authentication → Settings** (JWT expiry, refresh behaviour). If the user has not opened the app for longer than your refresh allows, they need to sign in again before new rows are written.
+
+Included in the schedule: **per-habit exact times** (adult/active profiles only; kid profiles get **Sunday** + **habits_day** nudges only — same as the client). Times use **`user.reminderTimeZone`** on the server nightly build and the browser’s local calendar when the client builds rows. **`CONSISTENCY_VAPID_PUBLIC_KEY`** must be set in `index.html` for client scheduling; users must be **signed in** with sync-capable session.
+
+**Client schedule sync:** debounced **edit** syncs cap pending fires at the next **00:10** in `reminderTimeZone` or **7 days**, whichever is sooner; **full** **7-day** syncs run after service-worker registration, around **00:10:30 UTC** (when the page has run), on tab visibility, and after habit save (edit). **`CONSISTENCY_TEMP_PUSH_TEST_2350`** remains client-only when enabled in `index.html`.
 
 **Billing:** delivery uses normal Edge Function invocations. On the free tier, projects include a large monthly Edge quota (see [Supabase pricing](https://supabase.com/pricing)); a cron every 1ÔÇô5 minutes stays far below typical free limits for a personal app.
 
@@ -54,7 +84,9 @@ Included in the server schedule (local wall times when the client syncs): **per-
    `https://<project-ref>.supabase.co/functions/v1/push-reminders`  
    with header **`x-cron-secret: <same as CRON_SECRET>`** (Supabase Dashboard cron, `pg_net`, GitHub Actions, etc.). Every 1ÔÇô5 minutes is reasonable.
 6. In [`index.html`](index.html), set **`CONSISTENCY_VAPID_PUBLIC_KEY`** to the **public** key string (must match `VAPID_PUBLIC_KEY` in secrets). Leave it empty to disable writing server schedule rows (no Web Push deliveries from cron).
-7. Users must be **signed in**, grant **notification** permission, and have **browser reminders** enabled; then open the app so the client can upsert subscription and schedule rows after edits or on the minute tick.
+7. Users must be **signed in**, grant **notification** permission, and have **browser reminders** enabled; then open the app so the client can upsert subscription and schedule rows after edits or after the nightly / visibility / UTC-timer paths refresh the slice.
+
+**Add to Home Screen:** after setup, the app may prompt (once per browser session, per device) to install or pin the PWA—important especially on **iOS** (Safari: Share → Add to Home Screen) for Web Push behaviour. Users can dismiss for the session or **Don’t ask again** (saved on the **active profile** in local storage).
 
 Any static-file server works. Two easy options:
 

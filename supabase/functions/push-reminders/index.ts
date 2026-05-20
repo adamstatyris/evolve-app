@@ -8,7 +8,9 @@ const CRON_SECRET = Deno.env.get('CRON_SECRET') ?? ''
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL') ?? ''
 const SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
 
-const STALE_MS = 2 * 60 * 60 * 1000
+/** Skip rows older than this (missed while cron was down). Matches the ~7-day schedule horizon
+ *  so delayed sends still deliver after outages; rows older than this are skipped. */
+const STALE_MS = 7 * 24 * 60 * 60 * 1000
 
 if (VAPID_PUBLIC_KEY && VAPID_PRIVATE_KEY) {
   webpush.setVapidDetails(VAPID_SUBJECT, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY)

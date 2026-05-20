@@ -21,7 +21,7 @@
       "category": "insights_adult",
       "insight_id": "I1",
       "field": "body",
-      "adult": "While you sleep, your brain files away everything from the day. Miss too many nights and it starts to show — names, meetings, where you put things. Regular sleep does more than one long lie-in ever could.",
+      "adult": "Your brain files the day while you sleep. Skip it too often and things stop sticking u2014 meetings, names, where you left your keys.nnConsistent sleep beats one heroic ten-hour catch-up.",
       "kid": null,
       "html": false,
       "meta": {
@@ -60,7 +60,7 @@
       "category": "insights_adult",
       "insight_id": "I2",
       "field": "body",
-      "adult": "Light, meals, and bedtime are all signals your body reads to know what time it is. Scramble them and you'll feel it — in your mood, your focus, your energy. A boring wind-down routine is actually doing a lot.",
+      "adult": "Light, meals, and bedtime all tell your body what time it is. Send mixed signals and your mood and focus will let you know about it.nnA dull wind-down routine is actually doing a lot of work.",
       "kid": null,
       "html": false,
       "meta": {
@@ -86,7 +86,7 @@
       "category": "insights_adult",
       "insight_id": "I3",
       "field": "title",
-      "adult": "Late meals shift your body clock",
+      "adult": "Late calories, fussier blood sugar",
       "kid": null,
       "html": false,
       "meta": {
@@ -99,7 +99,7 @@
       "category": "insights_adult",
       "insight_id": "I3",
       "field": "body",
-      "adult": "Your body's glucose rhythm runs on a clock. Eating a big meal late shifts that rhythm by hours — even when the calories are identical to an earlier meal. It's a timing issue, not a food issue.nnEarlier eating keeps your internal clocks in sync. Later eating pulls them apart.",
+      "adult": "Eating a big meal late at night tends to make blood-sugar control harder u2014 even if the total calories are identical to an earlier meal.nnItu2019s not about willpower. Itu2019s just how the body prefers its schedule.",
       "kid": null,
       "html": false,
       "meta": {
@@ -138,7 +138,7 @@
       "category": "insights_adult",
       "insight_id": "I4",
       "field": "body",
-      "adult": "Ten minutes of walking, cycling, or anything that gets you moving tends to clear the mental fog pretty reliably. It's one of the more consistent findings in cognitive research.nnYou don't need a full session. You just need to move.",
+      "adult": "Ten minutes of walking, cycling, or anything that gets you moving tends to clear the mental fog fairly reliably. Itu2019s one of the more reproducible findings in cognitive research.nnYou donu2019t need a full session. You just need to move.",
       "kid": null,
       "html": false,
       "meta": {
@@ -177,7 +177,7 @@
       "category": "insights_adult",
       "insight_id": "I5",
       "field": "body",
-      "adult": "\"After I make coffee, I do two minutes of stretching.\" The existing habit does the reminding — you don't have to remember anything new.nnSmall links are more durable than big resolutions.",
+      "adult": "u201cAfter I make coffee, I do two minutes of stretching.u201d The existing habit does the reminding u2014 you donu2019t have to remember anything new.nnSmall links are more durable than big resolutions.",
       "kid": null,
       "html": false,
       "meta": {
@@ -216,7 +216,7 @@
       "category": "insights_adult",
       "insight_id": "I6",
       "field": "body",
-      "adult": "\"If it's Tuesday at 7pm, I go to the gym\" outperforms \"I should exercise more\" every time. Specificity removes the daily decision.nnWriting the when and where is most of the work done.",
+      "adult": "u201cIf itu2019s Tuesday at 7pm, I go to the gymu201d outperforms u201cI should exercise moreu201d every time. Specificity removes the daily decision.nnWriting the when and where is most of the work done.",
       "kid": null,
       "html": false,
       "meta": {
@@ -255,7 +255,7 @@
       "category": "insights_adult",
       "insight_id": "I7",
       "field": "body",
-      "adult": "Your brain pays attention to better-than-expected outcomes. A small visible win — a tick, a streak — registers as one. That's not shallow; it's just how learning works.nnAim that wiring at things worth repeating.",
+      "adult": "Your brain pays attention to better-than-expected outcomes. A small visible win u2014 a tick, a streak u2014 registers as one. Thatu2019s not shallow; itu2019s just how learning works.nnAim that wiring at things worth repeating.",
       "kid": null,
       "html": false,
       "meta": {
@@ -294,7 +294,7 @@
       "category": "insights_adult",
       "insight_id": "I8",
       "field": "body",
-      "adult": "Some brains genuinely struggle to feel how long things take without external cues. Calendars, alarms, and timers aren't crutches — they're just the right tool for that particular wiring.nnVague plans fail specific people. Specificity is the fix.",
+      "adult": "Some brains genuinely struggle to feel how long things take without external cues. Calendars, alarms, and timers arenu2019t crutches u2014 theyu2019re just the right tool for that particular wiring.nnVague plans fail specific people. Specificity is the fix.",
       "kid": null,
       "html": false,
       "meta": {
@@ -372,7 +372,7 @@
       "category": "insights_adult",
       "insight_id": "I10",
       "field": "body",
-      "adult": "Writing about tangled thoughts for a few minutes consistently reduces rumination in study after study. You're not trying to write well — you're just clearing the inbox.nnMessy notes count. Full sentences not required.",
+      "adult": "Writing about tangled thoughts for a few minutes consistently reduces rumination in study after study. Youu2019re not trying to write well u2014 youu2019re just clearing the inbox.nnMessy notes count. Full sentences not required.",
       "kid": null,
       "html": false,
       "meta": {
@@ -411,7 +411,7 @@
       "category": "insights_adult",
       "insight_id": "I11",
       "field": "body",
-      "adult": "Regular readers carry larger vocabularies even when their formal education looks identical on paper. Fifteen minutes a day compounds over years.nnSpeed-reading trophies optional.",
+      "adult": "Regular readers carry larger vocabularies even when their formal education looks identical on paper. Fifteen quiet minutes a day compounds over years.nnSpeed-reading trophies optional.",
       "kid": null,
       "html": false,
       "meta": {
@@ -450,7 +450,7 @@
       "category": "insights_adult",
       "insight_id": "I12",
       "field": "body",
-      "adult": "Mindfulness practice produces modest but reliable gains on attention measures — not magic, just practice applied to a specific skill.nnShort and daily beats long and occasional.",
+      "adult": "Mindfulness practice produces modest but reliable gains on attention measures u2014 not magic, just practice applied to a specific skill.nnShort and daily beats long and occasional.",
       "kid": null,
       "html": false,
       "meta": {
@@ -489,7 +489,7 @@
       "category": "insights_adult",
       "insight_id": "I13",
       "field": "body",
-      "adult": "Spreading practice across days beats cramming it all into one session — for skills, facts, and habits alike. Your brain consolidates better with gaps in between.nnShow up regularly. Let the gaps do half the work.",
+      "adult": "Spreading practice across days beats cramming it all into one session u2014 for skills, facts, and habits alike. Your brain consolidates better with gaps in between.nnShow up regularly. Let the gaps do half the work.",
       "kid": null,
       "html": false,
       "meta": {
@@ -528,7 +528,7 @@
       "category": "insights_adult",
       "insight_id": "I14",
       "field": "body",
-      "adult": "\"I'm someone who exercises\" sticks longer than \"I'm trying to exercise more.\" Identity outruns motivation.nnThe story you tell on good days is the voice you hear on hard ones.",
+      "adult": "People who say u201cIu2019m someone who exercisesu201d stick with it longer than people who say u201cIu2019m trying to exercise more.u201d Identity outruns motivation.nnThe story you tell on good days is the voice you hear on hard ones.",
       "kid": null,
       "html": false,
       "meta": {
@@ -567,7 +567,7 @@
       "category": "insights_adult",
       "insight_id": "I15",
       "field": "body",
-      "adult": "Shoes by the door. Gym bag already packed. Water bottle already filled. Environment design consistently beats willpower when you're tired.nnReduce friction. Future-you will be grateful.",
+      "adult": "Shoes by the door. Gym bag already packed. Water bottle already filled. Environment design consistently beats willpower when youu2019re tired.nnReduce friction. Future-you will be grateful.",
       "kid": null,
       "html": false,
       "meta": {
@@ -606,7 +606,7 @@
       "category": "insights_adult",
       "insight_id": "I16",
       "field": "body",
-      "adult": "Knowing someone is loosely watching — a friend, a partner, a group chat — reliably nudges follow-through. You don't need a coach.nnSometimes one text buddy is enough.",
+      "adult": "Knowing someone is loosely watching u2014 a friend, a partner, a group chat u2014 reliably nudges follow-through. You donu2019t need a coach.nnSometimes one text buddy is enough.",
       "kid": null,
       "html": false,
       "meta": {
@@ -645,7 +645,7 @@
       "category": "insights_adult",
       "insight_id": "I17",
       "field": "body",
-      "adult": "Under pressure, the brain defaults to its most familiar routines — fast. If those routines are good ones, great. If not, stress will find that out.nnSimplify the plan before stress does it for you.",
+      "adult": "Under pressure, the brain defaults to its most familiar routines u2014 fast. If those routines are good ones, great. If not, stress will find that out quickly.nnSimplify the plan before stress does it for you.",
       "kid": null,
       "html": false,
       "meta": {
@@ -684,7 +684,7 @@
       "category": "insights_adult",
       "insight_id": "I18",
       "field": "body",
-      "adult": "The first thing poor sleep dulls is your ability to pause before reacting. Everything gets louder, smaller decisions feel bigger.nnProtecting sleep is protecting your judgement — not a soft priority.",
+      "adult": "The first thing poor sleep dulls is your ability to pause before reacting. Everything gets louder, smaller decisions feel bigger.nnProtecting sleep is protecting your judgement u2014 not a soft priority.",
       "kid": null,
       "html": false,
       "meta": {
@@ -723,7 +723,7 @@
       "category": "insights_adult",
       "insight_id": "I19",
       "field": "body",
-      "adult": "Short breaks from sitting improve energy and help blood-sugar regulation after long desk stretches. The bar is genuinely low.nnStand up, walk to the kitchen, come back. That counts.",
+      "adult": "Short breaks from sitting improve energy ratings and help blood-sugar regulation after long desk stretches. The bar is genuinely low.nnStand up, walk to the kitchen, come back. That counts.",
       "kid": null,
       "html": false,
       "meta": {
@@ -762,7 +762,7 @@
       "category": "insights_adult",
       "insight_id": "I20",
       "field": "body",
-      "adult": "Real-world studies put habit formation at weeks to months, not the famous 21 days. Early repetitions are the investment. Ease is what you get later.nnYou're not slow. You're just early.",
+      "adult": "Real-world studies put habit formation at weeks to months, not the famous 21 days. Early repetitions are the investment. Ease is what you get later.nnYouu2019re not slow. Youu2019re just early.",
       "kid": null,
       "html": false,
       "meta": {
@@ -801,7 +801,7 @@
       "category": "insights_adult",
       "insight_id": "I21",
       "field": "body",
-      "adult": "People who treat ability as buildable come back after setbacks more readily than those who see it as fixed. A bad week is noise, not a ceiling.nnThe only thing a slip proves is that you're still in the game.",
+      "adult": "People who treat ability as buildable come back after setbacks more readily than those who see it as fixed. A bad week is noise, not a ceiling.nnThe only thing a slip proves is that youu2019re still in the game.",
       "kid": null,
       "html": false,
       "meta": {
@@ -918,7 +918,7 @@
       "category": "insights_adult",
       "insight_id": "I24",
       "field": "body",
-      "adult": "Every task switch leaves residual mental noise that slows down whatever comes next. Protecting a block of uninterrupted time isn't a luxury — it's how actual deep work gets done.nnBatch the similar stuff. Guard the focused time.",
+      "adult": "Every task switch leaves residual mental noise that slows down whatever comes next. Protecting a block of uninterrupted time isnu2019t a luxury u2014 itu2019s how actual deep work gets done.nnBatch the similar stuff. Guard the focused time.",
       "kid": null,
       "html": false,
       "meta": {
@@ -957,7 +957,7 @@
       "category": "insights_adult",
       "insight_id": "I25",
       "field": "body",
-      "adult": "Missing once doesn't erase progress. Shame spirals do. The quickest recovery is the next small win — not a Monday restart ceremony.nnComebacks count as data too.",
+      "adult": "Missing once doesnu2019t erase progress. Shame spirals do. The quickest recovery is the next small win u2014 not a Monday restart ceremony.nnComebacks count as data too.",
       "kid": null,
       "html": false,
       "meta": {
@@ -996,7 +996,7 @@
       "category": "insights_adult",
       "insight_id": "I26",
       "field": "body",
-      "adult": "Evening light from phones delays melatonin — the signal that tells your body it's time to wind down. Your brain can't quite tell a screen from a sunny window.nnDimming helps. Distance helps more.",
+      "adult": "Evening light from phones delays melatonin u2014 the signal that tells your body itu2019s time to wind down. Your brain canu2019t quite tell a screen from a sunny window.nnDimming helps. Distance helps more.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1035,7 +1035,7 @@
       "category": "insights_adult",
       "insight_id": "I27",
       "field": "body",
-      "adult": "Mild dehydration — the kind where you don't feel particularly thirsty — is enough to measurably dent concentration and mood. Most people walk around in it.nnFull water bottle on the desk. Boring and effective.",
+      "adult": "Mild dehydration u2014 the kind where you donu2019t feel particularly thirsty u2014 is enough to measurably dent concentration and mood. Most people walk around in it.nnFull water bottle on the desk. Boring and effective.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1074,7 +1074,7 @@
       "category": "insights_adult",
       "insight_id": "I28",
       "field": "body",
-      "adult": "People consistently generate more ideas while walking than sitting still. If you're stuck, a lap around the block is not procrastination.nnMove first. Judge the ideas when you're back.",
+      "adult": "People consistently generate more ideas while walking than sitting still. If youu2019re stuck, a lap around the block is not procrastination.nnMove first. Judge the ideas when youu2019re back.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1152,7 +1152,7 @@
       "category": "insights_adult",
       "insight_id": "I30",
       "field": "body",
-      "adult": "Writing a goal down with a concrete plan consistently outperforms keeping it in your head. The act of writing forces enough specificity to make it real.nnPaper is cheap accountability.",
+      "adult": "Writing a goal down with a concrete plan consistently outperforms keeping it in your head. The act of writing it forces enough specificity to make it real.nnPaper is cheap accountability.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1230,7 +1230,7 @@
       "category": "insights_adult",
       "insight_id": "I32",
       "field": "body",
-      "adult": "\"Two push-ups\" beats \"get fit\" because it's impossible to argue with. The first step should have no resistance at all.nnWin first. Scale later.",
+      "adult": "u201cTwo push-upsu201d beats u201cget fitu201d because itu2019s impossible to argue with. The first step should have no resistance at all.nnWin first. Scale later.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1269,7 +1269,7 @@
       "category": "insights_adult",
       "insight_id": "I33",
       "field": "body",
-      "adult": "Adaptation happens during recovery, not during effort. Skipping rest doesn't add progress — it just delays it and increases the chance something breaks.nnSchedule it. Treat it like a set.",
+      "adult": "Adaptation happens during recovery, not during effort. Skipping rest doesnu2019t add progress u2014 it just delays it and increases the chance something breaks.nnSchedule it. Treat it like a set.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1308,7 +1308,7 @@
       "category": "insights_adult",
       "insight_id": "I34",
       "field": "body",
-      "adult": "Children in households with predictable routines show calmer, healthier patterns across multiple measures of wellbeing. Not rigid — just consistent.nnYou're building a felt sense of safety. That's the whole point.",
+      "adult": "Children in households with predictable routines show calmer and healthier patterns across multiple measures of wellbeing. Not rigid u2014 just consistent.nnYouu2019re building a felt sense of safety. Thatu2019s the whole point.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1347,7 +1347,7 @@
       "category": "insights_adult",
       "insight_id": "I35",
       "field": "body",
-      "adult": "Just logging purchases — without any budget lecture attached — tends to reduce discretionary spending on its own. Awareness does most of the work.nnThe log is the intervention.",
+      "adult": "Just logging purchases u2014 without any budget lecture attached u2014 tends to reduce discretionary spending on its own. Awareness does most of the work.nnThe log is the intervention.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1386,7 +1386,7 @@
       "category": "insights_adult",
       "insight_id": "I36",
       "field": "body",
-      "adult": "Self-control isn't a fixed gift — it trains like anything else. Each time you follow through, the next start gets a little easier to reach.nnYou're not faking discipline; you're collecting receipts.",
+      "adult": "Self-control is not a fixed gift — it trains like anything else. Each time you follow through, the next start gets a little easier to reach.nnYou are not faking discipline; you are collecting receipts.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1425,7 +1425,7 @@
       "category": "insights_adult",
       "insight_id": "I37",
       "field": "body",
-      "adult": "Sports science shows people often feel maxed out while their body still has a large reserve. The brain calls \"stop\" before the tank is actually empty.nnOn a brutal habit day, slow down — but question the story that you have nothing left.",
+      "adult": "Sports science shows people often feel maxed out while their body still has a large reserve. The brain yells “stop” before the tank is empty.nnOn a brutal habit day, slow down — but question the story that you have nothing left.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1464,7 +1464,7 @@
       "category": "insights_adult",
       "insight_id": "I38",
       "field": "body",
-      "adult": "Some nervous systems need louder outside cues — calendars, lists, apps — to feel time and reward fairly. That's biology, not laziness.nnUse the scaffolding that lets you live the life you chose.",
+      "adult": "Some nervous systems need louder outside cues — calendars, lists, apps — to feel time and reward fairly. That is biology, not laziness.nnUse the scaffolding that lets you live the life you chose.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1542,7 +1542,7 @@
       "category": "insights_adult",
       "insight_id": "I40",
       "field": "body",
-      "adult": "Planning, starting, sticking, and switching are related but separate mental skills. They differ between people and can improve with practice.nnEvery steady week is training for all of them.",
+      "adult": "Planning, starting, sticking, and switching are related but separate mental skills. They differ between people and can improve with practice.nnEvery steady week is quiet training for all of them.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1581,7 +1581,7 @@
       "category": "insights_adult",
       "insight_id": "I41",
       "field": "body",
-      "adult": "When rewards arrive on an unpredictable rhythm, behaviour tends to stick harder than with a clockwork prize — that's old psychology lab wisdom.nnRandom insights here echo mild curiosity — separate from your weekly treats and pot rules, not an extra game layered on top.",
+      "adult": "When rewards arrive on an unpredictable rhythm, behaviour tends to stick harder than with a clockwork prize — that is old psychology lab wisdom.nnRandom insights here echo mild curiosity — separate from your weekly treats and pot rules, not an extra game layered on top.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1659,7 +1659,7 @@
       "category": "insights_adult",
       "insight_id": "I43",
       "field": "body",
-      "adult": "Some people genuinely mis-feel how long tasks take without clocks and reminders. That's not a character flaw — it's a mismatch between brain and vague plans.nnConcrete times and places are the kind fix.",
+      "adult": "Some people honestly mis-feel how long tasks take without clocks and reminders. That is not a character flaw — it is a mismatch between brain and vague plans.nnConcrete times and places are the kind fix.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1698,7 +1698,7 @@
       "category": "insights_adult",
       "insight_id": "I44",
       "field": "body",
-      "adult": "\"If X happens, I will do Y\" plans routinely beat \"I will try harder\" in study after study.nnThe sentence is the intervention.",
+      "adult": "“If X happens, I will do Y” plans routinely beat “I will try harder” in study after study.nnThe sentence is the intervention.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1776,7 +1776,7 @@
       "category": "insights_adult",
       "insight_id": "I46",
       "field": "body",
-      "adult": "People often follow what they think peers do — sometimes more than their own stated values.nnUse that wisely: find a group where the normal thing is showing up.",
+      "adult": "People often follow what they think peers do, sometimes more than their private values say.nnUse that wisely: find a group where the normal thing is showing up.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1815,7 +1815,7 @@
       "category": "insights_adult",
       "insight_id": "I47",
       "field": "body",
-      "adult": "A noticeable share of adults meet criteria for attention-deficit conditions; many never get a label but still benefit from structure.nnIf a system helps you function, that's the outcome that counts.",
+      "adult": "A noticeable slice of adults meet criteria for attention-deficit conditions; many never get a label but still benefit from structure.nnIf a system helps you function, that is the outcome that counts.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1854,7 +1854,7 @@
       "category": "insights_adult",
       "insight_id": "I48",
       "field": "body",
-      "adult": "Having several small, dependable habits correlates with life satisfaction even when the habits themselves are humble.nnRhythm is its own kind of rest.",
+      "adult": "Having several small dependable habits correlates with life satisfaction even when the habits themselves are humble.nnRhythm is its own kind of rest.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1893,7 +1893,7 @@
       "category": "insights_adult",
       "insight_id": "I49",
       "field": "body",
-      "adult": "People restart goals more often after Mondays, month beginnings, or birthdays — \"temporal landmarks\" in the research.nnA Wednesday miss is not a season finale; Thursday can be episode two.",
+      "adult": "People restart goals more often after Mondays, month beginnings, or birthdays — “temporal landmarks” in the research.nnA Wednesday miss is not a season finale; Thursday can be episode two.",
       "kid": null,
       "html": false,
       "meta": {
@@ -1971,7 +1971,7 @@
       "category": "insights_adult",
       "insight_id": "F1",
       "field": "body",
-      "adult": "Plenty of animals wake on cue, but only humans set an alarm, understand what it means, and then debate whether nine more minutes is \"strategic rest.\"nnThe snooze button is a tiny comedy about self-control every morning.",
+      "adult": "Plenty of animals wake on cue, but only humans set an alarm, understand what it means, and then debate whether nine more minutes is “strategic rest.”nnThe snooze button is a tiny comedy about self-control every morning.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2049,7 +2049,7 @@
       "category": "insights_adult",
       "insight_id": "F3",
       "field": "body",
-      "adult": "Roughly one standard drink per hour is what a typical liver clears — coffee, cold showers, and pep talks don't speed the chemistry.nnPatience is the only life hack here.",
+      "adult": "Roughly one standard drink per hour is what typical livers clear — coffee, cold showers, and pep talks do not speed the chemistry.nnPatience is the only life hack here.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2088,7 +2088,7 @@
       "category": "insights_adult",
       "insight_id": "F4",
       "field": "body",
-      "adult": "A famous 1964 stunt: eleven days awake under medical supervision. He recovered. He also said he'd never do it again.nnYour late scroll session isn't that experiment, but it rhymes.",
+      "adult": "A famous 1964 stunt stayed awake for eleven days under medical watch. He recovered — and said never again.nnYour late reel session is not that experiment, but it rhymes.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2127,7 +2127,7 @@
       "category": "insights_adult",
       "insight_id": "F5",
       "field": "body",
-      "adult": "Gyms spike in early January, then go quiet by February. March regulars rarely have more \"motivation\" — they just have a plan that survived February.nnSystems beat vibes.",
+      "adult": "Gyms spike in early January, then quiet down by February. March regulars rarely have more “motivation” — they have a plan that survived February.nnSystems beat vibes.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2166,7 +2166,7 @@
       "category": "insights_adult",
       "insight_id": "F6",
       "field": "body",
-      "adult": "Classic lab work found brain activity shifting before people reported a conscious choice to move. Much of life is noticing yourself mid-habit.nnAutomatic isn't the enemy — it's the finish line.",
+      "adult": "Classic lab work found brain activity shifting before people reported a conscious choice to move. Much of life is noticing yourself mid-habit.nnAutomatic is not the enemy — it is the finish line.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2205,7 +2205,7 @@
       "category": "insights_adult",
       "insight_id": "F7",
       "field": "body",
-      "adult": "People who make the bed often report feeling more on top of the day. Causation is fuzzy; the easy win is not.nnTwo minutes for a visible \"already done\" badge.",
+      "adult": "People who make the bed often report feeling more on top of the day. Causation is fuzzy; the easy win is not.nnTwo minutes for a visible “already done” badge.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2244,7 +2244,7 @@
       "category": "insights_adult",
       "insight_id": "F8",
       "field": "body",
-      "adult": "Some surveys find phones checked nearly a hundred times a day — tiny hits of novelty all waking hours.nnIf your habit app feels sticky, you're competing with world-class designers. Fair fight.",
+      "adult": "Some surveys find phones checked nearly a hundred times a day — tiny hits of novelty all waking hours.nnIf your habit app feels sticky, you are competing with world-class designers. Fair fight.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2322,7 +2322,7 @@
       "category": "insights_adult",
       "insight_id": "F10",
       "field": "body",
-      "adult": "\"Deadline\" once meant a line prisoners could not cross — serious consequences. Now it means spreadsheets.nnYour week still has a firm line: logs lock after Sunday — gentler stakes, same human love of a boundary.",
+      "adult": "“Deadline” once meant a line prisoners could not cross — serious consequences. Now it means spreadsheets.nnYour Week still has a firm line here: logging for that Mon–Sun row locks at midnight Sunday (local time) — gentler stakes, same human love of a boundary.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2361,7 +2361,7 @@
       "category": "insights_adult",
       "insight_id": "F11",
       "field": "body",
-      "adult": "A well-known study found judges' leniency dipped before meal breaks and rose after — probably fatigue and timing, not cruelty.nnYour 4pm self isn't morally worse; just running low.",
+      "adult": "A well-known study found judges’ leniency dipped before meal breaks and rose after — probably fatigue and timing, not cruelty.nnYour 4pm self is not morally worse; just depleted.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2400,7 +2400,7 @@
       "category": "insights_adult",
       "insight_id": "F12",
       "field": "body",
-      "adult": "The \"three-week habit\" story came from a surgeon's guess decades ago. Real studies show weeks to many months depending on the habit and the person.nnYou're not behind — you're on a real curve.",
+      "adult": "The “three-week habit” story came from a surgeon’s guess decades ago. Real studies show weeks to many months depending on the habit and the person.nnYou are not behind — you are on a real curve.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2439,7 +2439,7 @@
       "category": "insights_adult",
       "insight_id": "F13",
       "field": "body",
-      "adult": "Average humans walk enough miles in a life to circle Earth several times — mostly in small trips.nnThe \"extra\" walks for health are a rounding error that still changes risk.",
+      "adult": "Average humans walk enough miles in a life to circle Earth several times — mostly in small trips.nnThe “extra” walks for health are a rounding error that still changes risk.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2517,7 +2517,7 @@
       "category": "insights_adult",
       "insight_id": "F15",
       "field": "body",
-      "adult": "Muscles don't care if the weight has opinions. Carrying a toddler upstairs still counts as load.nnParenting: accidental gym.",
+      "adult": "Muscles do not care if the weight has opinions. Carrying a toddler upstairs still counts as load.nnParenting: accidental gym.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2556,7 +2556,7 @@
       "category": "insights_adult",
       "insight_id": "F16",
       "field": "body",
-      "adult": "Roman \"average lifespan ~35\" mostly reflects child mortality. Adults who survived childhood often reached their sixties and seventies.nnAverages hide different stories.",
+      "adult": "Roman “average lifespan ~35” mostly reflects child deaths. Adults who survived childhood often reached their sixties and seventies.nnAverages hide different stories.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2595,7 +2595,7 @@
       "category": "insights_adult",
       "insight_id": "F17",
       "field": "body",
-      "adult": "Most cells replace on a multi-year rhythm — you're a slow ship of Theseus.nnToday's habits feed tomorrow's replacement crew.",
+      "adult": "Most cells replace on a multi-year rhythm — you are a slow ship of Theseus.nnToday’s habits feed tomorrow’s replacement crew.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2751,7 +2751,7 @@
       "category": "insights_adult",
       "insight_id": "ME1",
       "field": "body",
-      "adult": "Classic decision research found people hate losing about twice as much as they enjoy gaining the same amount. A clear \"floor\" uses that honestly: protecting progress hits different emotional notes than a vague \"do better.\"nnThe app names the stakes so your attention has somewhere real to stand.nnBelow the floor, recovery keeps rules transparent — core-only pot accrual and strict-drop resets — all explicit, with no random layer on top of your treats or pot.",
+      "adult": "Classic decision research found people hate losing about twice as much as they enjoy gaining the same amount. A clear “floor” uses that honesty: protecting progress hits different emotional notes than a vague “do better.”nnThe app names the stakes so your attention has somewhere real to stand.nnBelow the floor, recovery keeps rules transparent — core-only pot accrual and strict-drop resets — all explicit, with no random layer on top of your treats or pot.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2829,7 +2829,7 @@
       "category": "insights_adult",
       "insight_id": "ME3",
       "field": "body",
-      "adult": "Coffee-shop studies showed people speed up purchases as a loyalty card nears full — effort rises near the finish. A filling progress bar borrows the same nudge.nnClose targets feel magnetic; use that instead of guilt.",
+      "adult": "Coffee-shop studies showed people speed up purchases as a free-drink card nears full — effort rises near the finish. A filling progress bar borrows the same nudge.nnClose targets feel magnetic; use that instead of guilt.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2868,7 +2868,7 @@
       "category": "insights_adult",
       "insight_id": "ME4",
       "field": "body",
-      "adult": "Economists model a pattern many people feel: distant rewards shrink in our minds while tonight's treat grows huge. Pairing a small weekly win with a slow-building pot feeds both versions of you.nnStructure ends the argument instead of moralising it.",
+      "adult": "Economists model a pattern many people feel: distant rewards shrink in our minds while tonight’s treat grows huge. Pairing a small weekly win with a slow pot feeds both versions of you.nnStructure ends the argument instead of moralising it.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2907,7 +2907,7 @@
       "category": "insights_adult",
       "insight_id": "ME5",
       "field": "body",
-      "adult": "A large review of health programmes found keeping track of behaviour — food, steps, sleep — was one of the strongest ingredients that made interventions work.nnYour taps aren't theatre; they're a proven behaviour-change tool.",
+      "adult": "A giant review of health programmes found keeping track of behaviour — food, steps, sleep — was one of the strongest ingredients that made interventions work.nnYour taps are not theatre; they are a proven behaviour-change tool.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2985,7 +2985,7 @@
       "category": "insights_adult",
       "insight_id": "ME7",
       "field": "body",
-      "adult": "Give someone a random mug and they suddenly price it like treasure. Streaks and pots inherit that quirk — losing ground stings because it feels like giving something up.nnThe design respects that feeling instead of pretending you're a spreadsheet.",
+      "adult": "Give someone a random mug and they suddenly price it like treasure. Streaks and pots inherit that quirk — losing ground stings because it feels like giving something up.nnThe design respects that feeling instead of pretending you are a spreadsheet.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3024,7 +3024,7 @@
       "category": "insights_adult",
       "insight_id": "ME8",
       "field": "body",
-      "adult": "Self-regulation research says we compare \"where I am\" to \"where I want to be,\" then adjust. Colours, chips, and week rows make that comparison visible and friendly.nnYou get direction without drowning in shame.",
+      "adult": "Self-regulation theories say we compare “where I am” to “where I want to be,” then adjust. Colours, chips, and week rows are that comparison made friendly.nnYou get direction without drowning in shame.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3063,7 +3063,7 @@
       "category": "insights_adult",
       "insight_id": "ME9",
       "field": "body",
-      "adult": "\"Holiday money\" and \"bill money\" feel different even in the same account. Separate goal pots ride that habit so wins stay attached to their story.nnCompartmentalising can be a feature.",
+      "adult": "People treat “holiday money” and “bill money” as if they are not interchangeable — even when the bank account is one. Separate goal pots ride that habit so wins stay attached to their story.nnCompartmentalising can be a feature.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3102,7 +3102,7 @@
       "category": "insights_adult",
       "insight_id": "ME10",
       "field": "body",
-      "adult": "Brain studies show cells that learn from \"better than expected\" moments. A pop-up fact you didn't schedule is a mild version of that — curiosity without turning insights into a wager.nnSmall novelty can support focus when kept kind.",
+      "adult": "Brain studies show cells that learn from “better than expected” moments. A pop-up fact you did not schedule is a mild version of that — curiosity without turning insights into a wager.nnSmall novelty can support focus when kept kind.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3141,7 +3141,7 @@
       "category": "insights_adult",
       "insight_id": "ME11",
       "field": "body",
-      "adult": "The green pill around your name shows you're currently online. When it's grey, you've lost connection — but your data keeps saving on this device until the next sync.",
+      "adult": "The green pill around your name shows that you are currently online. When it's grey it means that you have lost connection, but your data will keep being saved on your device until next sync.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3180,7 +3180,7 @@
       "category": "insights_adult",
       "insight_id": "RG1",
       "field": "body",
-      "adult": "When consistency jumps straight from struggling to solid, it usually means several closed weeks lined up behind the number — not one fluke week.nnLet the colour change be a gentle \"keep going,\" not pressure to be perfect next week.",
+      "adult": "When consistency jumps straight from struggling to solid, it usually means several closed weeks lined up behind the number — not one fluke week.nnLet the colour change be a quiet “keep going,” not pressure to be perfect next week.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3219,7 +3219,7 @@
       "category": "insights_adult",
       "insight_id": "MY1",
       "field": "body",
-      "adult": "Early in a month, people often lean on fresh-start energy. Research on \"temporal landmarks\" shows Mondays and month beginnings nudge new attempts without needing a dramatic reboot.nnIf your goals sit in the steady band, you're allowed to ride that tailwind.",
+      "adult": "Early in a month, people often lean on fresh-start energy. Research on “temporal landmarks” shows Mondays and month beginnings nudge new attempts without needing a dramatic reboot.nnIf your goals sit in the steady band, you are allowed to ride that gentle tailwind.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3297,7 +3297,7 @@
       "category": "insights_adult",
       "insight_id": "CB1",
       "field": "body",
-      "adult": "Maintenance research keeps repeating one lesson: slips are normal; re-entry predicts long-term change more than a spotless streak.nnOpening the log again after a rough week is already the behaviour that matters.",
+      "adult": "Maintenance research keeps repeating one lesson: slips are normal; re-entry predicts long-term change more than a spotless streak.nnOpening the log again after a rough week is already the behaviour scientists care about.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3375,7 +3375,7 @@
       "category": "insights_adult",
       "insight_id": "CA2",
       "field": "body",
-      "adult": "Core habits must all qualify for a closed week to count toward your % and weekly treats; growth habits add pot money when they qualify but never block the week. In recovery (rolling % below that goal's consistency floor), only core habits add to the pot; growth adds £0 until rolling % reaches the floor again. Each goal's floor is set in Add/Edit goal (default often 80%).",
+      "adult": "Core habits must all qualify for a closed week to count toward your % and weekly treats; growth habits add pot money when they qualify but never block the week. In recovery (rolling % below that goal’s consistency floor), only core habits add £ to the pot; growth adds £0 until rolling % reaches the floor again. Each goal’s floor is set in Add/Edit goal (default often 80%).",
       "kid": null,
       "html": false,
       "meta": {
@@ -3414,7 +3414,7 @@
       "category": "insights_adult",
       "insight_id": "NH1",
       "field": "body",
-      "adult": "Popular books like \"The Molecule of More\" and \"Dopamine Nation\" stress one idea: much of what people call \"reward\" is wanting and momentum, not the cosy feeling after a good meal.nnChasing the next tick is dopamine-heavy; deep rest after is often different chemistry entirely.",
+      "adult": "Popular books like “The Molecule of More” and “Dopamine Nation” stress one idea: much of what people call “reward” is wanting and momentum, not the cozy feeling after a good meal.nnChasing the next tick is dopamine-heavy; deep rest after is often other chemistry.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3453,7 +3453,7 @@
       "category": "insights_adult",
       "insight_id": "NH2",
       "field": "body",
-      "adult": "Lieberman and Long describe a \"here-and-now\" chemical chorus and a \"future-and-possible\" dopamine track that loves novelty and goals — both matter.nnBalance is the game: enough future-pull to plan, enough present chemistry to enjoy arriving.",
+      "adult": "Lieberman and Long describe a “here-and-now” chemical chorus and a “future-and-possible” dopamine track that loves novelty and goals — both matter.nnBalance is the game: enough future-pull to plan, enough present chemistry to enjoy arriving.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3492,7 +3492,7 @@
       "category": "insights_adult",
       "insight_id": "NH3",
       "field": "body",
-      "adult": "Dopamine-related circuits learn from surprises and progress signals — \"better than expected\" keeps attention. That's why visible streaks and near-complete bars tug harder than abstract goals.nnYou're not weak; you're using a loud channel wisely.",
+      "adult": "Dopamine-related circuits learn from surprises and progress signals — “better than expected” keeps attention. That is why visible streaks and near-complete bars tug harder than abstract goals.nnYou are not weak; you are using a loud channel wisely.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3570,7 +3570,7 @@
       "category": "insights_adult",
       "insight_id": "NH5",
       "field": "body",
-      "adult": "Studies tie oxytocin to bonding cues: touch, warm voice, shared meals. It nudges social calm and \"we\" feelings.nnAccountability partners and family habits may ride social chemistry, not just willpower.",
+      "adult": "Studies tie oxytocin to bonding cues: touch, warm voice, shared meals. It nudges social calm and “we” feelings.nnAccountability partners and family habits may ride social chemistry, not only willpower.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3609,7 +3609,7 @@
       "category": "insights_adult",
       "insight_id": "NH6",
       "field": "body",
-      "adult": "Researchers note context matters: the same hormone that supports closeness can sharpen feelings about \"us versus them\" in some settings.nnKindness with boundaries stays wise — chemistry is not a morality tale.",
+      "adult": "Researchers note context matters: the same hormone that supports closeness can sharpen feelings about “us versus them” in some settings.nnKindness with boundaries stays wise — chemistry is not a morality tale.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3648,7 +3648,7 @@
       "category": "insights_adult",
       "insight_id": "NH7",
       "field": "body",
-      "adult": "Most brain serotonin doesn't come with simple labels. It helps regulate mood, sleep timing, and even gut signalling — a steadying hand, not a happy switch.nnMedication stories are separate from daily habits; both deserve nuance.",
+      "adult": "Most brain serotonin does not come with simple labels. It helps regulate mood, sleep timing, and even gut signalling — a steadying hand, not a happy switch.nnMedication stories are separate from daily habits; both deserve nuance.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3726,7 +3726,7 @@
       "category": "insights_adult",
       "insight_id": "NH9",
       "field": "body",
-      "adult": "After intense pleasure or orgasm, prolactin often rises — part of why excitement eases and the body pivots toward rest. It's normal biology, not failure.nnUnderstanding the cooldown helps you plan recovery, not judge it.",
+      "adult": "After intense pleasure or orgasm, prolactin often rises — part of why excitement eases and the body pivots toward rest. It is normal biology, not failure.nnUnderstanding the cooldown helps you plan recovery, not judge it.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3765,7 +3765,7 @@
       "category": "insights_adult",
       "insight_id": "NH10",
       "field": "body",
-      "adult": "Hormone research links prolactin to nurturing behaviours in many mammals — milk production in some contexts and caregiving tone more broadly.nnBodies reward tending others with their own chemistry.",
+      "adult": "Hormone research links prolactin to nurturing behaviours in many mammals — milk production in some contexts and caregiving tone more broadly.nnBodies reward tending others with quiet chemistry.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3804,7 +3804,7 @@
       "category": "insights_adult",
       "insight_id": "NH11",
       "field": "body",
-      "adult": "Sapolsky's \"Behave\" walks one behaviour through genes, hormones, context, and culture — dopamine, serotonin, oxytocin, and more act in concert like instruments, not soloists.nnWhen you change a habit, you're conducting the whole band slowly.",
+      "adult": "Sapolsky’s “Behave” walks one behaviour through genes, hormones, context, and culture — dopamine, serotonin, oxytocin, and more act in concert like instruments, not soloists.nnWhen you change a habit, you are conducting the whole band slowly.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3843,7 +3843,7 @@
       "category": "insights_adult",
       "insight_id": "NH12",
       "field": "body",
-      "adult": "Writers like Lembke and Lieberman describe how cheap digital hits train dopamine shortcuts. Swapping some scroll time for long-form reading rebuilds patience — the same patience habits need.nnThis app's slower rewards are a cousin of that swap.",
+      "adult": "Writers like Lembke and Lieberman describe how cheap digital hits train dopamine shortcuts. Swapping some scroll time for long-form explanations rebuilds patience — the same patience habits need.nnThis app’s slower rewards are a cousin of that swap.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3865,6 +3865,474 @@
       }
     },
     {
+      "id": "insight.adult.MX1.title",
+      "category": "insights_adult",
+      "insight_id": "MX1",
+      "field": "title",
+      "adult": "Mastery I — rhythm holds",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_1"
+      }
+    },
+    {
+      "id": "insight.adult.MX1.body",
+      "category": "insights_adult",
+      "insight_id": "MX1",
+      "field": "body",
+      "adult": "Research on habit formation shows “automaticity” emerges over weeks to months, with wide individual differences — not a single fixed number for everyone.nnEarning this tier means your logged behaviour met the bar over roughly a month of calendar days for this habit — celebrate showing up.",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_1"
+      }
+    },
+    {
+      "id": "insight.adult.MX1.sourceText",
+      "category": "insights_adult",
+      "insight_id": "MX1",
+      "field": "sourceText",
+      "adult": "Lally et al. — habit formation (overview)",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_1"
+      }
+    },
+    {
+      "id": "insight.adult.MX2.title",
+      "category": "insights_adult",
+      "insight_id": "MX2",
+      "field": "title",
+      "adult": "Mastery II — deeper pattern",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_2"
+      }
+    },
+    {
+      "id": "insight.adult.MX2.body",
+      "category": "insights_adult",
+      "insight_id": "MX2",
+      "field": "body",
+      "adult": "As windows lengthen, off-days age out of the lookback while you keep accumulating proof you can return.nnThis tier is about sustaining the pattern on the Log across roughly two months of calendar days.",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_2"
+      }
+    },
+    {
+      "id": "insight.adult.MX2.sourceText",
+      "category": "insights_adult",
+      "insight_id": "MX2",
+      "field": "sourceText",
+      "adult": "Wood & Neal — habits (overview)",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_2"
+      }
+    },
+    {
+      "id": "insight.adult.MX3.title",
+      "category": "insights_adult",
+      "insight_id": "MX3",
+      "field": "title",
+      "adult": "Mastery III — you own this here",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_3"
+      }
+    },
+    {
+      "id": "insight.adult.MX3.body",
+      "category": "insights_adult",
+      "insight_id": "MX3",
+      "field": "body",
+      "adult": "Meeting a high bar over the longest mastery window (calendar days) in this app is rare air — you have built real consistency with this habit here.nnConsider banking it for now and revisiting in 6–12 months if you want to reinforce it again.",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_3"
+      }
+    },
+    {
+      "id": "insight.adult.MX3.sourceText",
+      "category": "insights_adult",
+      "insight_id": "MX3",
+      "field": "sourceText",
+      "adult": "Consistency — mastery framing",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_3"
+      }
+    },
+    {
+      "id": "insight.adult.MX4.title",
+      "category": "insights_adult",
+      "insight_id": "MX4",
+      "field": "title",
+      "adult": "Legendary Maintenance — back on purpose",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_4"
+      }
+    },
+    {
+      "id": "insight.adult.MX4.body",
+      "category": "insights_adult",
+      "insight_id": "MX4",
+      "field": "body",
+      "adult": "A long pause after mastery is normal life. Choosing to return and meet the maintenance bar shows the habit is still yours — a deliberate reunion, not a rescue mission.",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_4"
+      }
+    },
+    {
+      "id": "insight.adult.MX4.sourceText",
+      "category": "insights_adult",
+      "insight_id": "MX4",
+      "field": "sourceText",
+      "adult": "Consistency — legendary framing",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_4"
+      }
+    },
+    {
+      "id": "insight.adult.MX5.title",
+      "category": "insights_adult",
+      "insight_id": "MX5",
+      "field": "title",
+      "adult": "Timeless —still showing up",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_5"
+      }
+    },
+    {
+      "id": "insight.adult.MX5.body",
+      "category": "insights_adult",
+      "insight_id": "MX5",
+      "field": "body",
+      "adult": "Years later, the signal is not perfection. It is that you came back and let the weeks add up again — quiet proof that the identity stuck.",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_5"
+      }
+    },
+    {
+      "id": "insight.adult.MX5.sourceText",
+      "category": "insights_adult",
+      "insight_id": "MX5",
+      "field": "sourceText",
+      "adult": "Consistency — timeless framing",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_5"
+      }
+    },
+    {
+      "id": "insight.adult.MX6.title",
+      "category": "insights_adult",
+      "insight_id": "MX6",
+      "field": "title",
+      "adult": "Eternal — depth over drama",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_6"
+      }
+    },
+    {
+      "id": "insight.adult.MX6.body",
+      "category": "insights_adult",
+      "insight_id": "MX6",
+      "field": "body",
+      "adult": "Half a decade is enough seasons to fail, wander, and restart. Earning this means the pattern survived real life — not a streak fantasy.",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_6"
+      }
+    },
+    {
+      "id": "insight.adult.MX6.sourceText",
+      "category": "insights_adult",
+      "insight_id": "MX6",
+      "field": "sourceText",
+      "adult": "Consistency — eternal framing",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_6"
+      }
+    },
+    {
+      "id": "insight.adult.MX7.title",
+      "category": "insights_adult",
+      "insight_id": "MX7",
+      "field": "title",
+      "adult": "Immortal — a lifetime stitch",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_7"
+      }
+    },
+    {
+      "id": "insight.adult.MX7.body",
+      "category": "insights_adult",
+      "insight_id": "MX7",
+      "field": "body",
+      "adult": "A decade marker is as much about values as behaviour: some practices deserve to stay loosely tethered across everything else that changes.",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_7"
+      }
+    },
+    {
+      "id": "insight.adult.MX7.sourceText",
+      "category": "insights_adult",
+      "insight_id": "MX7",
+      "field": "sourceText",
+      "adult": "Consistency — immortal framing",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "consistency",
+        "triggerType": "mastery_tier_7"
+      }
+    },
+    {
+      "id": "insight.adult.BK_SM1.title",
+      "category": "insights_adult",
+      "insight_id": "BK_SM1",
+      "field": "title",
+      "adult": "Only now and not-yet",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "books",
+        "triggerType": "habit_added"
+      }
+    },
+    {
+      "id": "insight.adult.BK_SM1.body",
+      "category": "insights_adult",
+      "insight_id": "BK_SM1",
+      "field": "body",
+      "adult": "For a small child, time has two settings: this moment, and everything else u2014 which feels like infinity. Thatu2019s not immaturity. Itu2019s how the brain is wired before it learns to feel the distance between today and next week.nnHabits are how you train that distance to feel real.",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "books",
+        "triggerType": "habit_added"
+      }
+    },
+    {
+      "id": "insight.adult.BK_SM1.sourceText",
+      "category": "insights_adult",
+      "insight_id": "BK_SM1",
+      "field": "sourceText",
+      "adult": "Jean Piaget u2014 developmental psychology; Gabor Matu00e9, Scattered Minds",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "books",
+        "triggerType": "habit_added"
+      }
+    },
+    {
+      "id": "insight.adult.BK_SM2.title",
+      "category": "insights_adult",
+      "insight_id": "BK_SM2",
+      "field": "title",
+      "adult": "Wishing doesnu2019t make it so",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "books",
+        "triggerType": "week_2"
+      }
+    },
+    {
+      "id": "insight.adult.BK_SM2.body",
+      "category": "insights_adult",
+      "insight_id": "BK_SM2",
+      "field": "body",
+      "adult": "The young brain defaults to magical thinking u2014 want something hard enough and it arrives. Most adults still carry a version of this around goals.nnThe system youu2019re building here is the direct answer to that: small repeated actions, not intention.",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "books",
+        "triggerType": "week_2"
+      }
+    },
+    {
+      "id": "insight.adult.BK_SM2.sourceText",
+      "category": "insights_adult",
+      "insight_id": "BK_SM2",
+      "field": "sourceText",
+      "adult": "Jean Piaget; Gabor Matu00e9, Scattered Minds",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "books",
+        "triggerType": "week_2"
+      }
+    },
+    {
+      "id": "insight.adult.BK_SM3.title",
+      "category": "insights_adult",
+      "insight_id": "BK_SM3",
+      "field": "title",
+      "adult": "Time is learned, not given",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "books",
+        "triggerType": "habit_added"
+      }
+    },
+    {
+      "id": "insight.adult.BK_SM3.body",
+      "category": "insights_adult",
+      "insight_id": "BK_SM3",
+      "field": "body",
+      "adult": "No one is born understanding that todayu2019s choices shape next week. That link u2014 cause, then effect, across time u2014 is something the brain constructs gradually. In some people that construction takes longer.nnThatu2019s not a deficit. Itu2019s just the starting point.",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "books",
+        "triggerType": "habit_added"
+      }
+    },
+    {
+      "id": "insight.adult.BK_SM3.sourceText",
+      "category": "insights_adult",
+      "insight_id": "BK_SM3",
+      "field": "sourceText",
+      "adult": "Jean Piaget u2014 cognitive development; Gabor Matu00e9, Scattered Minds",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "books",
+        "triggerType": "habit_added"
+      }
+    },
+    {
+      "id": "insight.adult.BK_SM4.title",
+      "category": "insights_adult",
+      "insight_id": "BK_SM4",
+      "field": "title",
+      "adult": "Seven is when time clicks",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "books",
+        "triggerType": "week_4"
+      }
+    },
+    {
+      "id": "insight.adult.BK_SM4.body",
+      "category": "insights_adult",
+      "insight_id": "BK_SM4",
+      "field": "body",
+      "adult": "Piaget found that children donu2019t have a full grasp of time until around age seven. Before that, duration and consequence are genuinely hard to feel u2014 not a behaviour choice.nnFor some brains, external structure does what that internal clock hasnu2019t fully built yet.",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "books",
+        "triggerType": "week_4"
+      }
+    },
+    {
+      "id": "insight.adult.BK_SM4.sourceText",
+      "category": "insights_adult",
+      "insight_id": "BK_SM4",
+      "field": "sourceText",
+      "adult": "Jean Piaget u2014 preoperational stage; Gabor Matu00e9, Scattered Minds",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "books",
+        "triggerType": "week_4"
+      }
+    },
+    {
+      "id": "insight.adult.BK_SM5.title",
+      "category": "insights_adult",
+      "insight_id": "BK_SM5",
+      "field": "title",
+      "adult": "You canu2019t bend time by wanting to",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "books",
+        "triggerType": "week_4"
+      }
+    },
+    {
+      "id": "insight.adult.BK_SM5.body",
+      "category": "insights_adult",
+      "insight_id": "BK_SM5",
+      "field": "body",
+      "adult": "Piaget observed that young children believe they can stop, speed up, or slow time down. That instinct doesnu2019t always fully leave. If deadlines feel like suggestions and schedules seem to shift around you u2014 thatu2019s the same wiring, older.nnStructure isnu2019t a workaround. Itu2019s the actual solution.",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "books",
+        "triggerType": "week_4"
+      }
+    },
+    {
+      "id": "insight.adult.BK_SM5.sourceText",
+      "category": "insights_adult",
+      "insight_id": "BK_SM5",
+      "field": "sourceText",
+      "adult": "Jean Piaget u2014 preoperational stage; Gabor Matu00e9, Scattered Minds",
+      "kid": null,
+      "html": false,
+      "meta": {
+        "category": "books",
+        "triggerType": "week_4"
+      }
+    },
+    {
       "id": "insight.kid.I1.title",
       "category": "insights_kid",
       "insight_id": "I1",
@@ -3880,7 +4348,7 @@
       "insight_id": "I1",
       "field": "body",
       "adult": null,
-      "kid": "While you sleep, your brain tidies up the day — putting things where they belong. Miss a lot of sleep and remembering gets trickier. Going to bed at the same time most nights works better than one big sleep-in.",
+      "kid": "When you sleep, your brain sorts the day — a bit like tidying your room.\n\nIf you miss sleep a lot, remembering gets harder. A usual bedtime beats one huge catch-up night.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -3910,7 +4378,7 @@
       "insight_id": "I2",
       "field": "body",
       "adult": null,
-      "kid": "Sunlight, meals, and bedtime tell your body what time it is. Mixed signals can make you feel off.\n\nA calm wind-down routine is doing real work, even if it feels a bit boring.",
+      "kid": "Sunlight, meals, and bedtime tell your body what time it is. Mixed signals can make you feel off.\n\nA calm wind-down routine is doing real work, even if it feels boring.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -3940,7 +4408,7 @@
       "insight_id": "I3",
       "field": "body",
       "adult": null,
-      "kid": "A very big meal late at night can make blood sugar trickier to handle — even with the same food eaten earlier in the day.\n\nIt's a body clock thing, not a \"being bad\" thing.",
+      "kid": "A very big meal late at night can make blood sugar trickier to handle — even with the same food earlier.\n\nIt is biology, not “being bad.”",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -3970,7 +4438,7 @@
       "insight_id": "I4",
       "field": "body",
       "adult": null,
-      "kid": "About ten minutes of walking or moving often clears a fuzzy head.\n\nYou don't need a huge workout — wiggle, walk, dance. Whatever gets you going.",
+      "kid": "About ten minutes of walking or moving often clears a fuzzy head.\n\nYou do not need a huge workout — wiggle, walk, dance.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -4000,7 +4468,7 @@
       "insight_id": "I5",
       "field": "body",
       "adult": null,
-      "kid": "\"After I brush my teeth, I do two stretches.\" The old habit reminds you — no extra remembering needed.\n\nTiny links beat giant promises.",
+      "kid": "Try: “After I brush my teeth, I do two stretches.” The old habit reminds you.\n\nTiny links beat giant promises.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -4030,7 +4498,7 @@
       "insight_id": "I6",
       "field": "body",
       "adult": null,
-      "kid": "\"Tuesday after school I ride my bike\" beats \"I should move more.\"\n\nBrains love a clear plan.",
+      "kid": "“Tuesday after school I ride my bike” beats “I should move more.”\n\nBrains love a clear plan.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -4060,7 +4528,7 @@
       "insight_id": "I7",
       "field": "body",
       "adult": null,
-      "kid": "Your brain loves little wins — checkmarks, stars, streaks.\n\nUse that power for habits that actually help you.",
+      "kid": "Your brain likes little wins — checkmarks, stars, streaks.\n\nUse that power for habits that help you.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -4090,7 +4558,7 @@
       "insight_id": "I8",
       "field": "body",
       "adult": null,
-      "kid": "Some brains need clocks, timers, or lists to feel how long things take. That's completely fine — tools are helpers.\n\n\"Someday\" is fuzzy; \"after snack\" is something your brain can work with.",
+      "kid": "Some brains need clocks, timers, or lists to feel how long things take. That is okay — tools are helpers.\n\n“Someday” is fuzzy; “after snack” is friendly.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -4150,7 +4618,7 @@
       "insight_id": "I10",
       "field": "body",
       "adult": null,
-      "kid": "A few minutes of messy writing can untangle worried thoughts.\n\nYou don't need perfect sentences — just get it out.",
+      "kid": "A few minutes of messy writing can untangle worried thoughts.\n\nYou do not need perfect sentences.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -4180,7 +4648,7 @@
       "insight_id": "I11",
       "field": "body",
       "adult": null,
-      "kid": "Reading a little most days grows your vocabulary over time.\n\nShort, cosy reading still counts.",
+      "kid": "Reading a little most days grows vocabulary over time.\n\nShort, cosy reading still counts.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -4210,7 +4678,7 @@
       "insight_id": "I12",
       "field": "body",
       "adult": null,
-      "kid": "Calm attention practice can train focus a bit like practice trains sport skills.\n\nShort and often beats rare and long.",
+      "kid": "Calm attention practice can train focus a bit like practice for sport.\n\nShort and often beats rare and long.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -4240,7 +4708,7 @@
       "insight_id": "I13",
       "field": "body",
       "adult": null,
-      "kid": "A bit on many days beats one giant cram — for skills and habits alike.\n\nGaps between tries help your brain learn.",
+      "kid": "A bit on many days beats one giant cram for skills and habits.\n\nGaps between tries help your brain learn.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -4270,7 +4738,7 @@
       "insight_id": "I14",
       "field": "body",
       "adult": null,
-      "kid": "\"I am a reader\" or \"I move my body\" can stick better than \"I am trying.\"\n\nTell a story that helps you on hard days.",
+      "kid": "Saying “I am a reader” or “I move my body” can stick better than “I am trying.”\n\nTell a story that helps you on hard days.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -4330,7 +4798,7 @@
       "insight_id": "I16",
       "field": "body",
       "adult": null,
-      "kid": "When someone kind knows your plan, you're more likely to do it.\n\nA friend, parent, or coach counts.",
+      "kid": "When someone kind knows your plan, you are more likely to do it.\n\nA friend, parent, or coach counts.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -4420,7 +4888,7 @@
       "insight_id": "I19",
       "field": "body",
       "adult": null,
-      "kid": "Short breaks from sitting help energy and sugar levels.\n\nStand, stretch, grab water — it counts.",
+      "kid": "Short breaks from sitting help energy and sugar control.\n\nStand, stretch, grab water — it counts.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -4450,7 +4918,7 @@
       "insight_id": "I20",
       "field": "body",
       "adult": null,
-      "kid": "Real life habits often need weeks or months to stick — not a magic \"21 days.\"\n\nEarly tries aren't failure — they're the start.",
+      "kid": "Real life habits often need weeks or months, not magic “21 days.”\n\nEarly tries are not failure — they are the start.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -4510,7 +4978,7 @@
       "insight_id": "I22",
       "field": "body",
       "adult": null,
-      "kid": "More food earlier in the day often suits the body better than only big late meals.\n\nTiming is a tool, not a rule about \"good\" or \"bad.\"",
+      "kid": "More food earlier in the day often suits the body better than only huge late meals.\n\nTiming is a tool, not a rule about “good” or “bad.”",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -4570,7 +5038,7 @@
       "insight_id": "I24",
       "field": "body",
       "adult": null,
-      "kid": "Switching tasks leaves mental \"echoes\" that slow you down.\n\nGive one job a protected block of time.",
+      "kid": "Switching tasks leaves mental “echoes” that slow you down.\n\nGive one job a protected block of time.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -4600,7 +5068,7 @@
       "insight_id": "I25",
       "field": "body",
       "adult": null,
-      "kid": "Skipping once doesn't erase progress — shame spirals do more damage.\n\nThe next small win is the comeback.",
+      "kid": "Skipping once does not erase progress. Shame spirals do more damage.\n\nThe next small win is the comeback.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART1"
     },
@@ -4630,7 +5098,7 @@
       "insight_id": "I26",
       "field": "body",
       "adult": null,
-      "kid": "Bright screens at night can delay the chemistry that makes you sleepy.\n\nDim screens or move them farther away before bed.",
+      "kid": "Bright screens at night can delay sleepy chemistry.\n\nDim screens or move them farther away before bed.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -4660,7 +5128,7 @@
       "insight_id": "I27",
       "field": "body",
       "adult": null,
-      "kid": "Even mild thirst can ding your mood and attention.\n\nKeep water handy — boring and useful.",
+      "kid": "Even mild thirst can ding mood and attention.\n\nKeep water handy — boring and useful.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -4690,7 +5158,7 @@
       "insight_id": "I28",
       "field": "body",
       "adult": null,
-      "kid": "Walking often brings more ideas than sitting still.\n\nStuck? Try a lap before deciding.",
+      "kid": "Walking often brings more ideas than sitting.\n\nStuck? Try a lap before deciding.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -4720,7 +5188,7 @@
       "insight_id": "I29",
       "field": "body",
       "adult": null,
-      "kid": "Big studies link biking with healthier hearts than only driving.\n\nPedals don't need fancy clothes.",
+      "kid": "Big studies link biking with healthier hearts than only driving.\n\nPedals do not need fancy clothes.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -4810,7 +5278,7 @@
       "insight_id": "I32",
       "field": "body",
       "adult": null,
-      "kid": "\"Two jumps\" beats \"get fit forever\" for actually starting.\n\nMake step one too easy to argue with.",
+      "kid": "“Two jumps” beats “get fit forever” for actually starting.\n\nMake step one too easy to argue with.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -4870,7 +5338,7 @@
       "insight_id": "I34",
       "field": "body",
       "adult": null,
-      "kid": "Predictable rhythms help kids feel safe and healthy — not rigid, just steady.\n\nYou're building a calm home feeling.",
+      "kid": "Predictable rhythms help kids feel safe and healthy — not rigid, just steady.\n\nYou are building a calm home feeling.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -4930,7 +5398,7 @@
       "insight_id": "I36",
       "field": "body",
       "adult": null,
-      "kid": "\"Stop and go\" skills train like sport practice — every small keep-going counts.",
+      "kid": "Following through trains “stop and go” skills like sport practice.\n\nEach small keep-trying counts.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -4960,7 +5428,7 @@
       "insight_id": "I37",
       "field": "body",
       "adult": null,
-      "kid": "Bodies often have more energy than the brain admits on hard days.\n\nSlow down, but question \"I have nothing left.\"",
+      "kid": "Bodies often have more gas than the brain admits on hard days.\n\nSlow down, but question “I have nothing left.”",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -4990,7 +5458,7 @@
       "insight_id": "I38",
       "field": "body",
       "adult": null,
-      "kid": "Some brains need louder outside reminders. That's wiring, not laziness.\n\nUse what works for you.",
+      "kid": "Some brains need louder outside reminders. That is wiring, not laziness.\n\nUse what works for you.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -5020,7 +5488,7 @@
       "insight_id": "I39",
       "field": "body",
       "adult": null,
-      "kid": "Stars, ticks, and games use similar \"win\" brain wiring — healthy apps borrow that on purpose.\n\nSteer the wins toward good habits.",
+      "kid": "Stars, ticks, and games use similar “win” wiring — healthy apps borrow that on purpose.\n\nSteer the wins toward good habits.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -5050,7 +5518,7 @@
       "insight_id": "I40",
       "field": "body",
       "adult": null,
-      "kid": "Planning, starting, sticking, and switching are different skills.\n\nSteady weeks train all of them.",
+      "kid": "Planning, starting, sticking, and switching are different skills.\n\nSteady weeks quietly train all of them.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -5080,7 +5548,7 @@
       "insight_id": "I41",
       "field": "body",
       "adult": null,
-      "kid": "Random little rewards can make habits stickier than perfectly timed ones.\n\nThis app's surprise facts are gentle curiosity — separate from weekly treats and jar rules, not an extra game on top.",
+      "kid": "Random little rewards can make habits stickier than perfect clocks.\n\nThis app’s surprise facts are gentle curiosity — separate from weekly treats and jar rules, not an extra game on top.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -5110,7 +5578,7 @@
       "insight_id": "I42",
       "field": "body",
       "adult": null,
-      "kid": "When a trusted person knows your goal, you're more likely to try.\n\nThey don't have to nag.",
+      "kid": "When a trusted person knows your goal, you are more likely to try.\n\nThey do not have to nag.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -5140,7 +5608,7 @@
       "insight_id": "I43",
       "field": "body",
       "adult": null,
-      "kid": "Some people mis-guess how long tasks take without a clock. That's human, not \"lazy.\"\n\nConcrete times fix it kindly.",
+      "kid": "Some people mis-guess how long tasks take without a clock. That is human, not “lazy.”\n\nConcrete times fix it kindly.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -5170,7 +5638,7 @@
       "insight_id": "I44",
       "field": "body",
       "adult": null,
-      "kid": "\"If it rains, I dance inside\" beats \"I will try harder.\"\n\nThe sentence is the superpower.",
+      "kid": "“If it rains, I dance inside” beats “I will try harder.”\n\nThe sentence is the superpower.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -5200,7 +5668,7 @@
       "insight_id": "I45",
       "field": "body",
       "adult": null,
-      "kid": "Visible cues and room layouts predict habits better than morning excitement.\n\nDesign for Tuesday-you.",
+      "kid": "Visible cues and layouts predict habits better than morning excitement.\n\nDesign for Tuesday-you.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -5260,7 +5728,7 @@
       "insight_id": "I47",
       "field": "body",
       "adult": null,
-      "kid": "Many people have attention differences — structure helps everyone.\n\nIf a tool helps you live your plan, it wins.",
+      "kid": "Many people have attention differences; structure still helps everyone.\n\nIf a tool helps you live your plan, it wins.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -5290,7 +5758,7 @@
       "insight_id": "I48",
       "field": "body",
       "adult": null,
-      "kid": "Several small, steady habits link to happier days — even humble ones.\n\nRhythm can feel like rest.",
+      "kid": "Several small steady habits link to happier days — even humble ones.\n\nRhythm can feel like rest.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART2"
     },
@@ -5380,7 +5848,7 @@
       "insight_id": "F1",
       "field": "body",
       "adult": null,
-      "kid": "Only humans set alarms… then negotiate nine more minutes.\n\nThe snooze button is a tiny morning comedy.",
+      "kid": "Only humans set alarms… then negotiate nine more minutes.\n\nThe snooze button is a tiny comedy about mornings.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART3"
     },
@@ -5440,7 +5908,7 @@
       "insight_id": "F3",
       "field": "body",
       "adult": null,
-      "kid": "Grown-up bodies clear about one standard drink per hour — coffee and pep talks don't speed it up.\n\nWaiting is the only real shortcut.",
+      "kid": "Typical grown-up bodies clear about one standard drink per hour — coffee and pep talks do not speed it up.\n\nWaiting is the real “life hack.”",
       "html": false,
       "source_part": "_INSIGHT_KID_PART3"
     },
@@ -5470,7 +5938,7 @@
       "insight_id": "F4",
       "field": "body",
       "adult": null,
-      "kid": "A famous stunt: someone stayed awake for eleven days with doctors watching. He recovered — and said never again.\n\nDon't try this. Your sleep matters.",
+      "kid": "A famous stunt stayed awake eleven days with doctors watching. He said never again.\n\nDo not try this — your sleep matters.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART3"
     },
@@ -5530,7 +5998,7 @@
       "insight_id": "F6",
       "field": "body",
       "adult": null,
-      "kid": "Brains sometimes start moving before we notice we made a choice.\n\nMuch of life is catching yourself mid-habit.",
+      "kid": "Brains sometimes move before we notice the choice.\n\nMuch of life is catching yourself mid-habit.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART3"
     },
@@ -5590,7 +6058,7 @@
       "insight_id": "F8",
       "field": "body",
       "adult": null,
-      "kid": "Some people check their phone nearly a hundred times a day.\n\nYour habit app competes with world-class designers — fair fight.",
+      "kid": "Some people check phones nearly a hundred times a day.\n\nYour habit app competes with world-class designers — fair fight.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART3"
     },
@@ -5650,7 +6118,7 @@
       "insight_id": "F10",
       "field": "body",
       "adult": null,
-      "kid": "Long ago a \"deadline\" was a line you must not cross — serious trouble. Now it means rows in an app.\n\nGentler stakes, same human love of a finish line.",
+      "kid": "Long ago a “deadline” was a line you must not cross — serious trouble.\n\nNow it means rows in an app — gentler stakes.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART3"
     },
@@ -5680,7 +6148,7 @@
       "insight_id": "F11",
       "field": "body",
       "adult": null,
-      "kid": "A famous study: judges were stricter before lunch and kinder after — tired brains, not mean hearts.\n\nAfternoon you isn't \"worse,\" just running low.",
+      "kid": "A famous study: judges were stricter before lunch and kinder after — tired brains, not mean hearts.\n\nAfternoon you is not “worse,” just lower fuel.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART3"
     },
@@ -5710,7 +6178,7 @@
       "insight_id": "F12",
       "field": "body",
       "adult": null,
-      "kid": "The \"three-week habit\" story was a rough guess. Real habits take weeks to months.\n\nYou're not behind.",
+      "kid": "The “three-week habit” story was a rough guess. Real habits take weeks to months.\n\nYou are not behind.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART3"
     },
@@ -5740,7 +6208,7 @@
       "insight_id": "F13",
       "field": "body",
       "adult": null,
-      "kid": "Average humans walk enough in a life to circle Earth several times — in tiny trips.\n\nExtra walks still change health.",
+      "kid": "Average humans walk enough in life to circle Earth several times — in tiny trips.\n\nExtra walks still change health.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART3"
     },
@@ -5800,7 +6268,7 @@
       "insight_id": "F15",
       "field": "body",
       "adult": null,
-      "kid": "Muscles don't care if the weight giggles. Carrying little ones upstairs still counts.\n\nAccidental gym.",
+      "kid": "Muscles do not care if the weight giggles. Carrying little ones upstairs still counts.\n\nAccidental gym.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART3"
     },
@@ -5830,7 +6298,7 @@
       "insight_id": "F16",
       "field": "body",
       "adult": null,
-      "kid": "Ancient \"average lifespan ~35\" mostly counted young kids dying early. Adults often lived decades longer.\n\nAverages hide stories.",
+      "kid": "Ancient “average lifespan ~35” mostly counted young kids. Adults often lived decades longer.\n\nAverages hide stories.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART3"
     },
@@ -5860,7 +6328,7 @@
       "insight_id": "F17",
       "field": "body",
       "adult": null,
-      "kid": "Most cells replace on a slow rhythm — you're a ship rebuilt plank by plank.\n\nToday's habits feed tomorrow's you.",
+      "kid": "Most cells replace on a slow rhythm — you are a ship rebuilt plank by plank.\n\nToday’s habits feed tomorrow’s you.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART3"
     },
@@ -5950,7 +6418,7 @@
       "insight_id": "F20",
       "field": "body",
       "adult": null,
-      "kid": "Wanting to squeeze a puppy? Scientists called it \"cute aggression\" — common and harmless.\n\nTotally unrelated to your streak — just silly joy.",
+      "kid": "Wanting to squeeze a puppy? Scientists called it “cute aggression” — common and harmless.\n\nTotally unrelated to your streak — just silly joy.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART3"
     },
@@ -5980,7 +6448,7 @@
       "insight_id": "ME1",
       "field": "body",
       "adult": null,
-      "kid": "People hate losing about twice as much as they enjoy gaining the same amount.\n\nA clear \"floor\" in the app makes the stakes honest.\n\nBelow the floor, recovery keeps jar rules clear — core-only money until the score recovers. Ask a grown-up for the full picture.",
+      "kid": "People hate losing about twice as much as they enjoy gaining the same amount.\n\nA clear “floor” in the app makes the stakes honest.\n\nBelow the floor, recovery keeps jar rules clear — core-only money until the score recovers. Ask a grown-up for the full picture.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART4"
     },
@@ -6010,7 +6478,7 @@
       "insight_id": "ME2",
       "field": "body",
       "adult": null,
-      "kid": "Savers who chose \"locked until a date\" accounts often saved more than those with total freedom.\n\nGoal pots here echo that gentle lock.",
+      "kid": "Savers who chose “locked until a date” accounts often saved more than total freedom.\n\nGoal pots here echo that gentle lock.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART4"
     },
@@ -6040,7 +6508,7 @@
       "insight_id": "ME3",
       "field": "body",
       "adult": null,
-      "kid": "People speed up when a punch-card is almost full.\n\nProgress bars use the same \"almost there\" pull.",
+      "kid": "People speed up when a punch-card is almost full.\n\nProgress bars use the same “almost there” pull.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART4"
     },
@@ -6070,7 +6538,7 @@
       "insight_id": "ME4",
       "field": "body",
       "adult": null,
-      "kid": "Tonight's treat feels huge; faraway rewards feel tiny.\n\nWeekly treats plus a slow-building pot feed both versions of you.",
+      "kid": "Tonight’s treat feels huge; faraway rewards feel tiny.\n\nWeekly treats plus a slow pot feed both versions of you.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART4"
     },
@@ -6130,7 +6598,7 @@
       "insight_id": "ME6",
       "field": "body",
       "adult": null,
-      "kid": "Researchers paired audiobooks with treadmill time only — gym visits went up.\n\nYour weekly treat after qualifying uses the same idea.",
+      "kid": "Researchers paired audiobooks with treadmill time only — visits went up.\n\nYour weekly treat after qualifying uses the same bargain.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART4"
     },
@@ -6160,7 +6628,7 @@
       "insight_id": "ME7",
       "field": "body",
       "adult": null,
-      "kid": "We care extra about things we feel we own — streaks and pots use that.\n\nThe app respects feelings, not only numbers.",
+      "kid": "We care extra about things we feel we own — streaks and pots use that quirk.\n\nThe app respects feelings, not only numbers.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART4"
     },
@@ -6190,7 +6658,7 @@
       "insight_id": "ME8",
       "field": "body",
       "adult": null,
-      "kid": "Brains compare \"where I am\" to \"where I want to be,\" then adjust.\n\nColours and chips make that comparison kind.",
+      "kid": "Brains compare “where I am” to “where I want to be,” then adjust.\n\nColours and chips make that comparison kind.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART4"
     },
@@ -6220,7 +6688,7 @@
       "insight_id": "ME9",
       "field": "body",
       "adult": null,
-      "kid": "\"Holiday money\" and \"bill money\" feel different even in one account.\n\nSeparate goal pots work the same way.",
+      "kid": "People treat “holiday money” and “bill money” differently even in one account.\n\nSeparate goal pots ride that habit.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART4"
     },
@@ -6250,7 +6718,7 @@
       "insight_id": "ME10",
       "field": "body",
       "adult": null,
-      "kid": "Brains learn from \"better than expected\" moments.\n\nSurprise facts here are mild curiosity — little brain teasers, not bets.",
+      "kid": "Brains learn from “better than expected” moments.\n\nSurprise facts here are mild curiosity — little brain teasers, not bets.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART4"
     },
@@ -6280,7 +6748,7 @@
       "insight_id": "ME11",
       "field": "body",
       "adult": null,
-      "kid": "Green around your name means you're online! Grey means you're not connected right now.",
+      "kid": "Green around your name means you are online! Grey means you are not!",
       "html": false,
       "source_part": "_INSIGHT_KID_PART4"
     },
@@ -6310,7 +6778,7 @@
       "insight_id": "RG1",
       "field": "body",
       "adult": null,
-      "kid": "Jumping from struggling to solid usually means several good closed weeks — not one lucky week.\n\nLet the colour change say \"keep going,\" not \"be perfect.\"",
+      "kid": "Jumping from struggling to solid usually means several good closed weeks — not one fluke week.\n\nLet the colour change say “keep going,” not “be perfect.”",
       "html": false,
       "source_part": "_INSIGHT_KID_PART4"
     },
@@ -6340,7 +6808,7 @@
       "insight_id": "MY1",
       "field": "body",
       "adult": null,
-      "kid": "Month starts give many people a fresh-start boost.\n\nIf you're in the steady band, ride that tailwind.",
+      "kid": "Month starts give a fresh-start boost for many people.\n\nIf you are in the steady band, ride the gentle tailwind.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART4"
     },
@@ -6400,7 +6868,7 @@
       "insight_id": "CB1",
       "field": "body",
       "adult": null,
-      "kid": "Slips are normal. What matters most is coming back.\n\nOpening the log after a rough week already counts.",
+      "kid": "Slips are normal. Scientists care most that you return.\n\nOpening the log after a rough week already counts.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART4"
     },
@@ -6430,7 +6898,7 @@
       "insight_id": "CA1",
       "field": "body",
       "adult": null,
-      "kid": "If you add a habit mid-week, your first partial week uses a smaller target so it stays fair.\n\nExample: starting Thursday with a 5-day goal might only ask for about 2 days that week.",
+      "kid": "If you add a habit mid-week, your first partial week uses a smaller target so it stays fair.\n\nExample: starting Thursday with a 5-day goal might ask ~2 days that week.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART4"
     },
@@ -6490,7 +6958,7 @@
       "insight_id": "NH1",
       "field": "body",
       "adult": null,
-      "kid": "A lot of what people call \"reward\" is wanting and go-go energy, not only cosy afterglow.\n\nChasing the next tick uses different chemistry than deep rest.",
+      "kid": "A lot of what people call “reward” is wanting and go-go energy, not only cosy afterglow.\n\nChasing the next tick uses different chemistry than deep rest.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART5"
     },
@@ -6530,7 +6998,7 @@
       "insight_id": "NH2",
       "field": "body",
       "adult": null,
-      "kid": "\"Here-and-now\" chemistry and \"future-and-maybe\" chemistry are both real — both matter.\n\nBalance planning with enjoying the moment.",
+      "kid": "Writers describe “here-and-now” chemistry and “future-and-maybe” chemistry — both matter.\n\nBalance planning with enjoying the moment.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART5"
     },
@@ -6690,7 +7158,7 @@
       "insight_id": "NH6",
       "field": "body",
       "adult": null,
-      "kid": "The same hormone can nudge closeness or \"us vs them\" feelings, depending on context.\n\nKindness plus boundaries stays wise.",
+      "kid": "The same hormone can nudge closeness or “us vs them” feelings depending on context.\n\nKindness plus boundaries stays wise.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART5"
     },
@@ -6730,7 +7198,7 @@
       "insight_id": "NH7",
       "field": "body",
       "adult": null,
-      "kid": "Serotonin helps mood, sleep timing, and even gut signals — a steadying hand, not a simple \"happy switch.\"\n\nMedicine stories are separate from daily habits.",
+      "kid": "Serotonin helps mood, sleep timing, and even gut signals — a stabiliser, not a simple “happy switch.”\n\nMedicine stories are separate from daily habits.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART5"
     },
@@ -6810,7 +7278,7 @@
       "insight_id": "NH9",
       "field": "body",
       "adult": null,
-      "kid": "After very intense fun, the body shifts toward calm chemistry — that's normal biology.\n\nUnderstanding the cooldown helps you plan rest, not worry.",
+      "kid": "After very intense fun, the body shifts toward calm chemistry — that is normal biology.\n\nUnderstanding cooldown helps you plan rest, not worry.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART5"
     },
@@ -6850,7 +7318,7 @@
       "insight_id": "NH10",
       "field": "body",
       "adult": null,
-      "kid": "Hormone research ties prolactin to nurturing behaviours in many mammals.\n\nBodies reward caring for others with their own chemistry.",
+      "kid": "Hormone research ties prolactin to nurturing behaviours in many mammals.\n\nBodies quietly reward caring for others.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART5"
     },
@@ -6930,7 +7398,7 @@
       "insight_id": "NH12",
       "field": "body",
       "adult": null,
-      "kid": "Cheap digital hits train shortcuts; longer reading rebuilds patience.\n\nThis app's slower rewards echo that gentler pace.",
+      "kid": "Cheap digital hits train shortcuts; longer reading rebuilds patience.\n\nThis app’s slower rewards echo that gentler pace.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART5"
     },
@@ -6964,6 +7432,15 @@
       "html": false
     },
     {
+      "id": "settings.dynamic.lblSettingsDob",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:lblSettingsDob",
+      "elementId": "lblSettingsDob",
+      "adult": "Date of birth",
+      "kid": "Birthday",
+      "html": false
+    },
+    {
       "id": "settings.dynamic.settingsAccountBlockHeading",
       "category": "settings_kid_toggle",
       "locator": "syncSettingsPanelsKidCopy:setTxt:settingsAccountBlockHeading",
@@ -6977,8 +7454,8 @@
       "category": "settings_kid_toggle",
       "locator": "syncSettingsPanelsKidCopy:setTxt:settingsAccountAnonNote",
       "elementId": "settingsAccountAnonNote",
-      "adult": "Without signing in, your data lives only on this device. Sign in to access it from any browser or phone.",
-      "kid": "Without sign-in, everything stays on this tablet or computer. A grown-up can sign in to open the same profiles on another device.",
+      "adult": "Without sign-in, your data lives only on this device. Sign in to access it from any browser or phone.",
+      "kid": "Without sign-in, everything stays on this tablet or computer. Sign-in lets a grown-up open the same profiles on another device.",
       "html": false
     },
     {
@@ -6986,8 +7463,8 @@
       "category": "settings_kid_toggle",
       "locator": "syncSettingsPanelsKidCopy:setTxt:settingsAccountCloudLabel",
       "elementId": "settingsAccountCloudLabel",
-      "adult": "Sync this device with the cloud (uploads your full app data for this account)",
-      "kid": "Cloud sync (grown-up): keeps this device matched with your online account — uploads everything for your signed-in account.",
+      "adult": "Sync this device with the cloud (upload full app data for your account)",
+      "kid": "Cloud sync (grown-up): keep this device matched with your online account — uploads the full app for your signed-in account.",
       "html": false
     },
     {
@@ -7004,8 +7481,8 @@
       "category": "settings_kid_toggle",
       "locator": "syncSettingsPanelsKidCopy:setTxt:settingsAboutBlurb",
       "elementId": "settingsAboutBlurb",
-      "adult": "A personal habit tracker built around weekly consistency — for anyone who wants to show up for themselves and actually stick with it.",
-      "kid": "A friendly habit app for weekly habits. For anyone who wants to show up for themselves and keep it up.",
+      "adult": "A personal habit-tracking tool built around weekly consistency. Made for those who want to meet their better self and keep it.",
+      "kid": "A friendly habit app for weekly habits. For anyone who wants to meet their better self and keep it.",
       "html": false
     },
     {
@@ -7014,7 +7491,7 @@
       "locator": "syncSettingsPanelsKidCopy:setTxt:importProfileSectionLabel",
       "elementId": "importProfileSectionLabel",
       "adult": "Profiles to add from file",
-      "kid": "People to add from this file",
+      "kid": "People to add from the file",
       "html": false
     },
     {
@@ -7036,6 +7513,123 @@
       "html": false
     },
     {
+      "id": "settings.dynamic.lblSkipSecondLockConfirm",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:lblSkipSecondLockConfirm",
+      "elementId": "lblSkipSecondLockConfirm",
+      "adult": "Skip the second “are you sure you are sure?” step on profile delete, goal delete, and restoring an automatic cloud backup",
+      "kid": "Skip the extra “really sure?” step when deleting something big or restoring a cloud backup (ask a grown-up).",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.skipSecondLockWarnTitle",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:skipSecondLockWarnTitle",
+      "elementId": "skipSecondLockWarnTitle",
+      "adult": "Quick heads-up",
+      "kid": "Ask a grown-up",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.skipSecondLockWarnBody",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:skipSecondLockWarnBody",
+      "elementId": "skipSecondLockWarnBody",
+      "adult": "With this off, your pre-reset backup captures slightly less data. Scheduled backups are unaffected.",
+      "kid": "With this off, your backup right before a big delete saves a little less on this device. Night-time cloud snapshots still run.",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.skipSecondLockWarnGotItBtn",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:skipSecondLockWarnGotItBtn",
+      "elementId": "skipSecondLockWarnGotItBtn",
+      "adult": "Got it",
+      "kid": "Got it",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.skipSecondLockWarnKeepBtn",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:skipSecondLockWarnKeepBtn",
+      "elementId": "skipSecondLockWarnKeepBtn",
+      "adult": "Keep it on",
+      "kid": "Keep it on",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.foundSavedDataTitle",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:foundSavedDataTitle",
+      "elementId": "foundSavedDataTitle",
+      "adult": "We found your saved data",
+      "kid": "We found your save",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.foundSavedDataBody",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:foundSavedDataBody",
+      "elementId": "foundSavedDataBody",
+      "adult": "This device looks empty but your account has saved data. What would you like to do?",
+      "kid": "This device looks empty but your account has a save. What should we do?",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.foundSavedDataRestoreBtn",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:foundSavedDataRestoreBtn",
+      "elementId": "foundSavedDataRestoreBtn",
+      "adult": "Restore my data",
+      "kid": "Bring back my save",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.foundSavedDataStartFreshBtn",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:foundSavedDataStartFreshBtn",
+      "elementId": "foundSavedDataStartFreshBtn",
+      "adult": "Start fresh",
+      "kid": "Start empty here",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.startFreshConfirmTitle",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:startFreshConfirmTitle",
+      "elementId": "startFreshConfirmTitle",
+      "adult": "Are you sure?",
+      "kid": "Really sure?",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.startFreshConfirmBody",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:startFreshConfirmBody",
+      "elementId": "startFreshConfirmBody",
+      "adult": "This will permanently clear your account data. Are you sure?",
+      "kid": "This clears your online save for good. Ask a grown-up.",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.startFreshConfirmCancelBtn",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:startFreshConfirmCancelBtn",
+      "elementId": "startFreshConfirmCancelBtn",
+      "adult": "Cancel",
+      "kid": "Go back",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.startFreshConfirmOkBtn",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:startFreshConfirmOkBtn",
+      "elementId": "startFreshConfirmOkBtn",
+      "adult": "Continue",
+      "kid": "Yes, clear online",
+      "html": false
+    },
+    {
       "id": "settings.dynamic.settingsAdvancedExportNote.html",
       "category": "settings_kid_toggle",
       "locator": "syncSettingsPanelsKidCopy:setHtml:settingsAdvancedExportNote",
@@ -7049,8 +7643,17 @@
       "category": "settings_kid_toggle",
       "locator": "syncSettingsPanelsKidCopy:setHtml:importBackupWarnLine",
       "elementId": "importBackupWarnLine",
-      "adult": "This only <strong>adds</strong> copies of the profiles you choose. Everything already on this device stays exactly as it is (even if an ID in the file matches one here — that copy gets a new ID).",
-      "kid": "This only <strong>adds</strong> profile copies you choose. Everything already on this device stays the same (even if an ID in the file matches — that copy gets a new ID).",
+      "adult": "This only <strong>adds</strong> copies of the profiles you choose. Existing profiles on this device are left exactly as they are (including when an ID in the file already exists — that import gets a new ID).",
+      "kid": "This only <strong>adds</strong> profile copies you choose. Everything already on this device stays the same (even if an ID in the file exists — that copy gets a new ID).",
+      "html": true
+    },
+    {
+      "id": "settings.dynamic.settingsHelpIntro.html",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setHtml:settingsHelpIntro",
+      "elementId": "settingsHelpIntro",
+      "adult": "Browse insights, open Tips for the full reference, or replay orientation tours below. <strong>About</strong> has the app blurb.",
+      "kid": "See fun facts you collected, read Tips, or replay the intro, tab tour, or guides below. Cloud backups and backup files are under <strong>Advanced</strong>; <strong>About</strong> is the last tab.",
       "html": true
     },
     {
@@ -7058,15 +7661,15 @@
       "category": "settings_kid_toggle",
       "locator": "syncSettingsPanelsKidCopy:setHtml:advancedCloudHistoryIntro",
       "elementId": "advancedCloudHistoryIntro",
-      "adult": "We keep up to two recent backups in your account when you sync — handy if something ever looks off. Tap a saved backup to restore it.",
-      "kid": "We save two backups of your stuff when you sync. If something looks wrong, tap one to go back to how it was before today.",
+      "adult": "These two buttons are the latest two rolling cloud snapshots (updated nightly on the server). Tap one to revert if your data looks off (you confirm first).",
+      "kid": "Two rolling cloud snapshots (like \"yesterday\" and \"two days ago\"). Tap one to go back if something looks wrong (confirm with a grown-up).",
       "html": true
     },
     {
       "id": "onboarding.wizard.wizard.adult.brandSub",
       "category": "onboarding_wizard",
       "variant": "adult",
-      "adult": "Build better habits, week by week.",
+      "adult": "The app that helps you discover, build, and become your better self.",
       "kid": null,
       "html": false
     },
@@ -7082,7 +7685,7 @@
       "id": "onboarding.wizard.wizard.adult.step0.sub",
       "category": "onboarding_wizard",
       "variant": "adult",
-      "adult": "Small steps, every week. That's all this takes — and we'll help you stick with it.",
+      "adult": "Get ready to change your life one week at a time. Here you’ll grow the consistency you always needed but couldn’t quite stick with.",
       "kid": null,
       "html": false
     },
@@ -7098,7 +7701,7 @@
       "id": "onboarding.wizard.wizard.adult.step1.sub",
       "category": "onboarding_wizard",
       "variant": "adult",
-      "adult": "Pop in your name and birth date if you like. If you're 0–8, things look a little different. Your tracking kicks off from today.",
+      "adult": "You can edit your name and add your birth date. If your age is 0–8 you’ll have a different experience. Tracking will start from today.",
       "kid": null,
       "html": false
     },
@@ -7138,7 +7741,7 @@
       "id": "onboarding.wizard.wizard.adult.step2.note",
       "category": "onboarding_wizard",
       "variant": "adult",
-      "adult": "Pick a theme that feels like you.",
+      "adult": "Pick your favourite theme.",
       "kid": null,
       "html": false
     },
@@ -7147,7 +7750,7 @@
       "category": "onboarding_wizard",
       "variant": "kid",
       "adult": null,
-      "kid": "Build good habits, one week at a time.",
+      "kid": "The app that helps you discover, build, and become your better self.",
       "html": false
     },
     {
@@ -7163,7 +7766,7 @@
       "category": "onboarding_wizard",
       "variant": "kid",
       "adult": null,
-      "kid": "Small steps, every week — and they add up faster than you think!",
+      "kid": "Get ready to grow good habits one week at a time — small steps that add up.",
       "html": false
     },
     {
@@ -7179,7 +7782,7 @@
       "category": "onboarding_wizard",
       "variant": "kid",
       "adult": null,
-      "kid": "Add your name and birthday if you like. If you're 0–8, things look a bit friendlier. Tracking starts today — a grown-up can help with dates.",
+      "kid": "You can edit your name and add your birthday. If you are 0–8 things look a bit friendlier. Tracking starts from today — a grown-up can help with dates.",
       "html": false
     },
     {
@@ -7219,7 +7822,7 @@
       "category": "onboarding_wizard",
       "variant": "kid",
       "adult": null,
-      "kid": "Pick a theme that feels like you.",
+      "kid": "Pick your favourite theme.",
       "html": false
     },
     {
@@ -7234,7 +7837,7 @@
       "id": "onboarding.intro.adult.brandSub",
       "category": "onboarding_intro",
       "variant": "adult",
-      "adult": "Here's how it all fits together.",
+      "adult": "A few things worth knowing before you start.",
       "kid": null,
       "html": false
     },
@@ -7250,7 +7853,7 @@
       "id": "onboarding.intro.adult.steps[0].html",
       "category": "onboarding_intro",
       "variant": "adult",
-      "adult": "<p style=\"margin:0 0 var(--s3)\">Consistency works best with a little structure. This app gives you three things to keep you on track:</p><ul><li><strong>Goal</strong> — a long-term reward to keep your eyes on the big picture.</li><li><strong>Weekly treat</strong> — a small reward so you feel the win often.</li><li><strong>Consistency</strong> — a streak worth protecting.</li></ul>",
+      "adult": "<p style=\"margin:0 0 var(--s3)\">This app helps you build consistency for everything you struggle with until now, using three mechanisms:</p><ul><li><strong>Goal</strong> — long-term rewards so you keep your eyes on what you are saving for.</li><li><strong>Weekly treat</strong> — short-term rewards so you feel the win often.</li><li><strong>Consistency</strong> — a streak you will want to keep going.</li></ul>",
       "kid": null,
       "html": true
     },
@@ -7266,7 +7869,7 @@
       "id": "onboarding.intro.adult.steps[1].html",
       "category": "onboarding_intro",
       "variant": "adult",
-      "adult": "<p style=\"margin:0 0 var(--s3)\"><strong>Consistency</strong> is really just doing things repeatedly — nothing magic about it. But we've made it satisfying. Life gets in the way sometimes, and that's fine. Hitting <strong>80%</strong> of the time? That's genuinely good.</p>",
+      "adult": "<p style=\"margin:0 0 var(--s3)\"><strong>Consistency</strong> is built on mundane repetition. But this app makes it interesting and fun. Life is neither easy nor perfect, but we think it’s OK to be on top of things at least <strong>80%</strong> of the time.</p>",
       "kid": null,
       "html": true
     },
@@ -7282,7 +7885,7 @@
       "id": "onboarding.intro.adult.steps[2].html",
       "category": "onboarding_intro",
       "variant": "adult",
-      "adult": "<p style=\"margin:0\">Stay consistent for <strong>80%</strong> of your weeks and you'll unlock your <strong>big Goal</strong> reward — plus you'll have actually built the habits that got you there.</p>",
+      "adult": "<p style=\"margin:0\"><strong>Qualify</strong> your week to remain <strong>Consistent</strong> for 80% of your tracking time and you can reap your <strong>big Goal</strong> reward, on top of building the good habits you really need.</p>",
       "kid": null,
       "html": true
     },
@@ -7298,7 +7901,7 @@
       "id": "onboarding.intro.adult.steps[3].html",
       "category": "onboarding_intro",
       "variant": "adult",
-      "adult": "<p style=\"margin:0 0 var(--s3)\">A week counts when your <strong>core</strong> habits are done. We'll explain more as you go.</p><p style=\"margin:0\">For now — let's set your first <strong>Goal</strong>.</p>",
+      "adult": "<p style=\"margin:0 0 var(--s3)\">A week qualifies by qualifying its <strong>(core)</strong> habits. More on this later.</p><p style=\"margin:0\">You are now ready to set your first <strong>Goal</strong>.</p>",
       "kid": null,
       "html": true
     },
@@ -7315,7 +7918,7 @@
       "category": "onboarding_intro",
       "variant": "kid",
       "adult": null,
-      "kid": "Here's what this app does.",
+      "kid": "A few things worth knowing before you start.",
       "html": false
     },
     {
@@ -7331,7 +7934,7 @@
       "category": "onboarding_intro",
       "variant": "kid",
       "adult": null,
-      "kid": "<p style=\"margin:0 0 var(--s3)\">This app uses three ideas:</p><ul><li>A big <strong>Goal</strong> to save toward.</li><li>A small weekly <strong>Treat</strong> when you do well.</li><li>A <strong>Consistency</strong> streak you'll want to protect.</li></ul><p style=\"margin:0\">Ask a grown-up if anything feels tricky.</p>",
+      "kid": "<p style=\"margin:0 0 var(--s3)\">This app uses three ideas:</p><ul><li>A big <strong>Goal</strong> to save for.</li><li>A small weekly <strong>Treat</strong> when you do well.</li><li>A <strong>Consistency</strong> streak you want to protect.</li></ul><p style=\"margin:0\">Ask a grown-up if a sentence feels tricky.</p>",
       "html": true
     },
     {
@@ -7363,7 +7966,7 @@
       "category": "onboarding_intro",
       "variant": "kid",
       "adult": null,
-      "kid": "<p style=\"margin:0\">When your week <strong>qualifies</strong>, you stay <strong>Consistent</strong> and move closer to your big <strong>Goal</strong> — while building habits along the way.</p>",
+      "kid": "<p style=\"margin:0\">When your week <strong>qualifies</strong>, you stay <strong>Consistent</strong> over your tracked weeks and move toward your big <strong>Goal</strong> while building habits.</p>",
       "html": true
     },
     {
@@ -7392,7 +7995,7 @@
     {
       "id": "fieldTip.goalName.adult.body",
       "category": "field_tips",
-      "adult": "Pick something you're genuinely working toward — the kind of thing worth saving up for over weeks or months. Make it feel like a real destination, not a to-do.",
+      "adult": "Name something you’re working toward — often something you could save toward over weeks or months. Think inspiring target, not a vague chore.",
       "kid": null,
       "html": false
     },
@@ -7407,7 +8010,7 @@
       "id": "fieldTip.goalName.kid.body",
       "category": "field_tips",
       "adult": null,
-      "kid": "Think of something you really want to work toward — maybe something you'd love to save up for. Pick something that gets you excited!",
+      "kid": "Pick something big you want — like saving for something special. Make it something that makes you feel excited.",
       "html": false
     },
     {
@@ -7420,7 +8023,7 @@
     {
       "id": "fieldTip.goalReward.adult.body",
       "category": "field_tips",
-      "adult": "A small treat for a good week — like a film night or a favourite snack. It should feel like a genuine reward, not a health target. Goals and treats are for staying on track, not for outcomes like losing weight.",
+      "adult": "This is a small reward for a good week — like a film night or a favourite snack. It’s separate from your big goal; it isn’t for weight-style outcomes.",
       "kid": null,
       "html": false
     },
@@ -7435,7 +8038,7 @@
       "id": "fieldTip.goalReward.kid.body",
       "category": "field_tips",
       "adult": null,
-      "kid": "Pick something fun for a good week — like a game, a snack, or a movie night. Keep it small and enjoyable, not a big task or a goal.",
+      "kid": "Pick a little treat for a good week — like a fun outing or a small thing you like. Keep it small and fun, not big scary goals.",
       "html": false
     },
     {
@@ -7448,7 +8051,7 @@
     {
       "id": "fieldTip.habitTitle.adult.body",
       "category": "field_tips",
-      "adult": "Go for specific, repeatable actions — \"walk 20 minutes\" or \"read before bed\" work well. Avoid broad outcomes like \"lose 30kg\", and keep your weekly treat separate from your habits.",
+      "adult": "Use small repeatable actions — like “walk 20 minutes” or “read before bed”. Avoid vague outcomes (“lose 30kg”), and don’t use your weekly treat as a habit.",
       "kid": null,
       "html": false
     },
@@ -7463,13 +8066,13 @@
       "id": "fieldTip.habitTitle.kid.body",
       "category": "field_tips",
       "adult": null,
-      "kid": "Write a small thing you do again and again — like \"read 10 minutes\". Big goals and treats go in the other boxes.",
+      "kid": "Write a small thing you do again and again — like “read 10 minutes”. Big goals and treats go in the other boxes.",
       "html": false
     },
     {
       "id": "habitTierTutorial.adult.title",
       "category": "habit_editor_tour",
-      "adult": "Core vs Growth habits",
+      "adult": "Habit Tiers: Core vs Growth",
       "kid": null,
       "html": false
     },
@@ -7484,14 +8087,14 @@
       "id": "habitTierTutorial.kid.title",
       "category": "habit_editor_tour",
       "adult": null,
-      "kid": "Core or growth — what's the difference?",
+      "kid": "Pick your Tier: core or growth",
       "html": false
     },
     {
       "id": "habitTierTutorial.kid.body",
       "category": "habit_editor_tour",
       "adult": null,
-      "kid": "Core habits are the big “must-do” ones for a goal. After a week closes, every core habit for that goal needs to qualify so that week counts on your score circle and for your weekly treat.\\n\\nGrowth habits are extra helpful habits. When they qualify, they add jar money — but missing them never blocks the week from counting.\\n\\nRecovery means your rolling score dropped below your floor (grown-ups pick the number per goal; it is often around 80%). Then only core habits add jar money until your score climbs back to the floor; growth habits wait and add £0 so you focus on the must-dos first.\\n\\nAsk a grown-up if you want help reading the Grace screen — it explains easy-start weeks.",
+      "kid": "Core habits are the big “must-do” ones for a goal. After a week closes, every core habit for that goal needs to qualify so that week counts on your score circle and for your weekly treat.\n\nGrowth habits are extra helpful habits. When they qualify, they add jar money — but missing them never blocks the week from counting.\n\nRecovery means your rolling score dropped below your floor (grown-ups pick the number per goal; it is often around 80%). Then only core habits add jar money until your score climbs back to the floor; growth habits wait and add £0 so you focus on the must-dos first.\n\nAsk a grown-up to open Tips in Settings if you want the longer friendly guide.",
       "html": true
     },
     {
@@ -7645,6 +8248,14 @@
       "kid": "Moods & brain chemistry",
       "html": false,
       "key": "molecules and mood"
+    },
+    {
+      "id": "insightCategoryLabel.kid.books",
+      "category": "insight_category_labels_kid",
+      "adult": null,
+      "kid": "From books",
+      "html": false,
+      "key": "books"
     },
     {
       "id": "habitPresetCategoryLabel.self_care",
@@ -8427,6 +9038,22 @@
       "category": "habit_preset",
       "preset_key": "eyerest",
       "adult": "20-20-20 eye rest",
+      "kid": null,
+      "html": false
+    },
+    {
+      "id": "habitPreset.apply_cream.label",
+      "category": "habit_preset",
+      "preset_key": "apply_cream",
+      "adult": "Apply cream",
+      "kid": null,
+      "html": false
+    },
+    {
+      "id": "habitPreset.apply_cream.title",
+      "category": "habit_preset",
+      "preset_key": "apply_cream",
+      "adult": "Apply cream",
       "kid": null,
       "html": false
     },
