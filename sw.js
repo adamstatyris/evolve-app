@@ -1,7 +1,7 @@
-/* Service worker: fetch pass-through + Web Push only.
- * Scheduled reminders are delivered via Supabase Edge (push) — no Periodic Background Sync snapshot.
+/* Service worker: Web Push only (no asset caching).
+ * Do NOT intercept fetch — pass-through avoids Response.error() breaking PWA loads on flaky mobile networks.
  */
-var CONSISTENCY_SW_CACHE = 'consistency-sw-v13';
+var CONSISTENCY_SW_CACHE = 'consistency-sw-v14';
 
 function notifIconUrl() {
   try {
@@ -16,25 +16,17 @@ self.addEventListener('install', function (e) {
 });
 
 self.addEventListener('activate', function (e) {
-  e.waitUntil(self.clients.claim());
-});
-
-self.addEventListener('fetch', function (e) {
-  if (e.request.mode === 'navigate' || e.request.destination === 'document') {
-    return;
-  }
-  try {
-    var reqUrl = new URL(e.request.url);
-    var swUrl = new URL(self.location.href);
-    if (reqUrl.origin !== swUrl.origin) {
-      return;
-    }
-  } catch (err) {
-    return;
-  }
-  e.respondWith(
-    fetch(e.request).catch(function () {
-      return Response.error();
+  e.waitUntil(
+    caches.keys().then(function (keys) {
+      return Promise.all(
+        keys.map(function (k) {
+          if (k.indexOf('consistency-sw-') === 0 && k !== CONSISTENCY_SW_CACHE) {
+            return caches.delete(k);
+          }
+        })
+      );
+    }).then(function () {
+      return self.clients.claim();
     })
   );
 });
