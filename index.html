@@ -4080,7 +4080,8 @@ function weekEndedForWeekKey(wk){const off=offsetForWeekKey(wk);return off!==nul
  * (unrounded) chapter % for the strict-drop comparison so genuine extra misses
  * are never lost to rounding ties. A true failure (strict % decrease while in
  * recovery, ties ignored) resets the pot from that week and starts a fresh, NON-
- * recovery chapter. Idempotent: same input -> same output, run 1x or Nx.
+ * recovery chapter. Exception: two consecutive 0% weeks in recovery also reset
+ * (0% tied with 0% is still stagnation). Idempotent: same input -> same output, run 1x or Nx.
  * Returns {recoveryActive, potExcludedUpToWeekKey, recoveryByWeek:{wk:bool}, weeks}.
  */
 function computeRecoveryTimeline(g){
@@ -4100,7 +4101,7 @@ function computeRecoveryTimeline(g){
     const pct=ok/winLen;
     if(pct>=floorFrac){recovery=false;prevPct=null;recoveryByWeek[k]=false;continue;}
     if(!recovery){recovery=true;prevPct=pct;recoveryByWeek[k]=true;continue;}
-    if(prevPct!==null&&pct<prevPct){cutoff=k;chapterStart=i+1;recovery=false;prevPct=null;recoveryByWeek[k]=true;}
+    if(prevPct!==null&&(pct<prevPct||(pct===0&&prevPct===0))){cutoff=k;chapterStart=i+1;recovery=false;prevPct=null;recoveryByWeek[k]=true;}
     else{prevPct=pct;recoveryByWeek[k]=true;}
   }
   return{recoveryActive:recovery,potExcludedUpToWeekKey:cutoff,recoveryByWeek,weeks:keys};
