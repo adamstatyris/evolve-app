@@ -1,7 +1,7 @@
 /* Service worker: Web Push only (no asset caching).
  * Do NOT intercept fetch — pass-through avoids Response.error() breaking PWA loads on flaky mobile networks.
  */
-var CONSISTENCY_SW_CACHE = 'consistency-sw-v15';
+var EVOLVE_SW_CACHE = 'evolve-sw-v16';
 
 function notifIconUrl() {
   try {
@@ -20,7 +20,7 @@ self.addEventListener('activate', function (e) {
     caches.keys().then(function (keys) {
       return Promise.all(
         keys.map(function (k) {
-          if (k.indexOf('consistency-sw-') === 0 && k !== CONSISTENCY_SW_CACHE) {
+          if ((k.indexOf('evolve-sw-') === 0 || k.indexOf('consistency-sw-') === 0) && k !== EVOLVE_SW_CACHE) {
             return caches.delete(k);
           }
         })
@@ -34,7 +34,7 @@ self.addEventListener('activate', function (e) {
 self.addEventListener('push', function (event) {
   var title = 'Evolve';
   var body = '';
-  var tag = 'consistency-push';
+  var tag = 'evolve-push';
   var icon = notifIconUrl();
   if (event.data) {
     try {

@@ -1,10 +1,10 @@
-# Consistency
+# Evolve
 
-A habit and goal tracker built around weekly consistency, gentle scoring, and weekly treats. Single-file PWA ÔÇö installable on Android and iOS.
+**Evolve by Essence Labs** — a habit and goal tracker built around weekly consistency, gentle scoring, and weekly treats. Single-file PWA — installable on Android and iOS.
 
 ## Status
 
-Closed beta (**v2.2.1**). **Auth:** Supabase (Google + email magic link). **Cloud sync:** signed-in users sync the full multi-profile `ROOT` to Supabase (`user_state`) from **Settings ÔåÆ Account**. **Automatic cloud backups:** two rolling snapshots per account (**T-1** / **T-2**) live in `user_state_history` (column **`slot`**). They are updated **server-side** by the **`nightly-backup-roll`** Edge Function (e.g. daily at 00:10 UTC). The app also refreshes **T-1** / **T-2** immediately before a **destructive profile or goal delete** when sync is on. **Settings ÔåÆ Advanced ÔåÆ Automatic cloud backups** lists **Revert to yesterday** (T-1) and **Revert to 2 days ago** (T-2) when those rows exist.
+Closed beta (**v3.0.1beta**). **Auth:** Supabase (Google + email magic link). **Cloud sync:** signed-in users sync the full multi-profile `ROOT` to Supabase (`user_state`) from **Settings → Account**. **Automatic cloud backups:** two rolling snapshots per account (**T-1** / **T-2**) live in `user_state_history` (column **`slot`**). They are updated **server-side** by the **`nightly-backup-roll`** Edge Function (e.g. daily at 00:10 UTC). The app also refreshes **T-1** / **T-2** immediately before a **destructive profile or goal delete** when sync is on. **Settings → Advanced → Automatic cloud backups** lists **Revert to yesterday** (T-1) and **Revert to 2 days ago** (T-2) when those rows exist.
 
 ## Repository layout
 
@@ -92,7 +92,7 @@ Any static-file server works. Two easy options:
 
 ```powershell
 # Option 1: Python (pre-installed on most systems)
-cd consistency-app
+cd evolve-app
 python -m http.server 8080
 
 # Option 2: Node (if installed)
@@ -125,7 +125,8 @@ git push
 ## Conventions
 
 - Single-file architecture is intentional for now (deploy simplicity, easy backups).
-- Persistent state lives in `localStorage` under key `consistency-app-v4`.
+- GitHub repo: [`evolve-app`](https://github.com/adamstatyris/evolve-app) (formerly `consistency-app`)
+- Persistent state lives in `localStorage` under key `consistency-app-v4` (kept for backward compatibility with existing installs).
 - Per-profile data is namespaced inside `ROOT.profiles`.
 - All UI strings have an adult voice and a kid voice (ages 0ÔÇô8) ÔÇö keep both in sync when editing.
 - Onboarding follows "Approach D": short intro ÔåÆ milestone steppers triggered by user actions.
