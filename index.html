@@ -633,13 +633,13 @@ select#hTier.habit-tier-select-expanded{min-height:4.25rem;border-radius:var(--r
 .auth-splash-stack{display:flex;flex-direction:column;align-items:center;gap:var(--s5);flex:1;justify-content:center;width:100%}
 .auth-splash-mark{width:120px;height:120px;border-radius:32px;display:grid;place-items:center;background:#fff;border:1px solid var(--border);box-shadow:0 18px 48px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.6);opacity:0;animation:splash-mark-in .6s ease-out 0s 1 forwards,splash-mark-pulse 1.6s ease-in-out .6s infinite}
 .auth-splash-mark .evolve-mark{width:84%;height:84%}
-.auth-splash-wordmark{font-size:clamp(2rem,7vw,2.6rem);font-weight:800;color:var(--text);letter-spacing:-.02em;opacity:0;animation:splash-text-in .6s ease-out .7s forwards}
-.auth-splash-tagline{font-size:var(--md);color:var(--text-muted);font-weight:500;line-height:1.45;max-width:28ch;opacity:0;animation:splash-text-in .6s ease-out 1.4s forwards}
-.auth-splash-signature{font-size:var(--xs);color:var(--text-faint);letter-spacing:.18em;text-transform:uppercase;font-weight:600;opacity:0;animation:splash-text-in .6s ease-out 2.1s forwards}
+.auth-splash-wordmark{font-size:clamp(2rem,7vw,2.6rem);font-weight:800;color:var(--text,#16202b);letter-spacing:-.02em;opacity:1;transform:translateY(8px);animation:splash-text-in .6s ease-out .7s forwards}
+.auth-splash-tagline{font-size:var(--md);color:var(--text-muted,#61707f);font-weight:500;line-height:1.45;max-width:28ch;opacity:1;transform:translateY(8px);animation:splash-text-in .6s ease-out 1.4s forwards}
+.auth-splash-signature{font-size:var(--xs);color:var(--text-faint,#91a0ae);letter-spacing:.18em;text-transform:uppercase;font-weight:600;opacity:1;transform:translateY(8px);animation:splash-text-in .6s ease-out 2.1s forwards}
 @keyframes splash-mark-in{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
 @keyframes splash-mark-pulse{0%,100%{transform:scale(1);box-shadow:0 0 32px var(--blue-glow),0 0 60px color-mix(in srgb,var(--blue) 28%, transparent)}50%{transform:scale(1.06);box-shadow:0 0 56px var(--blue-glow),0 0 110px color-mix(in srgb,var(--blue) 50%, transparent)}}
-@keyframes splash-text-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-@media(prefers-reduced-motion:reduce){.auth-splash-mark{animation:splash-mark-in .2s ease-out 0s 1 forwards;opacity:1}.auth-splash-wordmark,.auth-splash-tagline,.auth-splash-signature{animation:none;opacity:1}}
+@keyframes splash-text-in{from{transform:translateY(8px)}to{transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.auth-splash-mark{animation:splash-mark-in .2s ease-out 0s 1 forwards;opacity:1}.auth-splash-wordmark,.auth-splash-tagline,.auth-splash-signature{animation:none;opacity:1;transform:none}}
 .metric-row{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s3);padding-top:var(--s3);border-top:1px solid var(--divider)}
 .metric-num,.finput,.fselect,.ftextarea{width:100%;padding:var(--s3);border-radius:var(--r-md);background:var(--surface-3);border:1px solid var(--border)}
 .metric-num{width:110px;text-align:center}
@@ -1080,7 +1080,7 @@ select#hTier.habit-tier-select-expanded{min-height:4.25rem;border-radius:var(--r
   <div class="auth-splash-stack">
     <div class="auth-splash-mark"><svg class="evolve-mark" aria-hidden="true"><use class="evolve-mark-use evolve-mark-use--light" href="#evolveMark"></use><use class="evolve-mark-use evolve-mark-use--dark" href="#evolveMarkDark"></use></svg></div>
     <div class="auth-splash-wordmark">Evolve</div>
-    <div class="auth-splash-tagline">consistency</div>
+    <div class="auth-splash-tagline">with consistency</div>
   </div>
   <div class="auth-splash-signature">S-Sence Labs</div>
 </div>
