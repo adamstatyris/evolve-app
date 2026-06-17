@@ -16,8 +16,7 @@ alwaysApply: false
 - Same card template as active habits (tier pill, mastery badge, toggle + × bottom-right).
 - Subline: "Press × to completely delete a past habit."
 
-## Goal editor
-- Point-based goals: **Weekly treat budget** shows only when the selected treat is not in `REWARD_BANDS.free`.
+.cursor/rules/evolve-ux-fixes.mdc
 - Free treats: Extra screen time, Family game night, Park walk, Library visit, Homemade treat, Choose a movie, Story time bonus, Craft afternoon, Bike ride, Stargazing.
 
 ## Home overview
