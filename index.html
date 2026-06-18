@@ -4951,32 +4951,21 @@ function buildExactReminderScheduleRowsForSupabase(maxFireMsOpt, opts){
     if(!(t>nowMs&&t<=maxFireMs))return;
     rows.push({slot_key:tag+':'+ymd+':'+hm.replace(':',''),fire_at_utc:new Date(t).toISOString(),title:'Evolve',body:body||'',tag});
   }
+  /* Per-habit clock times: today only. Pending rows are replaced on each sync; nightly-backup-roll
+   * (~00:10 UTC) rebuilds from cloud state so tomorrow’s times appear when that day starts. */
   if(S&&S.user&&kidWantsHabitTimes&&notify&&!paused&&!stopped){
-    const todayStart=new Date(nowMs);
-    todayStart.setHours(0,0,0,0);
-    let c=new Date(todayStart);
-    const endCapMs=Math.min(maxFireMs,todayStart.getTime()+7*86400000);
-    while(c.getTime()<=endCapMs){
-      const iso=isoDate(c);
-      let off=null,di=-1;
-      for(let o=0;o<=1;o++){
-        const ds=weekDates(o);
-        for(let i=0;i<7;i++){if(isoDate(ds[i])===iso){off=o;di=i;break;}}
-        if(off!==null)break;
-      }
-      if(off!==null&&di>=0){
-        trackerHabitsOrdered().forEach(function(h){
-          if(!h||!h.active||h.archived||!h.remindersEnabled||!Array.isArray(h.reminderTimes)||!h.reminderTimes.length)return;
-          if(!canScheduleHabitReminderOnDay(h,off,di))return;
-          h.reminderTimes.forEach(function(hm){
-            const fire=new Date(iso+'T'+hm+':00').getTime();
-            if(fire<=nowMs||fire>maxFireMs)return;
-            const tag='hrd:'+h.id+':'+hm;
-            rows.push({slot_key:tag+':'+iso,fire_at_utc:new Date(fire).toISOString(),title:'Evolve',body:notificationBodyForSavedHabit(h),tag});
-          });
+    const di=todayIsoWeekDayIndex();
+    if(di>=0){
+      trackerHabitsOrdered().forEach(function(h){
+        if(!h||!h.active||h.archived||!h.remindersEnabled||!Array.isArray(h.reminderTimes)||!h.reminderTimes.length)return;
+        if(!canScheduleHabitReminderOnDay(h,0,di))return;
+        h.reminderTimes.forEach(function(hm){
+          const fire=new Date(todayYmd+'T'+hm+':00').getTime();
+          if(fire<=nowMs||fire>maxFireMs)return;
+          const tag='hrd:'+h.id+':'+hm;
+          rows.push({slot_key:tag+':'+todayYmd,fire_at_utc:new Date(fire).toISOString(),title:'Evolve',body:notificationBodyForSavedHabit(h),tag});
         });
-      }
-      c.setDate(c.getDate()+1);
+      });
     }
   }
   if(S&&S.user&&notify&&!paused&&!stopped){

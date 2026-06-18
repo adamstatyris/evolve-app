@@ -274,45 +274,27 @@ export function buildReminderScheduleRowsFromRoot(
     })
   }
 
+  // Per-habit clock times: today only (see client buildExactReminderScheduleRowsForSupabase).
   const kidAllowsHabitClockReminders = !kid || S.user?.kidHabitSpecificRemindersEnabled !== false
   if (kidAllowsHabitClockReminders) {
-    const todayStart = DateTime.fromMillis(nowMs, { zone: tz }).startOf('day')
-    let c = todayStart
-    const endMs = Math.min(maxFireMs, todayStart.toMillis() + 7 * 86400000)
-    while (c.toMillis() <= endMs) {
-      const iso = isoDateZ(c)
-      let off: number | null = null
-      let di = -1
-      for (let o = 0; o <= 1; o++) {
-        const ds = weekDatesZ(nowMs, tz, o)
-        for (let i = 0; i < 7; i++) {
-          if (isoDateZ(ds[i]) === iso) {
-            off = o
-            di = i
-            break
-          }
-        }
-        if (off !== null) break
-      }
-      if (off !== null && di >= 0) {
-        for (const h of trackerHabitsOrderedZ(S)) {
-          if (!h.remindersEnabled || !Array.isArray(h.reminderTimes) || !h.reminderTimes.length) continue
-          if (!canScheduleHabitReminderOnDayZ(S, nowMs, tz, h, off, di)) continue
-          for (const hm of h.reminderTimes) {
-            const fire = DateTime.fromISO(`${iso}T${hm}:00`, { zone: tz })
-            const t = fire.toMillis()
-            if (t <= nowMs || t > maxFireMs) continue
-            rows.push({
-              slot_key: `hrd:${h.id}:${hm}:${iso}`,
-              fire_at_utc: fire.toUTC().toISO()!,
-              title: TITLE,
-              body: notificationBodySimple(h),
-              tag: `hrd:${h.id}:${hm}`,
-            })
-          }
+    const di = todayIsoWeekDayIndexZ(nowMs, tz)
+    if (di >= 0) {
+      for (const h of trackerHabitsOrderedZ(S)) {
+        if (!h.remindersEnabled || !Array.isArray(h.reminderTimes) || !h.reminderTimes.length) continue
+        if (!canScheduleHabitReminderOnDayZ(S, nowMs, tz, h, 0, di)) continue
+        for (const hm of h.reminderTimes) {
+          const fire = DateTime.fromISO(`${todayYmd}T${hm}:00`, { zone: tz })
+          const t = fire.toMillis()
+          if (t <= nowMs || t > maxFireMs) continue
+          rows.push({
+            slot_key: `hrd:${h.id}:${hm}:${todayYmd}`,
+            fire_at_utc: fire.toUTC().toISO()!,
+            title: TITLE,
+            body: notificationBodySimple(h),
+            tag: `hrd:${h.id}:${hm}`,
+          })
         }
       }
-      c = c.plus({ days: 1 })
     }
   }
 
