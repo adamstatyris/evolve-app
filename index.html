@@ -2417,8 +2417,8 @@ function syncGoalFormForType(isEdit,existingGoal){const typeEl=document.getEleme
 function openPathsStore(){openM('mPathsStore');}
 /** In (5)Essence — optional override: set to '' to hide blog footer on molecule insights. */
 var CONSISTENCY_INSIGHT_BLOG_URL='https://epitis5ousias.wordpress.com/';
-/** One-off push test — set false after you confirm the notification rings. Local HH:MM today; if that time passed, next sync schedules ~2 min ahead. */
-var CONSISTENCY_TEMP_PUSH_TEST=true;
+/** One-off push test — set true only when debugging. Local HH:MM today; if that time passed, next sync schedules ~2 min ahead. */
+var CONSISTENCY_TEMP_PUSH_TEST=false;
 var CONSISTENCY_TEMP_PUSH_TEST_AT='23:57';
 const INSIGHT_LIBRARY=(function(){const L=[];
 const I1_35=[
