@@ -4161,6 +4161,19 @@ function trackingLogLocked(){return !!(S&&S.user&&(S.user.trackingPaused||S.user
 function canEditTrackerDay(off,dayIndex){if(trackingLogLocked())return false;if(isIsoWeekEndedForOffset(off))return false;const dates=weekDates(off);const dt=new Date(dates[dayIndex]);dt.setHours(0,0,0,0);const ts=trackingStartMidnight();if(dt<ts)return false;const today=new Date();today.setHours(0,0,0,0);if(off===0&&dt>today)return false;return true;}
 function canEditTrackerWeek(off){if(trackingLogLocked())return false;if(isIsoWeekEndedForOffset(off))return false;if(weekEntirelyBeforeTrackingStart(off))return false;return true;}
 function canEditHabitDay(h,off,dayIndex){if(!h||!canEditTrackerDay(off,dayIndex))return false;const ad=String(h&&h.addedDate||'').slice(0,10);if(!ad)return true;const dt=new Date(weekDates(off)[dayIndex]);dt.setHours(0,0,0,0);return isoDate(dt)>=ad;}
+/** Web Push schedule: allow today + future days in range (unlike Log, which blocks future days). */
+function canScheduleHabitReminderOnDay(h,off,dayIndex){
+  if(!h||!h.active||h.archived)return false;
+  if(trackingLogLocked())return false;
+  if(isIsoWeekEndedForOffset(off))return false;
+  const dt=new Date(weekDates(off)[dayIndex]);dt.setHours(0,0,0,0);
+  if(dt<trackingStartMidnight())return false;
+  const todayStart=new Date();todayStart.setHours(0,0,0,0);
+  if(dt<todayStart)return false;
+  const ad=String(h&&h.addedDate||'').slice(0,10);
+  if(ad&&isoDate(dt)<ad)return false;
+  return true;
+}
 function canEditHabitWeekMetric(h,off){if(!h||!canEditTrackerWeek(off))return false;const m=h.metric;if(m!=='minutes'&&m!=='pages'&&m!=='custom')return true;const wk=weekKey(off);const idxs=eligibleDayIndicesForHabitStartWeek(h,wk);if(!idxs.length||idxs.length>=7)return true;if(off<0)return true;const dates=weekDates(off);const firstEl=isoDate(new Date(dates[idxs[0]]));const today=isoDate(new Date());return today>=firstEl;}
 function rewardZoneForPct(pct,floor){if(pct===null)return'none';if(pct>=floor)return'ok';return'below_floor';}
 function recoveryStatusHTML(g,wk,off){if(!g||goalRecoveryDeferredFirstWeek(g))return'';if(!g.recoveryActive)return'';const floor=g.floor||80;const boost=!!g.recoveryBoostEnabled;const gname=escDash(g.name||'this goal');const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();const coreLine=boost?'<li>Core habits give <strong>1.3×</strong> their normal value</li>':'<li>Only core habits add to the pot</li>';if(kid)return`<div class="recovery-status-line" style="color:var(--amber)"><strong>On recovery</strong><ul class="recovery-status-list"><li>Score is below <strong>${floor}%</strong></li><li>Growth habits give nothing</li>${coreLine}<li>Another drop resets the jar for <strong>${gname}</strong></li></ul></div>`;return`<div class="recovery-status-line" style="color:var(--amber)"><strong>On recovery</strong><ul class="recovery-status-list"><li>% is below <strong>${floor}%</strong></li><li>Growth habits give nothing</li>${coreLine}<li>Any further % drop resets your pot for <strong>${gname}</strong></li></ul></div>`;}
@@ -4939,24 +4952,31 @@ function buildExactReminderScheduleRowsForSupabase(maxFireMsOpt, opts){
     rows.push({slot_key:tag+':'+ymd+':'+hm.replace(':',''),fire_at_utc:new Date(t).toISOString(),title:'Evolve',body:body||'',tag});
   }
   if(S&&S.user&&kidWantsHabitTimes&&notify&&!paused&&!stopped){
-    const todayStart=new Date();
+    const todayStart=new Date(nowMs);
     todayStart.setHours(0,0,0,0);
-    const ds=weekDates(0);
-    for(let di=0;di<7;di++){
-      const d0=new Date(ds[di]);
-      d0.setHours(0,0,0,0);
-      if(d0.getTime()<todayStart.getTime())continue;
-      const iso=isoDate(d0);
-      trackerHabitsOrdered().forEach(function(h){
-        if(!h||!h.active||h.archived||!h.remindersEnabled||!Array.isArray(h.reminderTimes)||!h.reminderTimes.length)return;
-        if(!canEditHabitDay(h,0,di))return;
-        h.reminderTimes.forEach(function(hm){
-          const fire=new Date(iso+'T'+hm+':00').getTime();
-          if(fire<=nowMs||fire>maxFireMs)return;
-          const tag='hrd:'+h.id+':'+hm;
-          rows.push({slot_key:tag+':'+iso,fire_at_utc:new Date(fire).toISOString(),title:'Evolve',body:notificationBodyForSavedHabit(h),tag});
+    let c=new Date(todayStart);
+    const endCapMs=Math.min(maxFireMs,todayStart.getTime()+7*86400000);
+    while(c.getTime()<=endCapMs){
+      const iso=isoDate(c);
+      let off=null,di=-1;
+      for(let o=0;o<=1;o++){
+        const ds=weekDates(o);
+        for(let i=0;i<7;i++){if(isoDate(ds[i])===iso){off=o;di=i;break;}}
+        if(off!==null)break;
+      }
+      if(off!==null&&di>=0){
+        trackerHabitsOrdered().forEach(function(h){
+          if(!h||!h.active||h.archived||!h.remindersEnabled||!Array.isArray(h.reminderTimes)||!h.reminderTimes.length)return;
+          if(!canScheduleHabitReminderOnDay(h,off,di))return;
+          h.reminderTimes.forEach(function(hm){
+            const fire=new Date(iso+'T'+hm+':00').getTime();
+            if(fire<=nowMs||fire>maxFireMs)return;
+            const tag='hrd:'+h.id+':'+hm;
+            rows.push({slot_key:tag+':'+iso,fire_at_utc:new Date(fire).toISOString(),title:'Evolve',body:notificationBodyForSavedHabit(h),tag});
+          });
         });
-      });
+      }
+      c.setDate(c.getDate()+1);
     }
   }
   if(S&&S.user&&notify&&!paused&&!stopped){

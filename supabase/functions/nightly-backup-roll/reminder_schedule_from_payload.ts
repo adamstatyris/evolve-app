@@ -129,6 +129,26 @@ function canEditHabitDayZ(S: Profile, nowMs: number, tz: string, h: Habit, off: 
   return isoDateZ(dt) >= ad
 }
 
+function canScheduleHabitReminderOnDayZ(
+  S: Profile,
+  nowMs: number,
+  tz: string,
+  h: Habit,
+  off: number,
+  dayIndex: number,
+): boolean {
+  if (!h?.active || h.archived) return false
+  if (trackingLogLocked(S)) return false
+  if (isIsoWeekEndedForOffsetZ(nowMs, tz, off)) return false
+  const dt = weekDatesZ(nowMs, tz, off)[dayIndex].startOf('day')
+  if (dt.toMillis() < trackingStartMillisZ(S, tz)) return false
+  const todayStart = DateTime.fromMillis(nowMs, { zone: tz }).startOf('day')
+  if (dt < todayStart) return false
+  const ad = String(h.addedDate || '').slice(0, 10)
+  if (ad && isoDateZ(dt) < ad) return false
+  return true
+}
+
 function habitAddedDateStr(h: Habit): string {
   return String(h.addedDate || '').slice(0, 10)
 }
@@ -257,27 +277,42 @@ export function buildReminderScheduleRowsFromRoot(
   const kidAllowsHabitClockReminders = !kid || S.user?.kidHabitSpecificRemindersEnabled !== false
   if (kidAllowsHabitClockReminders) {
     const todayStart = DateTime.fromMillis(nowMs, { zone: tz }).startOf('day')
-    const ds0 = weekDatesZ(nowMs, tz, 0)
-    for (let di = 0; di < 7; di++) {
-      const d0 = ds0[di]
-      if (d0 < todayStart) continue
-      const iso = isoDateZ(d0)
-      for (const h of trackerHabitsOrderedZ(S)) {
-        if (!h.remindersEnabled || !Array.isArray(h.reminderTimes) || !h.reminderTimes.length) continue
-        if (!canEditHabitDayZ(S, nowMs, tz, h, 0, di)) continue
-        for (const hm of h.reminderTimes) {
-          const fire = DateTime.fromISO(`${iso}T${hm}:00`, { zone: tz })
-          const t = fire.toMillis()
-          if (t <= nowMs || t > maxFireMs) continue
-          rows.push({
-            slot_key: `hrd:${h.id}:${hm}:${iso}`,
-            fire_at_utc: fire.toUTC().toISO()!,
-            title: TITLE,
-            body: notificationBodySimple(h),
-            tag: `hrd:${h.id}:${hm}`,
-          })
+    let c = todayStart
+    const endMs = Math.min(maxFireMs, todayStart.toMillis() + 7 * 86400000)
+    while (c.toMillis() <= endMs) {
+      const iso = isoDateZ(c)
+      let off: number | null = null
+      let di = -1
+      for (let o = 0; o <= 1; o++) {
+        const ds = weekDatesZ(nowMs, tz, o)
+        for (let i = 0; i < 7; i++) {
+          if (isoDateZ(ds[i]) === iso) {
+            off = o
+            di = i
+            break
+          }
+        }
+        if (off !== null) break
+      }
+      if (off !== null && di >= 0) {
+        for (const h of trackerHabitsOrderedZ(S)) {
+          if (!h.remindersEnabled || !Array.isArray(h.reminderTimes) || !h.reminderTimes.length) continue
+          if (!canScheduleHabitReminderOnDayZ(S, nowMs, tz, h, off, di)) continue
+          for (const hm of h.reminderTimes) {
+            const fire = DateTime.fromISO(`${iso}T${hm}:00`, { zone: tz })
+            const t = fire.toMillis()
+            if (t <= nowMs || t > maxFireMs) continue
+            rows.push({
+              slot_key: `hrd:${h.id}:${hm}:${iso}`,
+              fire_at_utc: fire.toUTC().toISO()!,
+              title: TITLE,
+              body: notificationBodySimple(h),
+              tag: `hrd:${h.id}:${hm}`,
+            })
+          }
         }
       }
+      c = c.plus({ days: 1 })
     }
   }
 
