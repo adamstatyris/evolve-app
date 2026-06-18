@@ -363,6 +363,11 @@ html[data-theme="light"] .goals-tab-pill--cooldown::before{background:conic-grad
 .pot-reset-float .prf-title{font-size:var(--sm);font-weight:800;color:var(--text)}
 .pot-reset-float .prf-body{margin-top:var(--s2);font-size:var(--xs);color:var(--text-muted);line-height:1.5;white-space:pre-line}
 .reminder-debug-scroll{overflow:auto;max-height:min(70vh,520px);max-width:100%;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface)}
+.reminder-debug-status{margin:var(--s3) 0;padding:var(--s4);border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface-2)}
+.reminder-debug-status ul{margin:var(--s2) 0 0;padding-left:1.2rem;line-height:1.55}
+.reminder-debug-status li{margin-bottom:var(--s1)}
+.reminder-debug-status--warn{border-color:color-mix(in srgb,var(--amber) 45%,var(--border));background:color-mix(in srgb,var(--amber) 8%,var(--surface-2))}
+.reminder-debug-status--ok{border-color:color-mix(in srgb,var(--green) 40%,var(--border));background:color-mix(in srgb,var(--green) 6%,var(--surface-2))}
 .reminder-debug-table{width:100%;min-width:580px;border-collapse:collapse;font-size:var(--xs);line-height:1.35}
 .reminder-debug-table th,.reminder-debug-table td{border:1px solid var(--border);padding:var(--s2) var(--s3);text-align:left;vertical-align:top;white-space:nowrap}
 .reminder-debug-table th{background:var(--surface-2);font-weight:700;color:var(--text);position:sticky;top:0;z-index:1}
@@ -1394,8 +1399,10 @@ html.evolve-auth-intro body{overflow:hidden}
         <div class="section-title">Scheduled reminders</div>
         <div class="muted small-note" style="margin-top:var(--s1)">Debug: local plan vs Supabase <code>reminder_schedule</code>. Scroll sideways on small screens.</div>
       </div>
+      <button type="button" class="btn btn-ghost btn-sm" onclick="reminderDebugSyncNow()">Sync now</button>
       <button type="button" class="btn btn-ghost btn-sm" onclick="void renderReminderDebugTab()">Refresh</button>
     </div>
+    <div id="reminderDebugStatus" class="reminder-debug-status" hidden></div>
     <p id="reminderDebugMeta" class="small-note" style="margin:var(--s3) 0"></p>
     <div class="reminder-debug-scroll">
       <div id="reminderDebugBody"></div>
@@ -2411,7 +2418,7 @@ function openPathsStore(){openM('mPathsStore');}
 /** In (5)Essence — optional override: set to '' to hide blog footer on molecule insights. */
 var CONSISTENCY_INSIGHT_BLOG_URL='https://epitis5ousias.wordpress.com/';
 /** Set to false after you confirm notifications — fires once per day at 23:50 local with body "Test, skatakepipes" (needs Notification permission; does not require Settings → Browser reminders). */
-var CONSISTENCY_TEMP_PUSH_TEST_2350=true;
+var CONSISTENCY_TEMP_PUSH_TEST_2350=false;
 const INSIGHT_LIBRARY=(function(){const L=[];
 const I1_35=[
 ['I1','Sleep helps memories stick','Your brain files the day while you sleep. Skip it too often and things stop sticking — meetings, names, where you left your keys.\n\nConsistent sleep beats one heroic ten-hour catch-up.','Walker — Why We Sleep (overview)','https://pubmed.ncbi.nlm.nih.gov/','sleep','habit_added'],
@@ -4611,21 +4618,60 @@ function reminderDebugHabitLabel(slot_key,tag){
   if(/^sun_/.test(tg)||/^sun_/.test(sk))return 'Sunday week-close';
   return String(tg||sk.split(':')[0]||'—');
 }
+function reminderDebugSyncNow(){if(typeof scheduleServiceWorkerReminderSync==='function')scheduleServiceWorkerReminderSync('full');setTimeout(function(){void renderReminderDebugTab();},900);}
 async function renderReminderDebugTab(){
-  const mount=document.getElementById('reminderDebugBody');const meta=document.getElementById('reminderDebugMeta');
+  const mount=document.getElementById('reminderDebugBody');const meta=document.getElementById('reminderDebugMeta');const statusEl=document.getElementById('reminderDebugStatus');
   if(!mount)return;
-  if(!reminderDebugUserAllowed()){mount.innerHTML='<p class="small-note">Not available.</p>';if(meta)meta.textContent='';return;}
+  if(!reminderDebugUserAllowed()){mount.innerHTML='<p class="small-note">Not available.</p>';if(meta)meta.textContent='';if(statusEl){statusEl.hidden=true;statusEl.innerHTML='';}return;}
   mount.innerHTML='<p class="small-note">Loading…</p>';
+  if(statusEl){statusEl.hidden=true;statusEl.innerHTML='';}
   const liveRows=buildExactReminderScheduleRowsForSupabase(reminderSyncMaxFireMs('full'));
   const previewRows=buildExactReminderScheduleRowsForSupabase(reminderSyncMaxFireMs('full'),{debugPreview:true});
   const notifyOn=!!(S&&S.user&&S.user.browserNotifyEnabled);
+  const paused=!!(S&&S.user&&S.user.trackingPaused);
+  const stopped=!!(S&&S.user&&S.user.trackingStopped);
   const perm=typeof Notification!=='undefined'?Notification.permission:'n/a';
-  let srvRows=[];let srvErr='';
+  const vapidOk=typeof CONSISTENCY_VAPID_PUBLIC_KEY==='string'&&!!CONSISTENCY_VAPID_PUBLIC_KEY.trim();
+  const nowMs=Date.now();
+  let srvRows=[];let srvErr='';let pushSubs=[];let pushErr='';
   const u=typeof authCurrentUser==='function'?authCurrentUser():null;
   if(_supa&&u&&u.id&&_authSession){
     const q=await _supa.from('reminder_schedule').select('slot_key,fire_at_utc,sent_at,tag,body').eq('user_id',u.id).order('fire_at_utc',{ascending:true});
     if(q.error)srvErr=q.error.message||String(q.error);else srvRows=q.data||[];
+    const ps=await _supa.from('push_subscriptions').select('id,endpoint,created_at').eq('user_id',u.id);
+    if(ps.error)pushErr=ps.error.message||String(ps.error);else pushSubs=ps.data||[];
   }else if(!_supa)srvErr='No Supabase client';else if(!_authSession)srvErr='Sign in required for server rows';
+  const overdue=(srvRows||[]).filter(function(r){if(!r||r.sent_at)return false;const t=new Date(r.fire_at_utc).getTime();return isFinite(t)&&t<=nowMs;});
+  const pending=(srvRows||[]).filter(function(r){return r&&!r.sent_at;});
+  const issues=[];const ok=[];
+  if(perm!=='granted')issues.push('Notification permission is <strong>'+perm+'</strong> — allow notifications for this site (installed PWA on iOS).');
+  else ok.push('Notification permission granted.');
+  if(!notifyOn)issues.push('Browser reminders are <strong>off</strong> (Settings → Preferences).');
+  else ok.push('Browser reminders enabled on this profile.');
+  if(paused)issues.push('Tracking is <strong>paused</strong> — reminders are cleared.');
+  if(stopped)issues.push('Tracking is <strong>stopped</strong> — reminders are cleared.');
+  if(!_authSession)issues.push('No live Supabase session — sign in so the app can write <code>reminder_schedule</code> and <code>push_subscriptions</code>.');
+  else ok.push('Signed in with live session.');
+  if(!vapidOk)issues.push('<code>CONSISTENCY_VAPID_PUBLIC_KEY</code> is empty in the app — push subscription cannot be created.');
+  else ok.push('VAPID public key set in client.');
+  if(notifyOn&&perm==='granted'&&_authSession&&!pushErr&&!pushSubs.length)issues.push('No row in <code>push_subscriptions</code> — tap <strong>Sync now</strong>, keep this PWA open a few seconds, then refresh.');
+  else if(pushSubs.length)ok.push(pushSubs.length+' push subscription(s) on server.');
+  if(overdue.length)issues.push('<strong>'+overdue.length+'</strong> reminder(s) are past due but still <code>pend</code> — the <code>push-reminders</code> cron is probably not calling the Edge Function (see checklist below).');
+  else if(pending.length)ok.push(pending.length+' pending reminder(s) queued; none overdue yet.');
+  if(statusEl){
+    const esc=typeof escHTML==='function'?escHTML:function(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');};
+    let sh='<strong>Delivery checklist</strong><ul>';
+    issues.forEach(function(x){sh+='<li>'+x+'</li>';});
+    ok.forEach(function(x){sh+='<li>'+esc(x)+'</li>';});
+    if(issues.length){
+      sh+='</ul><p class="small-note" style="margin:var(--s3) 0 0;line-height:1.55">If rows show <code>Up ✓</code> but nothing rings: in Supabase Dashboard → Edge Functions → <code>push-reminders</code> → add a schedule (every 3–5 min) <strong>POST</strong> with header <code>x-cron-secret</code>. Also confirm secrets <code>VAPID_*</code> and <code>CRON_SECRET</code> match the app. See <code>supabase/setup/push-reminders-cron.sql</code>.</p>';
+      statusEl.className='reminder-debug-status reminder-debug-status--warn';
+    }else{
+      sh+='</ul><p class="small-note" style="margin:var(--s3) 0 0">Client side looks ready. If a due time passes with no notification, verify the Supabase cron invokes <code>push-reminders</code>.</p>';
+      statusEl.className='reminder-debug-status reminder-debug-status--ok';
+    }
+    statusEl.innerHTML=sh;statusEl.hidden=false;
+  }
   const srvMap=new Map();
   (srvRows||[]).forEach(function(r){if(!r)return;const k=reminderDebugRowKey(r.slot_key,r.fire_at_utc);srvMap.set(k,r);});
   const liveKeySet=new Set();
@@ -4647,7 +4693,7 @@ async function renderReminderDebugTab(){
   });
   rowsOut.sort(function(a,b){return new Date(a.fire_at_utc)-new Date(b.fire_at_utc);});
   if(meta){
-    meta.textContent='Table = preview (as if reminders on, not paused). Live sync rows: '+liveRows.length+'. Preview rows: '+previewRows.length+'. Server: '+(srvRows?srvRows.length:0)+'. Profile reminders: '+(notifyOn?'on':'off')+'. Permission: '+perm+(srvErr?' · '+srvErr:'');
+    meta.textContent='Table = preview (as if reminders on, not paused). Live sync rows: '+liveRows.length+'. Preview rows: '+previewRows.length+'. Server: '+(srvRows?srvRows.length:0)+' ('+pending.length+' pending, '+overdue.length+' overdue). Subs: '+(pushErr?'err':pushSubs.length)+'. Profile reminders: '+(notifyOn?'on':'off')+'. Permission: '+perm+(srvErr?' · '+srvErr:'')+(pushErr?' · '+pushErr:'');
   }
   if(!rowsOut.length){
     mount.innerHTML='<p class="small-note">No preview rows in the next 7 days. Add habits with daily reminder times, or check a profile with data.</p>';
