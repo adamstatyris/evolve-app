@@ -2417,8 +2417,9 @@ function syncGoalFormForType(isEdit,existingGoal){const typeEl=document.getEleme
 function openPathsStore(){openM('mPathsStore');}
 /** In (5)Essence — optional override: set to '' to hide blog footer on molecule insights. */
 var CONSISTENCY_INSIGHT_BLOG_URL='https://epitis5ousias.wordpress.com/';
-/** Set to false after you confirm notifications — fires once per day at 23:50 local with body "Test, skatakepipes" (needs Notification permission; does not require Settings → Browser reminders). */
-var CONSISTENCY_TEMP_PUSH_TEST_2350=false;
+/** One-off push test — set false after you confirm the notification rings. Local HH:MM today; if that time passed, next sync schedules ~2 min ahead. */
+var CONSISTENCY_TEMP_PUSH_TEST=true;
+var CONSISTENCY_TEMP_PUSH_TEST_AT='23:57';
 const INSIGHT_LIBRARY=(function(){const L=[];
 const I1_35=[
 ['I1','Sleep helps memories stick','Your brain files the day while you sleep. Skip it too often and things stop sticking — meetings, names, where you left your keys.\n\nConsistent sleep beats one heroic ten-hour catch-up.','Walker — Why We Sleep (overview)','https://pubmed.ncbi.nlm.nih.gov/','sleep','habit_added'],
@@ -4629,7 +4630,7 @@ function reminderDebugHabitLabel(slot_key,tag){
     if(h)return(String(h.emoji||'').trim()+' '+String(h.title||'').trim()).trim().slice(0,48)||'Habit';
     return String(hid||'Habit');
   }
-  if(sk.indexOf('_tempPush2350')===0)return 'Test push';
+  if(sk.indexOf('_tempPush')===0)return 'Test push';
   if(tg==='habits_day'||sk.indexOf('habits_day')===0)return 'Daily nudge (unlogged)';
   if(/^sun_/.test(tg)||/^sun_/.test(sk))return 'Sunday week-close';
   return String(tg||sk.split(':')[0]||'—');
@@ -5005,10 +5006,14 @@ function buildExactReminderScheduleRowsForSupabase(maxFireMsOpt, opts){
       }
     }
   }
-  if(CONSISTENCY_TEMP_PUSH_TEST_2350&&S&&S.user&&notify&&!paused&&!stopped){
-    const fire=new Date(todayYmd+'T23:50:00').getTime();
+  if(CONSISTENCY_TEMP_PUSH_TEST&&S&&S.user&&notify&&!paused&&!stopped){
+    const hm=typeof CONSISTENCY_TEMP_PUSH_TEST_AT==='string'&&/^\d{2}:\d{2}$/.test(CONSISTENCY_TEMP_PUSH_TEST_AT.trim())?CONSISTENCY_TEMP_PUSH_TEST_AT.trim():'23:57';
+    let fire=new Date(todayYmd+'T'+hm+':00').getTime();
+    if(!(fire>nowMs&&fire<=maxFireMs))fire=Math.ceil((nowMs+120000)/60000)*60000;
     if(fire>nowMs&&fire<=maxFireMs){
-      rows.push({slot_key:'_tempPush2350:'+todayYmd,fire_at_utc:new Date(fire).toISOString(),title:'Evolve',body:'Test, skatakepipes',tag:'_tempPush2350'});
+      const tag='_tempPushTest';
+      const hmFlat=hm.replace(':','');
+      rows.push({slot_key:tag+':'+todayYmd+':'+hmFlat,fire_at_utc:new Date(fire).toISOString(),title:'Evolve',body:'Test push — if you see this, reminders are working.',tag});
     }
   }
   const dayStart=new Date(nowMs);dayStart.setHours(0,0,0,0);
