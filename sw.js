@@ -1,7 +1,7 @@
 /* Service worker: Web Push only (no asset caching).
  * Do NOT intercept fetch — pass-through avoids Response.error() breaking PWA loads on flaky mobile networks.
  */
-var EVOLVE_SW_CACHE = 'evolve-sw-v38';
+var EVOLVE_SW_CACHE = 'evolve-sw-v42';
 
 function notifIconUrl() {
   try {
