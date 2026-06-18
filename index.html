@@ -4617,6 +4617,7 @@ function normalizeReminderFireKey(iso){try{return new Date(iso).toISOString();}c
 function reminderRowIsHabitClock(r){return String(r&&r.slot_key||'').indexOf('hrd:')===0;}
 function reminderRowIsSundayClose(r){const sk=String(r&&r.slot_key||'');const tg=String(r&&r.tag||'');return/^sun_/.test(tg)||/^sun_/.test(sk);}
 function countReminderRowsByKind(arr){const a=arr||[];let habit=0,sun=0,other=0;a.forEach(function(r){if(reminderRowIsHabitClock(r))habit++;else if(reminderRowIsSundayClose(r))sun++;else other++;});return{habit,sun,other};}
+function reminderDebugRowKey(sk,iso){return String(sk||'')+'\0'+normalizeReminderFireKey(iso);}
 function reminderDebugHabitLabel(slot_key,tag){
   const sk=String(slot_key||'');const tg=String(tag||'');
   if(sk.indexOf('hrd:')===0){
@@ -4640,6 +4641,7 @@ async function renderReminderDebugTab(){
   if(!reminderDebugUserAllowed()){mount.innerHTML='<p class="small-note">Not available.</p>';if(meta)meta.textContent='';if(statusEl){statusEl.hidden=true;statusEl.innerHTML='';}return;}
   mount.innerHTML='<p class="small-note">Loading…</p>';
   if(statusEl){statusEl.hidden=true;statusEl.innerHTML='';}
+  try{
   const liveRows=buildExactReminderScheduleRowsForSupabase(reminderSyncMaxFireMs('full'));
   const previewRows=buildExactReminderScheduleRowsForSupabase(reminderSyncMaxFireMs('full'),{debugPreview:true});
   const notifyOn=!!(S&&S.user&&S.user.browserNotifyEnabled);
@@ -4729,6 +4731,11 @@ async function renderReminderDebugTab(){
   });
   tb+='</tbody></table>';
   mount.innerHTML=tb;
+  }catch(e){
+    console.error('[reminderDebug]',e);
+    mount.innerHTML='<p class="small-note">Could not load reminder table. Try Refresh, or update the app if this persists.</p>';
+    if(meta)meta.textContent='Error: '+(e&&e.message?e.message:String(e));
+  }
 }
 function habitEffectiveTier(h,wk){
   if(!h||!wk)return'core';
