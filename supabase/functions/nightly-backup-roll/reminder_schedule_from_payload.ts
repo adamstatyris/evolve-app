@@ -324,7 +324,13 @@ export function buildReminderScheduleRowsFromRoot(
     }
   }
 
-  return rows
+  const dayStart = DateTime.fromMillis(nowMs, { zone: tz }).startOf('day')
+  const dayEnd = dayStart.endOf('day')
+  return rows.filter((r) => {
+    if (!r.slot_key.startsWith('hrd:')) return true
+    const fire = DateTime.fromISO(r.fire_at_utc, { zone: 'utc' }).setZone(tz)
+    return fire >= dayStart && fire <= dayEnd
+  })
 }
 
 export async function replaceReminderScheduleForUser(
