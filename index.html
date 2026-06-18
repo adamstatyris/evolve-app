@@ -62,7 +62,7 @@
   --header-mark-tree-themed:var(--evolve-green-dark);
   /* Measured chrome: topbar height + bottom tab strip (safe-area added in padding) */
   --topbar-sticky-offset:78px;
-  --tabs-strip-height:72px;
+  --tabs-strip-height:64px;
   --app-chrome-bottom:calc(var(--tabs-strip-height) + env(safe-area-inset-bottom, 0px));
   /* Space below fixed topbar before first card — dashboard vs Log are tuned separately */
   --dashboard-tab-top-gap:var(--s4);
@@ -231,7 +231,7 @@ input,select,textarea{border:none}
 #tab-dashboard{padding-top:var(--dashboard-tab-top-gap)}
 #tab-tracker{padding-top:var(--log-tab-top-gap)}
 #tab-manage{padding-top:var(--panel-top-gap-default)}
-.tab-notify-dot{display:inline-block;width:7px;height:7px;margin-left:4px;border-radius:50%;background:var(--amber);vertical-align:super}
+.tab-notify-dot{position:absolute;top:1px;right:-2px;width:7px;height:7px;margin:0;border-radius:50%;background:var(--amber);border:1.5px solid var(--surface);vertical-align:unset;pointer-events:none}
 .habit-card.habit-card--log-collapsed .habit-expandhide{display:none}
 .habit-expand-toggle{cursor:pointer;user-select:none;-webkit-user-select:none}
 .home-week-history summary::-webkit-details-marker{display:none}
@@ -252,14 +252,15 @@ input,select,textarea{border:none}
   z-index: 90;
   display: flex;
   flex-wrap: nowrap;
-  gap: var(--s2);
+  gap: 0;
+  justify-content: space-around;
   overflow-x: auto;
   box-sizing: border-box;
   width: 100%;
   max-width: none;
   margin-left: 0;
   margin-right: 0;
-  padding: 10px max(calc(var(--s4) + 14px), env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(calc(var(--s4) + 14px), env(safe-area-inset-left,0px));
+  padding: 6px max(calc(var(--s2) + env(safe-area-inset-right,0px)), env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom, 0px)) max(calc(var(--s2) + env(safe-area-inset-left,0px)), env(safe-area-inset-left,0px));
   margin-bottom: 0;
   background: linear-gradient(0deg,color-mix(in srgb,var(--surface) 80%, transparent),color-mix(in srgb,var(--surface) 92%, transparent));
   backdrop-filter: blur(16px);
@@ -275,11 +276,14 @@ input,select,textarea{border:none}
 .tabs.is-tab-dragging{cursor:grabbing;scroll-behavior:auto}
 .tabs::-webkit-scrollbar{display:none}
 .tabs{scrollbar-width:none}
-.tab{flex-shrink:0;padding:var(--s3) var(--s4);border-radius:var(--r-full);border:1px solid var(--border);background:var(--surface);color:var(--text-muted);white-space:nowrap;transition:all var(--t);-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-.tab:hover{color:var(--text);border-color:var(--blue)}
-.tab.active{color:#fff;border-color:transparent;background:linear-gradient(135deg,var(--blue-strong),var(--blue));box-shadow:0 0 18px var(--blue-glow-strong),inset 0 1px 0 rgba(255,255,255,.16)}
-.tab.tab--premium-locked{opacity:.45;cursor:not-allowed;pointer-events:none;filter:grayscale(.35)}
-.tab.tab--premium-locked:hover{color:var(--text-muted);border-color:var(--border)}
+.tab{flex:1 1 0;min-width:3.4rem;max-width:5.75rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px 4px 4px;border:none;border-radius:var(--r-md);background:transparent;color:var(--text-muted);white-space:nowrap;transition:color var(--t);-webkit-tap-highlight-color:transparent;touch-action:manipulation;font-size:0.68rem;font-weight:600;letter-spacing:.01em;line-height:1.1}
+.tab:hover{color:color-mix(in srgb,var(--text) 72%,var(--text-muted))}
+.tab.active{color:var(--blue);background:transparent;box-shadow:none;border:none}
+.tab-icon-wrap{position:relative;display:grid;place-items:center;width:28px;height:28px;flex-shrink:0}
+.tab-icon{width:22px;height:22px;display:block}
+.tab-label{max-width:100%;overflow:hidden;text-overflow:ellipsis;text-align:center}
+.tab.tab--premium-locked{opacity:.45;cursor:not-allowed;pointer-events:none}
+.tab.tab--premium-locked:hover{color:var(--text-muted)}
 .mastery-badge{display:inline-flex;align-items:center;justify-content:center;min-width:1.65rem;height:1.65rem;padding:0 .28rem;border-radius:999px;font-size:.72rem;font-weight:800;line-height:1;font-family:var(--font);letter-spacing:.02em;color:#5c4010;background:radial-gradient(circle at 35% 30%,#ffeaa7,#f4d03f 45%,#c9981f 100%);box-shadow:0 0 12px rgba(244,208,63,.55),0 3px 8px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.5);flex-shrink:0;font-variant-numeric:lining-nums}
 .mastery-badge--mastery-card{min-width:2.75rem;width:2.75rem;height:2.75rem;padding:0;border-radius:999px;font-size:clamp(.95rem,2.5vw,1.05rem);font-weight:800;letter-spacing:.02em;font-family:var(--font);line-height:1;align-self:center;box-sizing:border-box}
 .mastery-badge--legendary{color:#fef9e7;background:radial-gradient(circle at 35% 25%,#fff8e1,#f4d03f 38%,#8b6914 95%);box-shadow:0 0 0 2px rgba(212,175,55,.95),0 0 18px rgba(244,208,63,.75),0 4px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.55);font-size:.68rem}
@@ -911,7 +915,7 @@ html.evolve-auth-intro body{overflow:hidden}
 .onboarding-footer{margin-top:var(--s6)}
 .hidden{display:none!important}
 @media(max-width:920px){.hero-left,.hero-right{grid-column:1/-1}.summary-kpis{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}}
-@media(max-width:640px){:root{--topbar-sticky-offset:70px;--tabs-strip-height:68px}.topbar{padding:var(--s3)}.main{padding:var(--topbar-sticky-offset) var(--s3) calc(var(--app-chrome-bottom) + var(--s10))}#tab-tracker>.week-nav{width:calc(100% + 2 * var(--s3));margin-left:calc(-1 * var(--s3));margin-right:calc(-1 * var(--s3));padding:var(--s2) var(--s3) var(--s3)}.day-btn{width:40px;height:40px}.consistency-disc{width:118px;height:118px}.goal-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){:root{--topbar-sticky-offset:70px;--tabs-strip-height:60px}.topbar{padding:var(--s3)}.main{padding:var(--topbar-sticky-offset) var(--s3) calc(var(--app-chrome-bottom) + var(--s10))}#tab-tracker>.week-nav{width:calc(100% + 2 * var(--s3));margin-left:calc(-1 * var(--s3));margin-right:calc(-1 * var(--s3));padding:var(--s2) var(--s3) var(--s3)}.day-btn{width:40px;height:40px}.consistency-disc{width:118px;height:118px}.goal-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* Mobile WebKit often glitches with backdrop-filter + translucent stacks (random white/blank tiles). Use solid surfaces instead. */
 @media(max-width:768px){
   .topbar,.tabs,.week-nav,.overlay,.modal{
@@ -1399,11 +1403,26 @@ html.evolve-auth-intro body{overflow:hidden}
   </section>
 </main>
 <nav class="tabs" data-guided-tour="tabs" aria-label="Main views">
-  <button type="button" class="tab active" data-guided-tour="tab-home" onclick="switchTab('dashboard',this)" title="Home">🏠 Home</button>
-  <button type="button" class="tab" data-guided-tour="tab-tracker" onclick="switchTab('tracker',this)" title="Log">✅ Log</button>
-  <button type="button" class="tab" data-guided-tour="tab-manage" onclick="switchTab('manage',this)" title="Manage goals, habits &amp; saved habits">⚙ Manage</button>
-  <button type="button" class="tab" data-tab-premium="1" data-guided-tour="tab-masteries" onclick="switchTab('mastery',this)" title="Masteries"><span style="margin-right:6px">🏅</span>Masteries<span id="masteriesTabNotifyDot" hidden class="tab-notify-dot" aria-hidden="true"></span></button>
-  <button type="button" class="tab" id="tabReminderDebugBtn" hidden onclick="switchTab('reminderDebug',this)" title="Scheduled push reminders (debug)">🔔 Reminders</button>
+  <button type="button" class="tab active" data-guided-tour="tab-home" onclick="switchTab('dashboard',this)" title="Home">
+    <span class="tab-icon-wrap" aria-hidden="true"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5 12 4l8 6.5V19a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1z"/></svg></span>
+    <span class="tab-label">Home</span>
+  </button>
+  <button type="button" class="tab" data-guided-tour="tab-tracker" onclick="switchTab('tracker',this)" title="Log">
+    <span class="tab-icon-wrap" aria-hidden="true"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M5.5 6.5 4 8l1.5 1.5"/><path d="M5.5 12.5 4 14l1.5 1.5"/><path d="M5.5 18.5 4 20l1.5 1.5"/></svg></span>
+    <span class="tab-label">Log</span>
+  </button>
+  <button type="button" class="tab" data-guided-tour="tab-manage" onclick="switchTab('manage',this)" title="Manage goals, habits &amp; saved habits">
+    <span class="tab-icon-wrap" aria-hidden="true"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><circle cx="9" cy="7" r="2"/><path d="M4 12h16"/><circle cx="15" cy="12" r="2"/><path d="M4 17h16"/><circle cx="11" cy="17" r="2"/></svg></span>
+    <span class="tab-label">Manage</span>
+  </button>
+  <button type="button" class="tab" data-tab-premium="1" data-guided-tour="tab-masteries" onclick="switchTab('mastery',this)" title="Masteries">
+    <span class="tab-icon-wrap" aria-hidden="true"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="4.5"/><path d="M8.2 13.5 6 20l6-2.5L18 20l-2.2-6.5"/></svg><span id="masteriesTabNotifyDot" hidden class="tab-notify-dot" aria-hidden="true"></span></span>
+    <span class="tab-label">Masteries</span>
+  </button>
+  <button type="button" class="tab" id="tabReminderDebugBtn" hidden onclick="switchTab('reminderDebug',this)" title="Scheduled push reminders (debug)">
+    <span class="tab-icon-wrap" aria-hidden="true"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 16H6l1.5-1.5V10a4.5 4.5 0 0 1 9 0v4.5L18 16z"/><path d="M10 18a2 2 0 0 0 4 0"/></svg></span>
+    <span class="tab-label">Reminders</span>
+  </button>
 </nav>
 </div>
 
