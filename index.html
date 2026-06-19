@@ -826,9 +826,10 @@ html.evolve-auth-intro body{overflow:hidden}
 .habit-editor-metrics-card{padding:var(--s3) var(--s4);margin:0}
 .habit-editor-metrics-card[hidden]{display:none!important}
 .habit-editor-metrics-row{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:flex-end;justify-content:flex-start}
-.habit-editor-metrics-row .fg{margin:0;flex:0 0 auto;width:auto;min-width:0}
-.habit-editor-metrics-row .finput--compact,.habit-metric-pick-btn{box-sizing:border-box;min-height:2.5rem;font-size:inherit;line-height:1.35}
-.habit-editor-metrics-row .fg--metric-threshold .finput,.habit-editor-metrics-row .fg--metric-pot .finput{width:auto!important;min-width:2.75rem;max-width:100%;field-sizing:content}
+.habit-editor-metrics-card .fg,.habit-editor-metrics-row .fg{margin:0;flex:0 0 auto;width:fit-content;max-width:100%;min-width:0;align-items:flex-start}
+.habit-editor-metrics-card .fg .flabel{align-self:stretch;white-space:normal;line-height:1.35}
+.habit-editor-metrics-row .finput--compact,.habit-editor-metrics-card .habit-editor-custom-unit .finput--compact,.habit-metric-pick-btn{box-sizing:border-box;min-height:2.5rem;font-size:inherit;line-height:1.35;align-self:flex-start;width:auto!important;min-width:2.75rem;max-width:100%;field-sizing:content}
+.habit-editor-metrics-row .fg--metric-threshold .finput,.habit-editor-metrics-row .fg--metric-pot .finput,.habit-editor-metrics-card .habit-editor-custom-unit .finput{width:auto!important;min-width:2.75rem;max-width:100%;field-sizing:content}
 .fg--metric-pick{position:relative;display:flex;flex-direction:column;align-items:flex-start}
 .habit-metric-pick-btn{display:inline-flex;align-items:center;justify-content:flex-start;width:max-content;max-width:100%;min-width:0;padding:var(--s2) var(--s3);text-align:left;cursor:pointer;white-space:nowrap;background:var(--surface-3);border:1px solid var(--border);border-radius:var(--r-md);color:var(--text);font:inherit;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .habit-metric-pick-btn:hover,.habit-metric-pick-btn:focus-visible{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-bg);outline:none}
@@ -4739,6 +4740,7 @@ function reminderDebugHabitLabel(slot_key,tag){
     return String(hid||'Habit');
   }
   if(sk.indexOf('_tempPush')===0)return 'Test push';
+  if(tg==='habits_morning'||sk.indexOf('habits_morning')===0)return 'Daily nudge (morning)';
   if(tg==='habits_day'||sk.indexOf('habits_day')===0)return 'Daily nudge (unlogged)';
   if(/^sun_/.test(tg)||/^sun_/.test(sk))return 'Sunday week-close';
   return String(tg||sk.split(':')[0]||'—');
@@ -5096,6 +5098,23 @@ function buildExactReminderScheduleRowsForSupabase(maxFireMsOpt, opts){
     }
   }
   if(S&&S.user&&notify&&!paused&&!stopped){
+    const hasHabits=trackerHabitsOrdered().length>0;
+    let c=new Date(nowMs);c.setHours(0,0,0,0);
+    const endCap=new Date(maxFireMs);
+    while(c.getTime()<=endCap.getTime()){
+      const ymd=isoDate(c);
+      if(c.getDay()===0){
+        add(ymd,'10:00','sun_m',"It's Sunday — your week locks at midnight. Make sure everything's logged.");
+        add(ymd,'13:00','sun_mid','Midday Sunday — week locks at midnight. Anything still open?');
+        add(ymd,'15:00','sun_a','A few hours left before your week locks. Any missing entries?');
+        add(ymd,'18:00','sun_ev','Early evening — your week locks at midnight. Time to check the log.');
+        add(ymd,'20:00','sun_e','Last chance — your week locks in a few hours.');
+      }
+      if(hasHabits){
+        add(ymd,'09:15','habits_morning','Good morning!\nDon\'t forget to stay on track with your habits today!');
+      }
+      c.setDate(c.getDate()+1);
+    }
     const wk=weekKey(0);
     const di=todayIsoWeekDayIndex();
     if(di>=0){
@@ -5104,19 +5123,6 @@ function buildExactReminderScheduleRowsForSupabase(maxFireMsOpt, opts){
       const growth=habits.filter(h=>habitEffectiveTier(h,wk)==='growth');
       const coreUn=cores.some(h=>!habitHasLogForDayIndex(h,wk,di));
       const growthUn=growth.some(h=>!habitHasLogForDayIndex(h,wk,di));
-      let c=new Date(nowMs);c.setHours(0,0,0,0);
-      const endCap=new Date(maxFireMs);
-      while(c.getTime()<=endCap.getTime()){
-        if(c.getDay()===0){
-          const ymd=isoDate(c);
-          add(ymd,'10:00','sun_m',"It's Sunday — your week locks at midnight. Make sure everything's logged.");
-          add(ymd,'13:00','sun_mid','Midday Sunday — week locks at midnight. Anything still open?');
-          add(ymd,'15:00','sun_a','A few hours left before your week locks. Any missing entries?');
-          add(ymd,'18:00','sun_ev','Early evening — your week locks at midnight. Time to check the log.');
-          add(ymd,'20:00','sun_e','Last chance — your week locks in a few hours.');
-        }
-        c.setDate(c.getDate()+1);
-      }
       if(coreUn||growthUn){
         add(todayYmd,'14:00','habits_day','Some habits are not logged yet today — open Evolve when you can.');
       }
