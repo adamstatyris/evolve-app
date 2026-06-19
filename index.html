@@ -825,15 +825,12 @@ html.evolve-auth-intro body{overflow:hidden}
 .habit-editor-customize-section[hidden]{display:none!important}
 .habit-editor-metrics-card{padding:var(--s3) var(--s4);margin:0}
 .habit-editor-metrics-card[hidden]{display:none!important}
-.habit-editor-metrics-row{display:flex;flex-wrap:wrap;gap:var(--s4);align-items:flex-end}
-.habit-editor-metrics-row--top{justify-content:flex-start}
-.habit-editor-metrics-row--pot{margin-top:var(--s3)}
-.habit-editor-metrics-row .fg{margin:0;flex:0 0 auto;width:auto}
+.habit-editor-metrics-row{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:flex-end;justify-content:flex-start}
+.habit-editor-metrics-row .fg{margin:0;flex:0 0 auto;width:auto;min-width:0}
 .habit-editor-metrics-row .finput--compact,.habit-metric-pick-btn{box-sizing:border-box;min-height:2.5rem;font-size:inherit;line-height:1.35}
-.fg--metric-threshold .finput{width:5.5rem;max-width:100%}
-.fg--metric-pot .finput{width:6.5rem;max-width:100%}
-.fg--metric-pick{position:relative}
-.habit-metric-pick-btn{width:auto;min-width:7.25rem;max-width:min(100%,10.5rem);text-align:left;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:var(--surface-3);border:1px solid var(--border);border-radius:var(--r-md);color:var(--text);font:inherit;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.habit-editor-metrics-row .fg--metric-threshold .finput,.habit-editor-metrics-row .fg--metric-pot .finput{width:auto!important;min-width:2.75rem;max-width:100%;field-sizing:content}
+.fg--metric-pick{position:relative;display:flex;flex-direction:column;align-items:flex-start}
+.habit-metric-pick-btn{display:inline-flex;align-items:center;justify-content:flex-start;width:max-content;max-width:100%;min-width:0;padding:var(--s2) var(--s3);text-align:left;cursor:pointer;white-space:nowrap;background:var(--surface-3);border:1px solid var(--border);border-radius:var(--r-md);color:var(--text);font:inherit;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .habit-metric-pick-btn:hover,.habit-metric-pick-btn:focus-visible{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-bg);outline:none}
 .habit-editor-metric-native{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 .habit-metric-popover-wrap{position:fixed;z-index:10046;min-width:0;max-width:min(240px,calc(100vw - 16px))}
@@ -991,10 +988,10 @@ html.evolve-auth-intro body{overflow:hidden}
   .modal{background:var(--surface-2);border:1px solid var(--border)}
 }
 .hw-toggle{display:inline-flex;align-items:center;gap:6px;cursor:pointer;padding:4px 10px;border-radius:var(--r-full);border:1px solid var(--border);background:var(--surface-3);transition:all var(--t);}
-.hw-toggle-track{width:34px;height:20px;border-radius:10px;background:var(--surface-4);position:relative;transition:background var(--t);border:1px solid transparent;}
-.hw-toggle-thumb{position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:var(--text-faint);transition:transform var(--t),background var(--t);}
+.hw-toggle-track{width:34px;height:20px;border-radius:10px;background:var(--surface-4);position:relative;transition:background var(--t);border:1px solid transparent;box-sizing:border-box;flex-shrink:0}
+.hw-toggle-thumb{position:absolute;top:50%;left:3px;width:14px;height:14px;border-radius:50%;background:var(--text-faint);transform:translateY(-50%);transition:transform var(--t),background var(--t)}
 .hw-toggle.on .hw-toggle-track{background:var(--green-bg);border-color:var(--green);}
-.hw-toggle.on .hw-toggle-thumb{transform:translateX(14px);background:var(--green);}
+.hw-toggle.on .hw-toggle-thumb{transform:translate(14px,-50%);background:var(--green);}
 .hw-toggle-lbl{font-size:var(--xs);color:var(--text-muted);}
 .hw-toggle.on .hw-toggle-lbl{color:var(--green);}
 .hw-toggle.on{border-color:var(--green);}
@@ -1794,11 +1791,9 @@ html.evolve-auth-intro body{overflow:hidden}
       </div>
     </div>
     <div class="card config-card habit-editor-metrics-card glow-blue" id="hHabitMetricsCard" hidden>
-      <div class="habit-editor-metrics-row habit-editor-metrics-row--top">
+      <div class="habit-editor-metrics-row">
         <div class="fg fg--metric-threshold"><label class="flabel" id="hThrLbl" for="hThreshold">Min/wk</label><input class="finput finput--compact" type="number" inputmode="decimal" id="hThreshold" min="1" value="5" oninput="refreshHabitEditorSummary()"></div>
-        <div class="fg fg--metric-pick"><label class="flabel" for="hMetricToggle">Metric</label><select class="habit-editor-metric-native" id="hMetric" tabindex="-1" aria-hidden="true"><option value="days">Days / week</option><option value="sessions">Sessions / week</option><option value="km">Km / week</option><option value="minutes">Minutes / week</option><option value="pages">Pages / week</option><option value="custom">Custom unit</option></select><button type="button" class="habit-metric-pick-btn" id="hMetricToggle" onclick="toggleHabitMetricPickerPanel(event)" aria-haspopup="listbox" aria-expanded="false" aria-controls="hMetricPickerWrap">Days / week</button></div>
-      </div>
-      <div class="habit-editor-metrics-row habit-editor-metrics-row--pot">
+        <div class="fg fg--metric-pick"><label class="flabel" for="hMetricToggle">Metric</label><select class="habit-editor-metric-native" id="hMetric" tabindex="-1" aria-hidden="true"><option value="days">Days /wk</option><option value="sessions">Sessions /wk</option><option value="km">Km /wk</option><option value="minutes">Minutes /wk</option><option value="pages">Pages /wk</option><option value="custom">Custom unit</option></select><button type="button" class="habit-metric-pick-btn" id="hMetricToggle" onclick="toggleHabitMetricPickerPanel(event)" aria-haspopup="listbox" aria-expanded="false" aria-controls="hMetricPickerWrap">Days /wk</button></div>
         <div class="fg fg--metric-pot"><label class="flabel" id="hPotLabel" for="hPot">Weekly earnings (£)</label><input class="finput finput--compact" type="number" inputmode="decimal" id="hPot" min="0" step="5" value="30" oninput="refreshHabitEditorSummary()"></div>
       </div>
       <div class="fg habit-editor-custom-unit" id="hCustomUnitFg" hidden style="margin-top:var(--s2)">
@@ -3376,8 +3371,8 @@ var _habitEditorCustomizing=false;
 function collapseHabitPresetPanel(){const wrap=document.getElementById('habitPresetPickerWrap');const btn=document.getElementById('hPresetToggle');if(wrap){wrap.hidden=true;wrap.setAttribute('aria-hidden','true');}if(btn)btn.setAttribute('aria-expanded','false');}
 function positionHabitPresetPickerWrap(wrap,btn){if(!wrap||!btn)return;const pop=wrap.querySelector('.habit-preset-popover');if(!pop)return;const rect=btn.getBoundingClientRect();const pw=pop.offsetWidth||Math.min(420,window.innerWidth-16);const ph=pop.offsetHeight||320;let left=rect.left;let top=rect.bottom+6;if(left+pw>window.innerWidth-8)left=Math.max(8,window.innerWidth-pw-8);if(top+ph>window.innerHeight-8)top=Math.max(8,rect.top-ph-6);wrap.style.left=Math.round(left)+'px';wrap.style.top=Math.round(top)+'px';wrap.style.width=Math.round(Math.max(rect.width,280))+'px';}
 function toggleHabitPresetPickerPanel(ev){if(ev)ev.stopPropagation();collapseHabitMetricPanel();const wrap=document.getElementById('habitPresetPickerWrap');const btn=document.getElementById('hPresetToggle');if(!wrap||!btn)return;if(!wrap.hidden){collapseHabitPresetPanel();return;}wrap.hidden=false;wrap.removeAttribute('aria-hidden');btn.setAttribute('aria-expanded','true');requestAnimationFrame(function(){positionHabitPresetPickerWrap(wrap,btn);const inp=document.getElementById('hPresetSearch');if(inp)setTimeout(function(){try{inp.focus();}catch(_){}},80);});}
-function habitMetricPickerOptions(){const imp=!!(S&&S.user&&S.user.units==='imperial');return[{v:'days',l:'Days / week'},{v:'sessions',l:'Sessions / week'},{v:'km',l:imp?'Miles / week':'Km / week'},{v:'minutes',l:'Minutes / week'},{v:'pages',l:'Pages / week'},{v:'custom',l:'Custom unit'}];}
-function habitMetricPickerLabel(v){const o=habitMetricPickerOptions().find(function(x){return x.v===v;});return o?o.l:'Days / week';}
+function habitMetricPickerOptions(){const imp=!!(S&&S.user&&S.user.units==='imperial');return[{v:'days',l:'Days /wk'},{v:'sessions',l:'Sessions /wk'},{v:'km',l:imp?'Miles /wk':'Km /wk'},{v:'minutes',l:'Minutes /wk'},{v:'pages',l:'Pages /wk'},{v:'custom',l:'Custom unit'}];}
+function habitMetricPickerLabel(v){const o=habitMetricPickerOptions().find(function(x){return x.v===v;});return o?o.l:'Days /wk';}
 function buildHabitMetricPickerHTML(){const cur=document.getElementById('hMetric')?.value||'days';return habitMetricPickerOptions().map(function(o){const act=o.v===cur?' habit-preset-option--active':'';return '<button type="button" class="habit-preset-option'+act+'" data-metric="'+escHTML(o.v)+'" role="option" aria-selected="'+(o.v===cur?'true':'false')+'">'+escDash(o.l)+'</button>';}).join('');}
 function bindHabitMetricPicker(){const root=document.getElementById('hMetricPicker');if(!root||root.dataset.bound)return;root.dataset.bound='1';root.addEventListener('click',function(e){const btn=e.target.closest('[data-metric]');if(!btn)return;onHabitMetricPicked(btn.getAttribute('data-metric'));});}
 function onHabitMetricPicked(v){const sel=document.getElementById('hMetric');if(sel)sel.value=v||'days';collapseHabitMetricPanel();onMetricChange();refreshHabitEditorSummary();}
