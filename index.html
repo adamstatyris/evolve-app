@@ -180,7 +180,8 @@
   /* uses [data-theme=light] defaults */
   --header-mark-bg-themed:#334155;
 }
-*{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box;margin:0;padding:0;scrollbar-width:none;-ms-overflow-style:none}
+*::-webkit-scrollbar{display:none;width:0;height:0}
 html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth;overflow-x:clip}
 html.habit-reorder-lock{overscroll-behavior:none;touch-action:none}
 html.habit-reorder-lock body{overscroll-behavior:none}
@@ -690,10 +691,8 @@ html.evolve-auth-intro body{overflow:hidden}
 .hist-table th,.hist-table td{padding:var(--s3);border-bottom:1px solid var(--divider);text-align:left}
 .hist-table th{font-size:var(--xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em}
 .hist-card{padding:0;overflow:hidden;--hist-pots-cols:1}
-.hist-table-scroll{max-width:100%;overflow-x:scroll;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x pan-y;scrollbar-width:thin;cursor:grab}
+.hist-table-scroll{max-width:100%;overflow-x:scroll;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x pan-y;cursor:grab}
 .hist-table-scroll.is-hist-dragging{cursor:grabbing;user-select:none}
-.hist-table-scroll::-webkit-scrollbar{height:8px}
-.hist-table-scroll::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--text-muted) 35%,transparent);border-radius:4px}
 .hist-grid-table{display:grid;grid-template-columns:min(38%,260px) repeat(var(--hist-pots-cols),minmax(6.5rem,1fr));width:max-content;min-width:100%;box-sizing:border-box}
 .hist-week-head,.hist-week-cell{padding:var(--s3) var(--s4);box-sizing:border-box;min-width:0}
 .hist-week-head{font-size:var(--xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;background:color-mix(in srgb,var(--surface-2) 88%,transparent);border-bottom:1px solid var(--divider)}
