@@ -17,12 +17,49 @@ if (VAPID_PUBLIC_KEY && VAPID_PRIVATE_KEY) {
   webpush.setVapidDetails(VAPID_SUBJECT, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY)
 }
 
+type Habit = { id?: string; emoji?: string }
+type Profile = { habits?: Habit[] }
+type Root = {
+  storageVersion?: number
+  activeProfileId?: string
+  profiles?: Record<string, Profile>
+}
+
 function err(status: number, message: string) {
   console.error(`[push-reminders] ${status}: ${message}`)
   return new Response(JSON.stringify({ error: message }), {
     status,
     headers: { 'Content-Type': 'application/json' },
   })
+}
+
+function habitIdFromReminderTag(tag: string): string | null {
+  if (!tag.startsWith('hrd:')) return null
+  const parts = tag.split(':')
+  if (parts.length < 3) return null
+  return parts[1] || null
+}
+
+function emojiForHabitReminder(profile: Profile | null, tag: string): string {
+  const hid = habitIdFromReminderTag(tag)
+  if (!hid || !profile?.habits?.length) return ''
+  const h = profile.habits.find((x) => x && x.id === hid)
+  return String(h?.emoji || '').trim()
+}
+
+async function loadActiveProfile(
+  supa: ReturnType<typeof createClient>,
+  userId: string,
+): Promise<Profile | null> {
+  const { data, error } = await supa
+    .from('user_state')
+    .select('payload')
+    .eq('user_id', userId)
+    .maybeSingle()
+  if (error || !data?.payload) return null
+  const root = data.payload as Root
+  if (!root || root.storageVersion !== 5 || !root.profiles || !root.activeProfileId) return null
+  return root.profiles[root.activeProfileId] ?? null
 }
 
 Deno.serve(async (req) => {
@@ -54,6 +91,7 @@ Deno.serve(async (req) => {
 
     let sent = 0
     const rows = due ?? []
+    const profileCache = new Map<string, Profile | null>()
 
     for (const row of rows) {
       const { data: subs, error: sErr } = await supa
@@ -66,10 +104,19 @@ Deno.serve(async (req) => {
       const list = subs ?? []
       if (!list.length) continue
 
+      let iconEmoji = ''
+      if (String(row.tag || '').startsWith('hrd:')) {
+        if (!profileCache.has(row.user_id)) {
+          profileCache.set(row.user_id, await loadActiveProfile(supa, row.user_id))
+        }
+        iconEmoji = emojiForHabitReminder(profileCache.get(row.user_id) ?? null, String(row.tag || ''))
+      }
+
       const payload = JSON.stringify({
         title: row.title,
         body: row.body,
         tag: row.tag,
+        iconEmoji,
       })
 
       let delivered = false
