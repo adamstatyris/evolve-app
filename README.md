@@ -4,7 +4,7 @@
 
 ## Status
 
-Closed beta (**v3.0.1beta**). **Auth:** Supabase (Google + email magic link). **Cloud sync:** signed-in users sync the full multi-profile `ROOT` to Supabase (`user_state`) from **Settings → Account**. **Automatic cloud backups:** two rolling snapshots per account (**T-1** / **T-2**) live in `user_state_history` (column **`slot`**). They are updated **server-side** by the **`nightly-backup-roll`** Edge Function (e.g. daily at 00:10 UTC). The app also refreshes **T-1** / **T-2** immediately before a **destructive profile or goal delete** when sync is on. **Settings → Advanced → Automatic cloud backups** lists **Revert to yesterday** (T-1) and **Revert to 2 days ago** (T-2) when those rows exist.
+Closed beta (**v3.0.1beta**). **Auth:** Supabase (Google + email magic link). **Cloud sync:** signed-in users sync the full multi-profile `ROOT` to Supabase (`user_state`) from **Settings → Account**. **Automatic cloud backups:** two rolling snapshots per account (**T-1** / **T-2**) live in `user_state_history` (column **`slot`**). They are updated **server-side** by the **`nightly-backup-roll`** Edge Function (daily at **00:15 UTC**). The app also rolls **T-1** / **T-2** on the first cloud sync after **00:15** in the user’s timezone if the server job has not run yet, and refreshes snapshots immediately before a **destructive profile or goal delete** when sync is on. **Settings → Advanced → Automatic cloud backups** lists **Revert to yesterday** (T-1) and **Revert to 2 days ago** (T-2) when those rows exist.
 
 ## Repository layout
 
@@ -41,12 +41,12 @@ Do this in the [Supabase Dashboard](https://supabase.com/dashboard) for **the sa
 3. Reuse the same secrets as **`push-reminders`**: **`CRON_SECRET`**, and set **`SUPABASE_SERVICE_ROLE_KEY`** (and **`SUPABASE_URL`** if not auto-injected) via `supabase secrets set` when required by your environment.
 4. Schedule a daily **HTTP POST** to  
    `https://<project-ref>.supabase.co/functions/v1/nightly-backup-roll`  
-   with header **`x-cron-secret: <same as CRON_SECRET>`**, at **00:10 UTC** (or your preferred time). Example with **pg_cron** + **`pg_net`** (adjust URL and secret; enable extensions in the dashboard if needed):
+   with header **`x-cron-secret: <same as CRON_SECRET>`**, at **00:15 UTC** (or your preferred time). See [`supabase/setup/nightly-backup-roll-cron.sql`](supabase/setup/nightly-backup-roll-cron.sql). Example with **pg_cron** + **`pg_net`** (adjust URL and secret; enable extensions in the dashboard if needed):
 
 ```sql
 select cron.schedule(
   'nightly-backup-roll',
-  '10 0 * * *',
+  '15 0 * * *',
   $$
   select net.http_post(
     url := 'https://YOUR_PROJECT_REF.supabase.co/functions/v1/nightly-backup-roll',
@@ -61,7 +61,7 @@ select cron.schedule(
 
 ## Web Push (Supabase Edge Function + cron)
 
-**All** reminder delivery when the app is closed is **Web Push** through Supabase: the client writes pending rows to **`reminder_schedule`** (and the **nightly-backup-roll** job refreshes them from cloud state at **00:10 UTC**), and registers a **VAPID** subscription in **`push_subscriptions`**. A scheduled job calls the **`push-reminders`** Edge Function ( `web-push` ) to deliver notifications. The service worker **only** handles `push` and `fetch` (no Periodic Background Sync reminder snapshot).
+**All** reminder delivery when the app is closed is **Web Push** through Supabase: the client writes pending rows to **`reminder_schedule`** (and the **nightly-backup-roll** job refreshes them from cloud state at **00:15 UTC**), and registers a **VAPID** subscription in **`push_subscriptions`**. A scheduled job calls the **`push-reminders`** Edge Function ( `web-push` ) to deliver notifications. The service worker **only** handles `push` and `fetch` (no Periodic Background Sync reminder snapshot).
 
 **Due-row window (staleness):** each cron run only sends rows whose `fire_at_utc` is **in the past** but **not older than 7 days** (see `STALE_MS` in `push-reminders/index.ts`). That matches the schedule horizon so a long outage can still flush pending pushes; rows older than that are skipped. Your cron interval (e.g. every **3 minutes**) only controls *how often* the function runs, not that cap.
 
@@ -69,7 +69,7 @@ select cron.schedule(
 
 Included in the schedule: **per-habit exact times** (adult/active profiles only; kid profiles get **Sunday** + **habits_day** nudges only — same as the client). Times use **`user.reminderTimeZone`** on the server nightly build and the browser’s local calendar when the client builds rows. **`CONSISTENCY_VAPID_PUBLIC_KEY`** must be set in `index.html` for client scheduling; users must be **signed in** with sync-capable session.
 
-**Client schedule sync:** debounced **edit** syncs cap pending fires at the next **00:10** in `reminderTimeZone` or **7 days**, whichever is sooner; **full** **7-day** syncs run after service-worker registration, around **00:10:30 UTC** (when the page has run), on tab visibility, and after habit save (edit). **`CONSISTENCY_TEMP_PUSH_TEST_2350`** remains client-only when enabled in `index.html`.
+**Client schedule sync:** debounced **edit** syncs cap pending fires at the next **00:15** in `reminderTimeZone` or **7 days**, whichever is sooner; **full** **7-day** syncs run after service-worker registration, around **00:15:30 UTC** (when the page has run), on tab visibility, and after habit save (edit). **`CONSISTENCY_TEMP_PUSH_TEST_2350`** remains client-only when enabled in `index.html`.
 
 **Billing:** delivery uses normal Edge Function invocations. On the free tier, projects include a large monthly Edge quota (see [Supabase pricing](https://supabase.com/pricing)); a cron every 1ÔÇô5 minutes stays far below typical free limits for a personal app.
 

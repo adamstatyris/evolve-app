@@ -59,21 +59,21 @@ Deno.serve(async (req) => {
     try {
       const { data: t1Row } = await supa
         .from('user_state_history')
-        .select('payload')
+        .select('payload,saved_at')
         .eq('user_id', uid)
         .eq('slot', 'T-1')
         .maybeSingle()
 
       if (t1Row && t1Row.payload !== null && t1Row.payload !== undefined) {
-        const ins2 = await supa.from('user_state_history').upsert(
-          {
-            user_id: uid,
-            slot: 'T-2',
-            payload: t1Row.payload,
-            saved_at: nowIso,
-          },
-          { onConflict: 'user_id,slot' },
-        )
+        const t2SavedAt = (t1Row as { saved_at?: string }).saved_at ?? nowIso
+        const del2 = await supa.from('user_state_history').delete().eq('user_id', uid).eq('slot', 'T-2')
+        if (del2.error) throw del2.error
+        const ins2 = await supa.from('user_state_history').insert({
+          user_id: uid,
+          slot: 'T-2',
+          payload: t1Row.payload,
+          saved_at: t2SavedAt,
+        })
         if (ins2.error) throw ins2.error
       }
 
@@ -81,18 +81,18 @@ Deno.serve(async (req) => {
       const rs = await replaceReminderScheduleForUser(supa, uid, livePayload, nowMs)
       if (!rs.ok) console.warn('[nightly-backup-roll] reminder_schedule', uid, rs.error)
 
-      const ins1 = await supa.from('user_state_history').upsert(
-        {
-          user_id: uid,
-          slot: 'T-1',
-          payload: livePayload,
-          saved_at: nowIso,
-        },
-        { onConflict: 'user_id,slot' },
-      )
+      const del1 = await supa.from('user_state_history').delete().eq('user_id', uid).eq('slot', 'T-1')
+      if (del1.error) throw del1.error
+      const ins1 = await supa.from('user_state_history').insert({
+        user_id: uid,
+        slot: 'T-1',
+        payload: livePayload,
+        saved_at: nowIso,
+      })
       if (ins1.error) throw ins1.error
       processed++
-    } catch (_e) {
+    } catch (e) {
+      console.warn('[nightly-backup-roll] user failed', uid, e)
       errors++
     }
   }

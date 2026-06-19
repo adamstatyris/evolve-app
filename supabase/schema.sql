@@ -127,6 +127,8 @@ create policy "reminder_schedule_delete_own"
   on public.reminder_schedule for delete
   using (auth.uid() = user_id);
 
--- Edge Functions (service_role) read/send reminders and manage subscriptions.
+-- Edge Functions (service_role): sync backups and reminder delivery.
+grant select, insert, update, delete on table public.user_state to service_role;
+grant select, insert, update, delete on table public.user_state_history to service_role;
 grant select, insert, update, delete on table public.push_subscriptions to service_role;
 grant select, insert, update, delete on table public.reminder_schedule to service_role;

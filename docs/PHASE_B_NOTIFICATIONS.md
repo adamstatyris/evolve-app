@@ -33,4 +33,4 @@
 
 ## Nightly backup roll
 
-`nightly-backup-roll` at ~00:10 UTC rebuilds `reminder_schedule` from cloud `user_state` — ensure this cron exists too if schedules go stale overnight.
+`nightly-backup-roll` at ~00:15 UTC rebuilds `reminder_schedule` from cloud `user_state` — ensure this cron exists too if schedules go stale overnight.

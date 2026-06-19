@@ -2939,6 +2939,52 @@ async function pruneUserStateHistoryForUser(userId){
     await _supa.from('user_state_history').delete().eq('user_id',userId).eq('slot','auto-revert').lt('saved_at',cutoff);
   }catch(e){console.warn('[sync] auto-revert prune skipped',e);}
 }
+function userCloudRollTimeZone(){try{const tz=S&&S.user&&String(S.user.reminderTimeZone||'').trim();if(tz)return tz;}catch(e){}try{return Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC';}catch(e){return 'UTC';}}
+function ymdInTimeZone(d,tz){try{return new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit'}).format(d);}catch(e){return isoDate(d);}}
+function minutesSinceMidnightInTz(d,tz){try{const parts=new Intl.DateTimeFormat('en-GB',{timeZone:tz,hour:'numeric',minute:'numeric',hour12:false}).formatToParts(d);const h=parseInt((parts.find(p=>p.type==='hour')||{}).value,10)||0;const m=parseInt((parts.find(p=>p.type==='minute')||{}).value,10)||0;return h*60+m;}catch(e){const x=new Date(d);return x.getHours()*60+x.getMinutes();}}
+function isPastDailyCloudRollTime(d,tz,hour,minute){return minutesSinceMidnightInTz(d,tz)>=hour*60+minute;}
+async function rollCloudHistorySlots(userId,livePayload,savedAtIso){
+  if(!_supa||!userId||cloudSyncPayloadIsEmpty(livePayload))return{ok:false,reason:'empty'};
+  savedAtIso=savedAtIso||new Date().toISOString();
+  try{
+    const {data:t1Row,error:qErr}=await _supa.from('user_state_history').select('payload,saved_at').eq('user_id',userId).eq('slot','T-1').maybeSingle();
+    if(qErr)throw qErr;
+    if(t1Row&&t1Row.payload!=null&&!cloudSyncPayloadIsEmpty(t1Row.payload)){
+      const t2SavedAt=t1Row.saved_at||savedAtIso;
+      const {error:del2Err}=await _supa.from('user_state_history').delete().eq('user_id',userId).eq('slot','T-2');
+      if(del2Err)throw del2Err;
+      const {error:ins2Err}=await _supa.from('user_state_history').insert({user_id:userId,slot:'T-2',payload:t1Row.payload,saved_at:t2SavedAt});
+      if(ins2Err)throw ins2Err;
+    }
+    const {error:del1Err}=await _supa.from('user_state_history').delete().eq('user_id',userId).eq('slot','T-1');
+    if(del1Err)throw del1Err;
+    const {error:ins1Err}=await _supa.from('user_state_history').insert({user_id:userId,slot:'T-1',payload:livePayload,saved_at:savedAtIso});
+    if(ins1Err)throw ins1Err;
+    return{ok:true};
+  }catch(e){console.warn('[sync] rollCloudHistorySlots failed',e);return{ok:false,error:e};}
+}
+async function maybeClientNightlyCloudHistoryRoll(livePayload){
+  const u=typeof authCurrentUser==='function'?authCurrentUser():null;
+  if(!u||!_supa||!cloudSyncIsEnabled()||cloudSyncPayloadIsEmpty(livePayload))return;
+  const tz=userCloudRollTimeZone();
+  const now=new Date();
+  if(!isPastDailyCloudRollTime(now,tz,0,15))return;
+  const todayKey=ymdInTimeZone(now,tz);
+  try{
+    const {data:t1}=await _supa.from('user_state_history').select('saved_at').eq('user_id',u.id).eq('slot','T-1').maybeSingle();
+    if(t1&&t1.saved_at){
+      const t1Day=ymdInTimeZone(new Date(t1.saved_at),tz);
+      if(t1Day===todayKey&&isPastDailyCloudRollTime(new Date(t1.saved_at),tz,0,15))return;
+    }
+  }catch(e){console.warn('[sync] nightly roll skip check failed',e);}
+  if(!ROOT._sync||typeof ROOT._sync!=='object')ROOT._sync={};
+  if(ROOT._sync.lastClientHistoryRollDay===todayKey)return;
+  const roll=await rollCloudHistorySlots(u.id,livePayload,now.toISOString());
+  if(roll.ok){
+    ROOT._sync.lastClientHistoryRollDay=todayKey;
+    save({fromCloudMerge:true});
+  }
+}
 async function snapshotCloudStateForDestructiveEdit(){
   const u=typeof authCurrentUser==='function'?authCurrentUser():null;
   if(!u||!_supa||!cloudSyncIsEnabled())return;
@@ -2947,14 +2993,8 @@ async function snapshotCloudStateForDestructiveEdit(){
     if(liveErr)throw liveErr;
     const livePayload=liveRow&&liveRow.payload;
     if(!liveRow||cloudSyncPayloadIsEmpty(livePayload))return;
-    const {data:t1Row}=await _supa.from('user_state_history').select('payload').eq('user_id',u.id).eq('slot','T-1').maybeSingle();
-    const iso=new Date().toISOString();
-    if(t1Row&&t1Row.payload!=null&&!cloudSyncPayloadIsEmpty(t1Row.payload)){
-      const ins2=await _supa.from('user_state_history').upsert({user_id:u.id,slot:'T-2',payload:t1Row.payload,saved_at:iso},{onConflict:'user_id,slot'});
-      if(ins2.error)throw ins2.error;
-    }
-    const ins1=await _supa.from('user_state_history').upsert({user_id:u.id,slot:'T-1',payload:livePayload,saved_at:iso},{onConflict:'user_id,slot'});
-    if(ins1.error)throw ins1.error;
+    const roll=await rollCloudHistorySlots(u.id,livePayload,new Date().toISOString());
+    if(!roll.ok)throw roll.error||new Error('backup roll failed');
     try{sessionStorage.setItem('intentionalReset','true');}catch(e){}
   }catch(e){console.warn('[sync] pre-delete snapshot failed',e);}
 }
@@ -3032,6 +3072,7 @@ async function cloudPushNow(){
     const payload=JSON.parse(JSON.stringify(ROOT));
     const {error}=await _supa.from('user_state').upsert({user_id:u.id,payload,updated_at:iso},{onConflict:'user_id'});
     if(error)throw error;
+    await maybeClientNightlyCloudHistoryRoll(payload);
     if(!ROOT._sync||typeof ROOT._sync!=='object')ROOT._sync={};
     ROOT._sync.lastRemoteUpdatedAt=iso;
     ROOT._sync.editAt=new Date(iso).getTime();
@@ -3081,12 +3122,14 @@ async function syncCloudHistoryPanel(){
     mainBtn.type='button';
     mainBtn.className='btn btn-ghost btn-sm';
     mainBtn.style.cssText='text-align:left;justify-content:flex-start';
-    mainBtn.textContent=label;
+    const when=row&&row.saved_at?formatBackupDateDdMmYyyy(row.saved_at):'';
+    mainBtn.textContent=when?label+' · '+when:label;
     mainBtn.disabled=disabled;
     if(!disabled&&row){
-      const when=formatBackupDateDdMmYyyy(row.saved_at);
       mainBtn.setAttribute('aria-label',kid?label+' — ask a grown-up':label+' — archive from '+when);
       mainBtn.onclick=()=>promptRestoreCloudBackup(row.id,row.saved_at,label,slotKey);
+    }else if(disabled){
+      mainBtn.setAttribute('aria-label',kid?'Not ready yet — needs a night of cloud saves first.':'Not available yet — rolling backups appear after the first nightly cloud snapshot.');
     }
     rowEl.appendChild(mainBtn);
     parent.appendChild(rowEl);
@@ -3116,6 +3159,13 @@ async function syncCloudHistoryPanel(){
   wrap.appendChild(listRoot);
   appendSlot(listRoot,labelA,r0,!r0,'T-1');
   appendSlot(listRoot,labelB,r1,!r1,'T-2');
+  if(!r0&&!r1){
+    const hint=document.createElement('p');
+    hint.className='small-note';
+    hint.style.marginTop='var(--s2)';
+    hint.textContent=kid?'Backups show up after your first night with cloud sync on.':'Rolling backups appear after your first nightly snapshot (server job ~00:15 UTC, or the first sync after 00:15 in your timezone).';
+    wrap.appendChild(hint);
+  }
 }
 function cancelRestoreCloudBackup(){window._pendingRestoreCloudHistoryId=null;window._pendingRestoreCloudHistoryStep=0;window._pendingRestoreCloudBackupLabel=null;window._pendingRestoreCloudSavedAt=null;window._pendingRestoreCloudSlot=null;closeM('mConfirmRestoreCloudBackup');}
 function promptRestoreCloudBackup(historyId,savedAtIso,backupLabel,slotKey){
@@ -5158,7 +5208,7 @@ function goToday(){beginWeekNavigation(0);}
 function bindTrackerSwipe(){const zone=document.getElementById('trackerSwipeZone');if(!zone||zone.dataset.swipeBound)return;zone.dataset.swipeBound='1';const inner=document.getElementById('trackerSwipeInner');let startX=0,startY=0,tracking=false,horizontal=false,lastDx=0,pid=null,blockClick=false;const TH=()=>Math.min(72,Math.max(48,zone.offsetWidth*0.16));const applyRubber=(dx)=>{if(S.offset===0&&dx<0)return dx*0.22;return dx;};zone.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('#habitRows button, #habitRows a, #habitRows input, #habitRows select, #habitRows textarea, #habitRows .day-btn, #habitRows .metric-num, #habitRows .habit-inline-delete, #habitRows .habit-expand-toggle'))return;if(blockClick){e.preventDefault();e.stopPropagation();blockClick=false;}},{capture:true});zone.addEventListener('pointerdown',e=>{if(!inner||inner.dataset.sliding==='1')return;if(e.pointerType==='mouse'&&e.button!==0)return;const t=e.target;if(t.closest&&(t.closest('button, a, input, select, textarea, .day-btn, .metric-num, .habit-inline-delete, .habit-head, .habit-expand-toggle')))return;startX=e.clientX;startY=e.clientY;tracking=true;horizontal=false;lastDx=0;pid=e.pointerId;try{zone.setPointerCapture(e.pointerId);}catch(_){}});zone.addEventListener('pointermove',e=>{if(!tracking||e.pointerId!==pid)return;const dx=e.clientX-startX,dy=e.clientY-startY;if(!horizontal){if(Math.abs(dx)>10&&Math.abs(dx)>Math.abs(dy)*1.1){horizontal=true;}else if(Math.abs(dy)>12&&Math.abs(dy)>=Math.abs(dx)){tracking=false;horizontal=false;try{zone.releasePointerCapture(e.pointerId);}catch(_){}return;}}if(horizontal){e.preventDefault();lastDx=dx;const slideRoot=inner.querySelector('.tracker-slide-strip')||inner;if(slideRoot){slideRoot.style.transition='none';slideRoot.style.transform=`translateX(${applyRubber(dx)}px)`;}}},{passive:false});const endSwipe=e=>{if(!tracking||e.pointerId!==pid)return;tracking=false;const capId=e.pointerId;pid=null;try{zone.releasePointerCapture(capId);}catch(_){}if(!horizontal){if(inner){const slideRoot=inner.querySelector('.tracker-slide-strip')||inner;slideRoot.style.transition='';}return;}horizontal=false;const dx=lastDx,th=TH();if(Math.abs(dx)>12)blockClick=true;if(dx<-th&&S.offset<0){const slideRoot=inner.querySelector('.tracker-slide-strip')||inner;if(slideRoot){slideRoot.style.transition='none';slideRoot.style.transform='translateX(0)';void slideRoot.offsetWidth;}beginWeekNavigation(S.offset+1);}else if(dx>th){const slideRoot=inner.querySelector('.tracker-slide-strip')||inner;if(slideRoot){slideRoot.style.transition='none';slideRoot.style.transform='translateX(0)';void slideRoot.offsetWidth;}beginWeekNavigation(S.offset-1);}else if(inner){const slideRoot=inner.querySelector('.tracker-slide-strip')||inner;slideRoot.style.transition='transform .28s cubic-bezier(0.33,1,0.35,1)';slideRoot.style.transform='translateX(0)';}setTimeout(()=>{blockClick=false;},420);};zone.addEventListener('pointerup',endSwipe);zone.addEventListener('pointercancel',endSwipe);}
 function applyTrackerHabitOrder(orderedIds){if(!S||!orderedIds||!orderedIds.length||trackingLogLocked())return;orderedIds.forEach((id,i)=>{const h=habitById(id);if(h)h.listOrder=i*10;});save();}
 function bindHabitRowsReorder(){const root=document.getElementById('habitRows');if(!root||root.dataset.reorderBound)return;root.dataset.reorderBound='1';const longMsFor=e=>(e.pointerType==='touch'||e.pointerType==='pen')?400:420;const moveCancelFor=e=>(e.pointerType==='touch'||e.pointerType==='pen')?40:14;const setReorderTouchLock=v=>{document.documentElement.classList.toggle('habit-reorder-lock',!!v);};let arm=null;let drag=null;const blockNextClick=()=>{const b=function(e){if(e.target.closest&&e.target.closest('#habitRows button, #habitRows a, #habitRows input, #habitRows .metric-num, #habitRows .habit-inline-delete, #habitRows .habit-expand-toggle'))return;e.preventDefault();e.stopImmediatePropagation();document.removeEventListener('click',b,true);};document.addEventListener('click',b,true);setTimeout(()=>document.removeEventListener('click',b,true),380);};function removeArmListenersOnly(){if(!arm)return;clearTimeout(arm.timer);document.removeEventListener('pointermove',arm.mv);document.removeEventListener('pointerup',arm.up);document.removeEventListener('pointercancel',arm.up);arm=null;}function clearArm(){if(!arm)return;clearTimeout(arm.timer);document.removeEventListener('pointermove',arm.mv);document.removeEventListener('pointerup',arm.up);document.removeEventListener('pointercancel',arm.up);try{if(arm.card&&arm.pid!=null)arm.card.releasePointerCapture(arm.pid)}catch(_){}setReorderTouchLock(false);root.classList.remove('habit-list--reorder-arm');arm=null;}function finishDrag(cy){if(!drag)return;const dc=drag.card,gh=drag.ghost,hid=drag.hid;const rw=document.getElementById('habitRows');rw.classList.remove('habit-list--dragging');const others=[...rw.querySelectorAll('.habit-card[data-habit-id]')].filter(c=>c!==dc);let ins=others.length;for(let i=0;i<others.length;i++){const r=others[i].getBoundingClientRect();if(cy<r.top+r.height/2){ins=i;break;}}const ord=others.map(c=>c.getAttribute('data-habit-id'));ord.splice(ins,0,hid);gh.remove();dc.classList.remove('habit-card--placeholder');dc.style.minHeight='';drag=null;blockNextClick();applyTrackerHabitOrder(ord);renderTracker();}root.addEventListener('pointerdown',e=>{if(drag)return;if(e.pointerType==='mouse'&&e.button!==0)return;const card=e.target.closest('.habit-card');if(!card||!root.contains(card))return;if(e.target.closest('button,a,input,select,textarea,.metric-num,.habit-inline-delete,.habit-expand-toggle'))return;const hid=card.getAttribute('data-habit-id');if(!hid)return;clearArm();setReorderTouchLock(true);root.classList.add('habit-list--reorder-arm');try{card.setPointerCapture(e.pointerId)}catch(_){}const st={pid:e.pointerId,card,hid,startX:e.clientX,startY:e.clientY,lastX:e.clientX,lastY:e.clientY};st.mv=ev=>{if(ev.pointerId!==st.pid)return;ev.preventDefault();st.lastX=ev.clientX;st.lastY=ev.clientY;if(Math.hypot(ev.clientX-st.startX,ev.clientY-st.startY)>moveCancelFor(ev))clearArm();};st.up=ev=>{if(ev.pointerId!==st.pid)return;clearArm();};arm=st;st.timer=setTimeout(()=>{if(arm!==st)return;const hold=st;removeArmListenersOnly();const rect=hold.card.getBoundingClientRect();const ghost=hold.card.cloneNode(true);ghost.classList.add('habit-card--drag-ghost');ghost.querySelectorAll('button,input').forEach(el=>{el.disabled=true;});document.body.appendChild(ghost);ghost.style.cssText=`position:fixed;left:${rect.left}px;top:${rect.top}px;width:${rect.width}px;z-index:10050;pointer-events:none;margin:0;box-sizing:border-box`;hold.card.classList.add('habit-card--placeholder');hold.card.style.minHeight=rect.height+'px';const offY=hold.lastY-rect.top;const dragMove=ev=>{if(ev.pointerId!==hold.pid)return;ev.preventDefault();ghost.style.top=(ev.clientY-offY)+'px';ghost.style.left=rect.left+'px';};const dragEnd=ev=>{if(ev.pointerId!==hold.pid)return;ev.preventDefault();try{hold.card.releasePointerCapture(hold.pid)}catch(_){}document.removeEventListener('pointermove',dragMove);document.removeEventListener('pointerup',dragEnd);document.removeEventListener('pointercancel',dragEnd);setReorderTouchLock(false);root.classList.remove('habit-list--reorder-arm');finishDrag(ev.clientY);};document.addEventListener('pointermove',dragMove,{passive:false});document.addEventListener('pointerup',dragEnd);document.addEventListener('pointercancel',dragEnd);drag={card:hold.card,ghost,hid};root.classList.add('habit-list--dragging');root.classList.remove('habit-list--reorder-arm');try{if(navigator.vibrate)navigator.vibrate(16);}catch(_){}},longMsFor(e));document.addEventListener('pointermove',st.mv,{passive:false});document.addEventListener('pointerup',st.up);document.addEventListener('pointercancel',st.up);});}
-function downloadFullAppBackup(){if(!ROOT||!Object.keys(ROOT.profiles||{}).length){const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();alert(kid?'Nothing to save yet.':'Nothing to export yet.');return;}annotateProfilesForSave();const snap=JSON.parse(JSON.stringify(ROOT));snap.evolveExportFormat=1;snap.consistencyExportFormat=1;snap.exportedAt=new Date().toISOString();const blob=new Blob([JSON.stringify(snap,null,2)],{type:'application/json'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=`evolve-full-backup-${isoDate(new Date())}.json`;a.click();URL.revokeObjectURL(u);}
+function downloadFullAppBackup(){if(!ROOT||!Object.keys(ROOT.profiles||{}).length){const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();alert(kid?'Nothing to save yet.':'Nothing to export yet.');return;}annotateProfilesForSave();const snap=JSON.parse(JSON.stringify(ROOT));snap.evolveExportFormat=1;snap.consistencyExportFormat=1;snap.exportedAt=new Date().toISOString();const blob=new Blob([JSON.stringify(snap,null,2)],{type:'application/json'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=`evolve-full-backup-${isoDate(new Date())}.json`;a.click();URL.revokeObjectURL(u);const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();alert(kid?'All set — your backup file was saved!':'Done. Your backup file has been downloaded.');}
 function normalizeImportFileToV5Root(raw){if(!raw||typeof raw!=='object')return null;if(raw.storageVersion===5&&raw.profiles&&typeof raw.profiles==='object'){const keys=Object.keys(raw.profiles);if(!keys.length)return null;const copy=JSON.parse(JSON.stringify(raw));if(!copy.activeProfileId||!copy.profiles[copy.activeProfileId])copy.activeProfileId=keys[0];if(!copy.profileMeta)copy.profileMeta={};if(copy.accountPlanTier!=='basic'&&copy.accountPlanTier!=='premium')copy.accountPlanTier='basic';return copy;}if(raw.user&&typeof raw.user==='object'&&!raw.profiles){const id=uid('profile');const nm=String((raw.user&&raw.user.name)||'').trim()||'Imported profile';return{storageVersion:5,accountPlanTier:'basic',activeProfileId:id,profileMeta:{[id]:{name:nm}},profiles:{[id]:JSON.parse(JSON.stringify(raw))}};}return null;}
 function sliceProfilesFromImportRoot(importRoot,selectedProfileIds){if(!importRoot||!importRoot.profiles)return null;const all=Object.keys(importRoot.profiles);if(!all.length)return null;let pids=all;if(selectedProfileIds!=null){const set=new Set(selectedProfileIds.map(String));pids=all.filter(p=>set.has(String(p)));if(!pids.length)return null;}const out={storageVersion:5,profileMeta:{},profiles:{}};if(importRoot.accountPlanTier==='premium')out.accountPlanTier='premium';for(const pid of pids){const P=importRoot.profiles[pid];if(!P)continue;out.profiles[pid]=JSON.parse(JSON.stringify(P));const meta=importRoot.profileMeta&&importRoot.profileMeta[pid];out.profileMeta[pid]=meta?JSON.parse(JSON.stringify(meta)):{name:'Profile'};}out.activeProfileId=pids[0];return out;}
 function mergeWeekHabitDataInto(weeks,keepId,dropId){if(!weeks||keepId===dropId)return;const n=7;Object.keys(weeks).forEach(wk=>{const w=weeks[wk];if(!w||!w.habitData)return;const fr=w.habitData[dropId],kp=w.habitData[keepId];if(!fr){delete w.habitData[dropId];return;}if(!kp){w.habitData[keepId]=fr;delete w.habitData[dropId];return;}if(!kp.days)kp.days=Array(n).fill(false);if(!fr.days)fr.days=Array(n).fill(false);for(let i=0;i<n;i++){kp.days[i]=!!(kp.days[i]||fr.days[i]);}if(!kp.dayValues)kp.dayValues=Array(n).fill(0);if(!fr.dayValues)fr.dayValues=Array(n).fill(0);for(let i=0;i<n;i++){kp.dayValues[i]=Math.max(Number(kp.dayValues[i])||0,Number(fr.dayValues[i])||0);}kp.value=kp.dayValues.reduce((a,b)=>a+b,0);if(fr.locked)kp.locked=true;delete w.habitData[dropId];});}
@@ -5205,20 +5255,20 @@ function closeNotifyFirstHabitPrompt(){if(S&&S.user){S.user.browserNotifyFirstHa
 function acceptNotifyFirstHabitPrompt(){if(!S||!S.user)return;S.user.browserNotifyFirstHabitPromptDone=true;ensureAppRemindersEnabled();save();closeM('mNotifyFirstHabit');if(typeof Notification==='undefined')return;if(Notification.permission==='denied')return;if(Notification.permission==='default'){Notification.requestPermission().then(function(p){if(p==='granted'){S.user.browserNotifyPermissionEverGranted=true;scheduleServiceWorkerReminderSync();}save();});return;}S.user.browserNotifyPermissionEverGranted=true;scheduleServiceWorkerReminderSync();}
 function toggleSkipSecondLockConfirmFromUI(){const el=document.getElementById('sSkipSecondLockConfirm');if(!el||!S||!S.user)return;const want=!uiToggleIsOn(el);if(want){try{if(!localStorage.getItem('skipConfirmWarningSeen')){uiToggleSet(el,false);openM('mSkipSecondLockWarn');return;}}catch(e){}}uiToggleSet(el,want);S.user.skipSecondLockConfirm=want;save();}
 var _swReminderSyncTimer=null;var _swReminderPendingMode='edit';
-function nextReminderCutoff0010Ms(nowMs){
+function nextReminderCutoff0015Ms(nowMs){
   try{
-    const tz=(S&&S.user&&S.user.reminderTimeZone)||(typeof Intl!=='undefined'&&Intl.DateTimeFormat().resolvedOptions().timeZone)||'UTC';
-    if(typeof Temporal!=='undefined'){
-      const inst=Temporal.Instant.fromEpochMilliseconds(nowMs);
-      let z=inst.toZonedDateTimeISO(tz);
-      let target=z.with({hour:0,minute:10,second:0,millisecond:0});
-      if(Temporal.ZonedDateTime.compare(z,target)>=0)target=target.add({days:1});
-      return Number(target.epochMilliseconds);
-    }
+  const tz=(S&&S.user&&S.user.reminderTimeZone)||(typeof Intl!=='undefined'&&Intl.DateTimeFormat().resolvedOptions().timeZone)||'UTC';
+  if(typeof Temporal!=='undefined'){
+  const inst=Temporal.Instant.fromEpochMilliseconds(nowMs);
+  let z=inst.toZonedDateTimeISO(tz);
+  let target=z.with({hour:0,minute:15,second:0,millisecond:0});
+  if(Temporal.ZonedDateTime.compare(z,target)>=0)target=target.add({days:1});
+  return Number(target.epochMilliseconds);
+  }
   }catch(e){}
   const d=new Date(nowMs);
   const x=new Date(d.getTime());
-  x.setHours(0,10,0,0);
+  x.setHours(0,15,0,0);
   if(x.getTime()<=nowMs)x.setDate(x.getDate()+1);
   return x.getTime();
 }
@@ -5242,7 +5292,7 @@ function armUtc0010ReminderScheduleResync(){
   if(_utcReminderResyncTimer){clearTimeout(_utcReminderResyncTimer);_utcReminderResyncTimer=null;}
   const now=Date.now();
   const u=new Date(now);
-  let t=new Date(Date.UTC(u.getUTCFullYear(),u.getUTCMonth(),u.getUTCDate(),0,10,30,0));
+  let t=new Date(Date.UTC(u.getUTCFullYear(),u.getUTCMonth(),u.getUTCDate(),0,15,30,0));
   if(t.getTime()<=now)t=new Date(t.getTime()+86400000);
   const delay=Math.min(Math.max(t.getTime()-now,8000),2147483647);
   _utcReminderResyncTimer=setTimeout(function(){
@@ -5268,7 +5318,7 @@ function buildExactReminderScheduleRowsForSupabase(maxFireMsOpt, opts){
     rows.push({slot_key:tag+':'+ymd+':'+hm.replace(':',''),fire_at_utc:new Date(t).toISOString(),title:'Evolve',body:body||'',tag});
   }
   /* Per-habit clock times: today only. Pending rows are replaced on each sync; nightly-backup-roll
-   * (~00:10 UTC) rebuilds from cloud state so tomorrow’s times appear when that day starts. */
+   * (~00:15 UTC) rebuilds from cloud state so tomorrow’s times appear when that day starts. */
   if(S&&S.user&&kidWantsHabitTimes&&notify&&!paused&&!stopped){
     const di=todayIsoWeekDayIndex();
     if(di>=0){
