@@ -66,6 +66,7 @@
   --app-chrome-bottom:calc(var(--tabs-strip-height) + env(safe-area-inset-bottom, 0px));
   /* Space below fixed topbar before first card on every tab */
   --panel-top-gap-default:var(--s4);
+  --log-tab-top-gap:var(--s5);
   --overlay-backdrop:rgba(6,10,18,.75);
 }
 [data-theme="light"]{
@@ -537,7 +538,9 @@ html[data-theme="light"] .goals-tab-pill--cooldown.goals-tab-pill--growth{border
   padding: var(--s2) 0 var(--s3);
   backdrop-filter: blur(16px);
 }
-#tab-tracker>.week-nav{width:calc(100% + 2 * var(--s4));max-width:none;margin-left:calc(-1 * var(--s4));margin-right:calc(-1 * var(--s4));padding:var(--s2) var(--s4) var(--s3);box-sizing:border-box;top:var(--topbar-sticky-offset)}
+#tab-tracker{padding-top:var(--log-tab-top-gap)}
+#tab-tracker>.week-nav{width:calc(100% + 2 * var(--s4));max-width:none;margin-left:calc(-1 * var(--s4));margin-right:calc(-1 * var(--s4));margin-bottom:0;padding:var(--s2) var(--s4) var(--s2);box-sizing:border-box;top:var(--topbar-sticky-offset)}
+#tab-tracker .tracker-swipe-zone{padding-top:0}
 .habit-head{display:flex;align-items:flex-start;gap:var(--s3);flex-wrap:wrap}
 .habit-head-wrap{display:flex;align-items:flex-start;gap:var(--s3);width:100%;margin-bottom:var(--s4)}
 .habit-head-wrap .habit-head{flex:1;min-width:0;margin-bottom:0}
@@ -1022,7 +1025,7 @@ html.evolve-auth-intro body{overflow:hidden}
 .onboarding-footer{margin-top:var(--s6)}
 .hidden{display:none!important}
 @media(max-width:920px){.hero-left,.hero-right{grid-column:1/-1}.summary-kpis{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}}
-@media(max-width:640px){:root{--topbar-sticky-offset:70px;--tabs-strip-height:60px}.topbar{padding:var(--s3)}.main{padding:var(--topbar-sticky-offset) var(--s3) calc(var(--app-chrome-bottom) + var(--s10))}#tab-tracker>.week-nav{width:calc(100% + 2 * var(--s3));margin-left:calc(-1 * var(--s3));margin-right:calc(-1 * var(--s3));padding:var(--s2) var(--s3) var(--s3)}.day-btn{width:40px;height:40px}.consistency-disc{width:118px;height:118px}.goal-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){:root{--topbar-sticky-offset:70px;--tabs-strip-height:60px}.topbar{padding:var(--s3)}.main{padding:var(--topbar-sticky-offset) var(--s3) calc(var(--app-chrome-bottom) + var(--s10))}#tab-tracker>.week-nav{width:calc(100% + 2 * var(--s3));margin-left:calc(-1 * var(--s3));margin-right:calc(-1 * var(--s3));padding:var(--s2) var(--s3) var(--s2)}.day-btn{width:40px;height:40px}.consistency-disc{width:118px;height:118px}.goal-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* Mobile WebKit often glitches with backdrop-filter + translucent stacks (random white/blank tiles). Use solid surfaces instead. */
 @media(max-width:768px){
   .topbar,.tabs,.week-nav,.overlay,.modal{
