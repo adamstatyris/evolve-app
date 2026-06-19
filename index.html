@@ -188,7 +188,7 @@ html[data-theme="light"]{color-scheme:light}
 html[data-theme="dark"]{color-scheme:dark}
 html.theme-switching,html.theme-switching *{transition:none!important}
 @media (prefers-reduced-motion:no-preference){
-  ::view-transition-old(root),::view-transition-new(root){animation-duration:.22s;animation-timing-function:ease}
+  ::view-transition-old(root),::view-transition-new(root){animation-duration:.35s;animation-timing-function:ease}
 }
 html.habit-reorder-lock{overscroll-behavior:none;touch-action:none}
 html.habit-reorder-lock body{overscroll-behavior:none}
@@ -209,7 +209,7 @@ input,textarea,select,[contenteditable="true"]{user-select:text;-webkit-user-sel
 .topbar .brand-mark{--header-mark-bg:#fff;--header-mark-tree:var(--evolve-green);--mark-tree:var(--header-mark-tree);--mark-arc:var(--gold);background:var(--header-mark-bg);transition:background .35s ease,border-color .35s ease,box-shadow .35s ease,--header-mark-tree .35s ease}
 .topbar .brand-mark.brand-mark--themed{--header-mark-bg:var(--header-mark-bg-themed);--header-mark-tree:var(--header-mark-tree-themed);--mark-tree:var(--header-mark-tree-themed);border-color:color-mix(in srgb,var(--header-mark-bg-themed) 50%,var(--border));box-shadow:var(--shadow-sm),inset 0 1px 0 color-mix(in srgb,#fff 22%,transparent)}
 .evolve-mark{width:84%;height:84%;display:block;margin:0 auto}
-.evolve-mark-tree{fill:var(--evolve-green);transition:fill .6s ease}
+.evolve-mark-tree{fill:var(--evolve-green);transition:fill .35s ease}
 .evolve-mark-tree--dark{fill:var(--evolve-green-dark)}
 .evolve-mark-arc{fill:var(--gold)}
 .evolve-mark-use--dark{display:none}
