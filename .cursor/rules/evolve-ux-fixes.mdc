@@ -16,7 +16,10 @@ alwaysApply: false
 - Same card template as active habits (tier pill, mastery badge, toggle + × bottom-right).
 - Subline: "Press × to completely delete a past habit."
 
-.cursor/rules/evolve-ux-fixes.mdc
+## Goal editor
+- Home and Manage both use `openGoalModal(id)` — edit mode shows the same fields as create (weekly budget, treat budget, etc.); goal type stays locked after creation.
+- Weekly treat label edit uses `mGoalRewardLabel` modal (not `prompt()`).
+- Point-based goals: **Weekly treat budget** shows only when the selected treat is not in `REWARD_BANDS.free`.
 - Free treats: Extra screen time, Family game night, Park walk, Library visit, Homemade treat, Choose a movie, Story time bonus, Craft afternoon, Bike ride, Stargazing.
 
 ## Home overview
