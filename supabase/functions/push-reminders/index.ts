@@ -33,24 +33,41 @@ function err(status: number, message: string) {
   })
 }
 
-function habitIdFromReminderTag(tag: string): string | null {
+function parseHabitReminderTag(tag: string): { habitId: string; emoji: string } | null {
   if (!tag.startsWith('hrd:')) return null
-  const parts = tag.split(':')
-  if (parts.length < 3) return null
-  return parts[1] || null
+  const rest = tag.slice(4)
+  if (rest.includes('|')) {
+    const parts = rest.split('|')
+    if (parts.length >= 3) {
+      return { habitId: parts[0], emoji: parts.slice(2).join('|').trim() }
+    }
+  }
+  const legacy = rest.match(/^([^:]+):(\d{2}:\d{2})$/)
+  if (legacy) return { habitId: legacy[1], emoji: '' }
+  return null
 }
 
-function emojiForHabitReminder(profile: Profile | null, tag: string): string {
-  const hid = habitIdFromReminderTag(tag)
-  if (!hid || !profile?.habits?.length) return ''
-  const h = profile.habits.find((x) => x && x.id === hid)
-  return String(h?.emoji || '').trim()
+function emojiFromHabitReminderTag(tag: string): string {
+  const parsed = parseHabitReminderTag(tag)
+  return parsed?.emoji ?? ''
 }
 
-async function loadActiveProfile(
+function emojiForHabitReminder(root: Root | null, tag: string): string {
+  const fromTag = emojiFromHabitReminderTag(tag)
+  if (fromTag) return fromTag
+  const parsed = parseHabitReminderTag(tag)
+  if (!parsed?.habitId || !root?.profiles) return ''
+  for (const profile of Object.values(root.profiles)) {
+    const h = profile?.habits?.find((x) => x && x.id === parsed.habitId)
+    if (h?.emoji) return String(h.emoji).trim()
+  }
+  return ''
+}
+
+async function loadUserRoot(
   supa: ReturnType<typeof createClient>,
   userId: string,
-): Promise<Profile | null> {
+): Promise<Root | null> {
   const { data, error } = await supa
     .from('user_state')
     .select('payload')
@@ -58,8 +75,8 @@ async function loadActiveProfile(
     .maybeSingle()
   if (error || !data?.payload) return null
   const root = data.payload as Root
-  if (!root || root.storageVersion !== 5 || !root.profiles || !root.activeProfileId) return null
-  return root.profiles[root.activeProfileId] ?? null
+  if (!root || root.storageVersion !== 5 || !root.profiles) return null
+  return root
 }
 
 Deno.serve(async (req) => {
@@ -91,7 +108,7 @@ Deno.serve(async (req) => {
 
     let sent = 0
     const rows = due ?? []
-    const profileCache = new Map<string, Profile | null>()
+    const rootCache = new Map<string, Root | null>()
 
     for (const row of rows) {
       const { data: subs, error: sErr } = await supa
@@ -106,10 +123,13 @@ Deno.serve(async (req) => {
 
       let iconEmoji = ''
       if (String(row.tag || '').startsWith('hrd:')) {
-        if (!profileCache.has(row.user_id)) {
-          profileCache.set(row.user_id, await loadActiveProfile(supa, row.user_id))
+        iconEmoji = emojiFromHabitReminderTag(String(row.tag || ''))
+        if (!iconEmoji) {
+          if (!rootCache.has(row.user_id)) {
+            rootCache.set(row.user_id, await loadUserRoot(supa, row.user_id))
+          }
+          iconEmoji = emojiForHabitReminder(rootCache.get(row.user_id) ?? null, String(row.tag || ''))
         }
-        iconEmoji = emojiForHabitReminder(profileCache.get(row.user_id) ?? null, String(row.tag || ''))
       }
 
       const payload = JSON.stringify({

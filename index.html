@@ -2493,6 +2493,10 @@ function closeHabitReminderWheelPicker(apply){const wrap=document.getElementById
 function bindHabitReminderWheelOutsideClose(){if(window._habitReminderWheelOutsideBound)return;window._habitReminderWheelOutsideBound=1;document.addEventListener('pointerdown',function(e){const wrap=document.getElementById('habitReminderWheelWrap');if(!wrap||wrap.hidden)return;if(wrap.contains(e.target))return;if(e.target.closest&&e.target.closest('.habit-reminder-picker-btn'))return;closeHabitReminderWheelPicker(true);});window.addEventListener('resize',function(){const wrap=document.getElementById('habitReminderWheelWrap');if(!wrap||wrap.hidden||!_habitReminderWheelCtx||!_habitReminderWheelCtx.trigger)return;positionHabitReminderWheelWrap(wrap,_habitReminderWheelCtx.trigger);});}
 function syncHabitReminderTimeRowsVisibility(){const root=document.getElementById('hReminderTimeRows');if(!root)return;if(!hbRemOn()){root.innerHTML='';root.hidden=true;return;}root.hidden=false;}
 function localHmFromDate(d){return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
+function habitReminderPushTag(h,hm){const em=String(h&&h.emoji||'').trim().slice(0,8)||'🎯';return 'hrd:'+h.id+'|'+hm+'|'+em;}
+function habitReminderSlotKey(hid,hm,ymd){return 'hrd:'+hid+':'+String(hm||'').replace(':','')+':'+ymd;}
+function emojiFromHabitReminderTag(tag){const tg=String(tag||'');if(tg.indexOf('hrd:')!==0)return '';const rest=tg.slice(4);if(rest.indexOf('|')<0)return '';const parts=rest.split('|');return parts.length>=3?String(parts.slice(2).join('|')).trim():'';}
+function habitIdFromHabitReminderTag(tag){const tg=String(tag||'');if(tg.indexOf('hrd:')!==0)return '';const rest=tg.slice(4);if(rest.indexOf('|')>=0){const p=rest.split('|');return p[0]||'';}const m=rest.match(/^([^:]+):(\d{2}:\d{2})$/);return m?m[1]:'';}
 function notificationBodyForSavedHabit(h){const pk=findPresetKeyForSavedHabit(h);if(pk&&HABIT_PRESET_NOTIFY_BODY[pk])return HABIT_PRESET_NOTIFY_BODY[pk];const raw=(String(h.title||'Habit').trim()||'Habit');const safe=raw.replace(/"/g,"'");return 'Your "'+safe+'" needs your attention.';}
 function applyHabitReminderDefaultsFromPreset(presetKey){const editingId=document.getElementById('habitId')?.value;const en=document.getElementById('hRemindersEnabled');const cnt=document.getElementById('hReminderCount');if(!cnt)return;const def=presetKey&&presetKey!=='custom'?HABIT_PRESET_REMINDER_DEFAULTS[presetKey]:null;const rawC=def?def.c:1;setHabitReminderCountDisplay(Math.max(1,Math.min(HABIT_REMINDER_COUNT_MAX,rawC)));if(!editingId){if(en)setHbRemOn(false);}syncHabitReminderCardVisibility();syncHabitReminderCountDisabled();const n=getHabitReminderCountFromSelect();const times=buildHabitReminderTimes(presetKey,n);if(hbRemOn()){renderHabitReminderTimeRows(times);}else{const root=document.getElementById('hReminderTimeRows');if(root){root.innerHTML='';root.hidden=true;}}syncHabitReminderKidsVisibility();}
 function hydrateHabitReminderEditorFromHabit(h){const en=document.getElementById('hRemindersEnabled');const cnt=document.getElementById('hReminderCount');if(!en||!cnt)return;const on=!!(h&&h.remindersEnabled);setHbRemOn(on);setHabitReminderCountDisplay(Math.max(1,Math.min(HABIT_REMINDER_COUNT_MAX,parseInt(h&&h.reminderCount,10)||1)));syncHabitReminderCardVisibility();syncHabitReminderCountDisabled();const pk=findPresetKeyForSavedHabit(h);const rc=getHabitReminderCountFromSelect();let times=[];if(h&&Array.isArray(h.reminderTimes)&&h.reminderTimes.length){times=h.reminderTimes.map(normalizeHmToString).slice(0,rc);}while(times.length<rc){const full=buildHabitReminderTimes(pk,rc);times.push(full[times.length]||'12:00');}times=sortReminderTimesStringsChronological(times).slice(0,rc);if(on){renderHabitReminderTimeRows(times);}else{const root=document.getElementById('hReminderTimeRows');if(root){root.innerHTML='';root.hidden=true;}}syncHabitReminderKidsVisibility();}
@@ -4815,14 +4819,13 @@ function countReminderRowsByKind(arr){const a=arr||[];let habit=0,sun=0,other=0;
 function reminderDebugRowKey(sk,iso){return String(sk||'')+'\0'+normalizeReminderFireKey(iso);}
 function reminderDebugHabitLabel(slot_key,tag){
   const sk=String(slot_key||'');const tg=String(tag||'');
-  if(sk.indexOf('hrd:')===0){
-    const dm=sk.match(/(\d{4}-\d{2}-\d{2})$/);if(!dm)return tg||'Habit';
-    const rest=sk.slice(4,sk.length-dm[0].length);if(!rest.endsWith(':'))return tg||'Habit';
-    const before=rest.slice(0,-1);const tm=before.match(/(\d{2}:\d{2})$/);if(!tm)return tg||'Habit';
-    const hid=before.slice(0,before.length-tm[0].length-1);
-    const h=typeof habitById==='function'?habitById(hid):null;
-    if(h)return(String(h.emoji||'').trim()+' '+String(h.title||'').trim()).trim().slice(0,48)||'Habit';
-    return String(hid||'Habit');
+  if(sk.indexOf('hrd:')===0||tg.indexOf('hrd:')===0){
+    const hid=habitIdFromHabitReminderTag(tg)||habitIdFromHabitReminderTag(sk);
+    const em=emojiFromHabitReminderTag(tg);
+    const h=hid&&typeof habitById==='function'?habitById(hid):null;
+    if(h)return(String(h.emoji||em||'').trim()+' '+String(h.title||'').trim()).trim().slice(0,48)||'Habit';
+    if(em)return em+' Habit';
+    if(hid)return String(hid);
   }
   if(sk.indexOf('_tempPush')===0)return 'Test push';
   if(tg==='habits_morning'||sk.indexOf('habits_morning')===0)return 'Daily nudge (morning)';
@@ -5183,8 +5186,8 @@ function buildExactReminderScheduleRowsForSupabase(maxFireMsOpt, opts){
         h.reminderTimes.forEach(function(hm){
           const fire=new Date(todayYmd+'T'+hm+':00').getTime();
           if(fire<=nowMs||fire>maxFireMs)return;
-          const tag='hrd:'+h.id+':'+hm;
-          rows.push({slot_key:tag+':'+todayYmd,fire_at_utc:new Date(fire).toISOString(),title:'Evolve',body:notificationBodyForSavedHabit(h),tag});
+          const tag=habitReminderPushTag(h,hm);
+          rows.push({slot_key:habitReminderSlotKey(h.id,hm,todayYmd),fire_at_utc:new Date(fire).toISOString(),title:'Evolve',body:notificationBodyForSavedHabit(h),tag});
         });
       });
     }

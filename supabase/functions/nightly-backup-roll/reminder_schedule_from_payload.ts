@@ -286,12 +286,15 @@ export function buildReminderScheduleRowsFromRoot(
           const fire = DateTime.fromISO(`${todayYmd}T${hm}:00`, { zone: tz })
           const t = fire.toMillis()
           if (t <= nowMs || t > maxFireMs) continue
+          const em = String(h.emoji || '').trim().slice(0, 8) || '🎯'
+          const tag = `hrd:${h.id}|${hm}|${em}`
+          const hmFlat = hm.replace(':', '')
           rows.push({
-            slot_key: `hrd:${h.id}:${hm}:${todayYmd}`,
+            slot_key: `hrd:${h.id}:${hmFlat}:${todayYmd}`,
             fire_at_utc: fire.toUTC().toISO()!,
             title: TITLE,
             body: notificationBodySimple(h),
-            tag: `hrd:${h.id}:${hm}`,
+            tag,
           })
         }
       }

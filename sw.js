@@ -1,9 +1,9 @@
 /* Service worker: Web Push only (no asset caching).
  * Do NOT intercept fetch — pass-through avoids Response.error() breaking PWA loads on flaky mobile networks.
  */
-var EVOLVE_SW_CACHE = 'evolve-sw-v77';
+var EVOLVE_SW_CACHE = 'evolve-sw-v78';
 
-var _brandIconBlobUrl = null;
+var _brandIconDataUrl = null;
 var _emojiIconCache = Object.create(null);
 
 function scopeUrl(rel) {
@@ -12,6 +12,10 @@ function scopeUrl(rel) {
   } catch (e) {
     return rel;
   }
+}
+
+function brandBadgeUrl() {
+  return scopeUrl('icons/icon-192.png?v=5');
 }
 
 function roundedRectPath(ctx, x, y, w, h, r) {
@@ -25,22 +29,28 @@ function roundedRectPath(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
-function canvasToBlobUrl(canvas) {
+function blobToDataUrl(blob) {
   return new Promise(function (resolve, reject) {
-    if (canvas.convertToBlob) {
-      canvas.convertToBlob({ type: 'image/png' }).then(function (blob) {
-        resolve(URL.createObjectURL(blob));
-      }, reject);
-      return;
-    }
-    canvas.toBlob(function (blob) {
-      if (blob) resolve(URL.createObjectURL(blob));
-      else reject(new Error('toBlob failed'));
-    }, 'image/png');
+    var reader = new FileReader();
+    reader.onload = function () {
+      resolve(reader.result);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
   });
 }
 
-function rasterizeImageToIconUrl(src, size) {
+function canvasToDataUrl(canvas) {
+  if (canvas.convertToBlob) {
+    return canvas.convertToBlob({ type: 'image/png' }).then(blobToDataUrl);
+  }
+  if (canvas.toDataURL) {
+    return Promise.resolve(canvas.toDataURL('image/png'));
+  }
+  return Promise.reject(new Error('canvas export unavailable'));
+}
+
+function rasterizeImageToDataUrl(src, size) {
   size = size || 192;
   return new Promise(function (resolve, reject) {
     var img = new Image();
@@ -58,7 +68,7 @@ function rasterizeImageToIconUrl(src, size) {
         var dh = img.height * scale;
         ctx.drawImage(img, (size - dw) / 2, (size - dh) / 2, dw, dh);
         ctx.restore();
-        canvasToBlobUrl(canvas).then(resolve, reject);
+        canvasToDataUrl(canvas).then(resolve, reject);
       } catch (e) {
         reject(e);
       }
@@ -68,28 +78,39 @@ function rasterizeImageToIconUrl(src, size) {
   });
 }
 
-function brandIconUrl() {
-  if (_brandIconBlobUrl) return Promise.resolve(_brandIconBlobUrl);
+function brandIconDataUrl() {
+  if (_brandIconDataUrl) return Promise.resolve(_brandIconDataUrl);
   var candidates = [
     'icons/Evolve Logomark Bright.svg',
     'icons/evolve-logomark.svg',
-    'icons/icon-192.png',
+    'icons/icon-192.png?v=5',
   ];
   var chain = Promise.reject();
   candidates.forEach(function (path) {
     chain = chain.catch(function () {
-      return rasterizeImageToIconUrl(scopeUrl(path));
+      return rasterizeImageToDataUrl(scopeUrl(path));
     });
   });
   return chain.then(function (url) {
-    _brandIconBlobUrl = url;
+    _brandIconDataUrl = url;
     return url;
   });
 }
 
+function emojiFromReminderTag(tag) {
+  var t = String(tag || '');
+  if (t.indexOf('hrd:') !== 0) return '';
+  var rest = t.slice(4);
+  if (rest.indexOf('|') >= 0) {
+    var parts = rest.split('|');
+    if (parts.length >= 3) return String(parts.slice(2).join('|')).trim();
+  }
+  return '';
+}
+
 function emojiIconUrl(rawEmoji) {
   var emoji = String(rawEmoji || '').trim();
-  if (!emoji) return brandIconUrl();
+  if (!emoji) return Promise.resolve('');
   if (_emojiIconCache[emoji]) return Promise.resolve(_emojiIconCache[emoji]);
   var size = 192;
   var glyphs = Array.from(emoji);
@@ -99,9 +120,9 @@ function emojiIconUrl(rawEmoji) {
   ctx.fillStyle = '#ffffff';
   ctx.fillRect(0, 0, size, size);
   roundedRectPath(ctx, 20, 20, size - 40, size - 40, 28);
-  ctx.fillStyle = '#2a3441';
+  ctx.fillStyle = '#eef3f8';
   ctx.fill();
-  ctx.fillStyle = '#ffffff';
+  ctx.fillStyle = '#1a2332';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   if (multi) {
@@ -122,16 +143,32 @@ function emojiIconUrl(rawEmoji) {
     ctx.font = '600 96px system-ui, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
     ctx.fillText(emoji, size / 2, size / 2 + 4);
   }
-  return canvasToBlobUrl(canvas).then(function (url) {
+  return canvasToDataUrl(canvas).then(function (url) {
     _emojiIconCache[emoji] = url;
     return url;
   });
 }
 
-function resolveNotificationIcon(iconEmoji) {
+function resolveNotificationIcons(iconEmoji, tag) {
   var emoji = String(iconEmoji || '').trim();
-  if (emoji) return emojiIconUrl(emoji);
-  return brandIconUrl();
+  if (!emoji) emoji = emojiFromReminderTag(tag);
+  var badge = brandBadgeUrl();
+  if (!emoji) {
+    return brandIconDataUrl().then(function (brand) {
+      return { badge: badge, icon: brand || badge };
+    }).catch(function () {
+      return { badge: badge, icon: badge };
+    });
+  }
+  return emojiIconUrl(emoji).then(function (habitIcon) {
+    return { badge: badge, icon: habitIcon || badge };
+  }).catch(function () {
+    return brandIconDataUrl().then(function (brand) {
+      return { badge: badge, icon: brand || badge };
+    }).catch(function () {
+      return { badge: badge, icon: badge };
+    });
+  });
 }
 
 self.addEventListener('install', function (e) {
@@ -173,10 +210,16 @@ self.addEventListener('push', function (event) {
     }
   }
   event.waitUntil(
-    resolveNotificationIcon(iconEmoji).then(function (icon) {
-      return self.registration.showNotification(title, { body: body, tag: tag, icon: icon });
+    resolveNotificationIcons(iconEmoji, tag).then(function (icons) {
+      return self.registration.showNotification(title, {
+        body: body,
+        tag: tag,
+        badge: icons.badge,
+        icon: icons.icon,
+      });
     }).catch(function () {
-      return self.registration.showNotification(title, { body: body, tag: tag });
+      var fallback = brandBadgeUrl();
+      return self.registration.showNotification(title, { body: body, tag: tag, badge: fallback, icon: fallback });
     })
   );
 });
