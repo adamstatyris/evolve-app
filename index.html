@@ -412,16 +412,18 @@ html[data-theme="light"] .goals-tab-pill--cooldown.goals-tab-pill--growth{border
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .card{background:linear-gradient(180deg,color-mix(in srgb,var(--surface) 97%, transparent),color-mix(in srgb,var(--surface-2) 92%, var(--surface) 8%));border:1px solid var(--border);border-radius:var(--r-xl);box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
 .card::before{content:'';position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);pointer-events:none}
-.glow-blue{box-shadow:0 0 0 1px color-mix(in srgb,var(--blue) 55%,transparent),0 0 36px var(--blue-glow),0 0 72px color-mix(in srgb,var(--blue) 24%,transparent),var(--shadow-sm)}
-.glow-mastery-bronze{box-shadow:0 0 0 1px rgba(184,115,51,.55),0 0 32px rgba(205,127,50,.38),0 0 64px rgba(160,82,45,.22),var(--shadow-sm)}
-.glow-mastery-silver{box-shadow:0 0 0 1px rgba(180,190,210,.55),0 0 30px rgba(192,200,220,.4),0 0 62px rgba(160,170,195,.2),var(--shadow-sm)}
-.glow-mastery-gold{box-shadow:0 0 0 1px rgba(212,175,55,.6),0 0 34px rgba(244,208,63,.48),0 0 72px rgba(184,134,11,.22),var(--shadow-sm)}
-[data-theme="light"] .glow-mastery-bronze{box-shadow:0 0 0 1px rgba(139,90,43,.45),0 0 28px rgba(184,115,51,.32),0 0 58px rgba(205,127,50,.18),var(--shadow-sm)}
-[data-theme="light"] .glow-mastery-silver{box-shadow:0 0 0 1px rgba(120,130,150,.45),0 0 26px rgba(160,170,190,.3),0 0 56px rgba(140,150,175,.16),var(--shadow-sm)}
-[data-theme="light"] .glow-mastery-gold{box-shadow:0 0 0 1px rgba(180,140,40,.5),0 0 30px rgba(212,175,55,.34),0 0 64px rgba(244,208,63,.2),var(--shadow-sm)}
-.glow-green{box-shadow:0 0 0 1px rgba(63,185,80,.65),0 0 30px var(--green-glow),0 0 64px rgba(63,185,80,.24),var(--shadow-sm)}
-.glow-amber{box-shadow:0 0 0 1px rgba(227,179,65,.58),0 0 30px rgba(227,179,65,.46),0 0 62px rgba(227,179,65,.22),var(--shadow-sm)}
-.glow-red{box-shadow:0 0 0 1px rgba(248,81,73,.54),0 0 28px rgba(248,81,73,.44),0 0 58px rgba(248,81,73,.22),var(--shadow-sm)}
+.glow-blue{--evolve-card-glow:0 0 0 1px color-mix(in srgb,var(--blue) 55%,transparent),0 0 36px var(--blue-glow),0 0 72px color-mix(in srgb,var(--blue) 24%,transparent);box-shadow:var(--evolve-card-glow),var(--shadow-sm)}
+.glow-mastery-bronze{--evolve-card-glow:0 0 0 1px rgba(184,115,51,.55),0 0 32px rgba(205,127,50,.38),0 0 64px rgba(160,82,45,.22);box-shadow:var(--evolve-card-glow),var(--shadow-sm)}
+.glow-mastery-silver{--evolve-card-glow:0 0 0 1px rgba(180,190,210,.55),0 0 30px rgba(192,200,220,.4),0 0 62px rgba(160,170,195,.2);box-shadow:var(--evolve-card-glow),var(--shadow-sm)}
+.glow-mastery-gold{--evolve-card-glow:0 0 0 1px rgba(212,175,55,.6),0 0 34px rgba(244,208,63,.48),0 0 72px rgba(184,134,11,.22);box-shadow:var(--evolve-card-glow),var(--shadow-sm)}
+[data-theme="light"] .glow-mastery-bronze{--evolve-card-glow:0 0 0 1px rgba(139,90,43,.45),0 0 28px rgba(184,115,51,.32),0 0 58px rgba(205,127,50,.18);box-shadow:var(--evolve-card-glow),var(--shadow-sm)}
+[data-theme="light"] .glow-mastery-silver{--evolve-card-glow:0 0 0 1px rgba(120,130,150,.45),0 0 26px rgba(160,170,190,.3),0 0 56px rgba(140,150,175,.16);box-shadow:var(--evolve-card-glow),var(--shadow-sm)}
+[data-theme="light"] .glow-mastery-gold{--evolve-card-glow:0 0 0 1px rgba(180,140,40,.5),0 0 30px rgba(212,175,55,.34),0 0 64px rgba(244,208,63,.2);box-shadow:var(--evolve-card-glow),var(--shadow-sm)}
+.glow-green{--evolve-card-glow:0 0 0 1px rgba(63,185,80,.65),0 0 30px var(--green-glow),0 0 64px rgba(63,185,80,.24);box-shadow:var(--evolve-card-glow),var(--shadow-sm)}
+.glow-amber{--evolve-card-glow:0 0 0 1px rgba(227,179,65,.58),0 0 30px rgba(227,179,65,.46),0 0 62px rgba(227,179,65,.22);box-shadow:var(--evolve-card-glow),var(--shadow-sm)}
+.glow-red{--evolve-card-glow:0 0 0 1px rgba(248,81,73,.54),0 0 28px rgba(248,81,73,.44),0 0 58px rgba(248,81,73,.22);box-shadow:var(--evolve-card-glow),var(--shadow-sm)}
+.card:is(.glow-blue,.glow-green,.glow-amber,.glow-red,.glow-mastery-bronze,.glow-mastery-silver,.glow-mastery-gold):is(:hover,:active,:focus,:focus-within){box-shadow:var(--evolve-card-glow),var(--shadow-sm)}
+.card:is(.glow-blue,.glow-green,.glow-amber,.glow-red,.glow-mastery-bronze,.glow-mastery-silver,.glow-mastery-gold):is(:hover,:active){transform:none}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);padding:var(--s2) var(--s4);border-radius:var(--r-md);border:1px solid transparent;transition:all var(--t);-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .btn-primary{background:linear-gradient(135deg,var(--blue-strong),var(--blue));color:#fff;box-shadow:0 0 18px var(--blue-glow)}
 .btn-primary:hover{transform:translateY(-1px);box-shadow:0 0 24px var(--blue-glow-strong)}
@@ -525,7 +527,8 @@ html[data-theme="light"] .goals-tab-pill--cooldown.goals-tab-pill--growth{border
 }
 /* Growth habits: stronger green glow when qualified for the week */
 #tab-tracker #habitRows .habit-card.habit-card--growth.habit-card--qualified {
-  box-shadow: 0 0 0 1px rgba(63, 185, 80, 0.78), 0 0 34px var(--green-glow), 0 0 70px rgba(63, 185, 80, 0.34), var(--shadow-sm);
+  --evolve-card-glow:0 0 0 1px rgba(63, 185, 80, 0.78), 0 0 34px var(--green-glow), 0 0 70px rgba(63, 185, 80, 0.34);
+  box-shadow: var(--evolve-card-glow), var(--shadow-sm);
 }
 .week-nav {
   position: sticky;
@@ -715,8 +718,9 @@ html.evolve-auth-intro body{overflow:hidden}
 .week-summary-goals{margin-top:var(--s3);display:flex;gap:var(--s2);flex-wrap:wrap;flex-direction:column;align-items:flex-start}
 .week-summary-goals .meta-chip{padding:3px 8px;font-size:var(--xs)}
 .week-summary-goal-row{display:flex;flex-direction:column;gap:4px}
-.config-card{padding:var(--s5);transition:all var(--t)}
-.config-card:hover{transform:translateY(-1px);box-shadow:var(--shadow-md)}
+.config-card{padding:var(--s5);transition:transform var(--t),background var(--t),border-color var(--t)}
+.config-card:hover{transform:translateY(-1px)}
+.config-card:not(.glow-blue):not(.glow-green):not(.glow-amber):not(.glow-red):not(.glow-mastery-bronze):not(.glow-mastery-silver):not(.glow-mastery-gold):hover{box-shadow:var(--shadow-md)}
 .config-head{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap}
 .config-actions{display:flex;gap:var(--s2);flex-wrap:wrap}
 .table-wrap{overflow:auto}
