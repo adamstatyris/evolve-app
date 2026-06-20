@@ -1,7 +1,7 @@
 /* Service worker: Web Push only (no asset caching).
  * Do NOT intercept fetch — pass-through avoids Response.error() breaking PWA loads on flaky mobile networks.
  */
-var EVOLVE_SW_CACHE = 'evolve-sw-v85';
+var EVOLVE_SW_CACHE = 'evolve-sw-v86';
 
 var _brandIconDataUrl = null;
 var _emojiIconCache = Object.create(null);
@@ -15,7 +15,7 @@ function scopeUrl(rel) {
 }
 
 function brandBadgeUrl() {
-  return scopeUrl('icons/icon-192.png?v=5');
+  return scopeUrl('icons/evolve-logomark.svg');
 }
 
 function roundedRectPath(ctx, x, y, w, h, r) {
@@ -159,25 +159,26 @@ function emojiIconUrl(rawEmoji) {
 }
 
 function resolveNotificationIcons(iconEmoji, tag) {
+  var tagStr = String(tag || '');
   var emoji = String(iconEmoji || '').trim();
-  if (!emoji) emoji = emojiFromReminderTag(tag);
-  if (!emoji) emoji = emojiFromGeneralReminderTag(tag);
-  var badge = brandBadgeUrl();
-  if (!emoji) {
-    return brandIconDataUrl().then(function (brand) {
-      return { badge: badge, icon: brand || badge };
-    }).catch(function () {
-      return { badge: badge, icon: badge };
+  if (!emoji) emoji = emojiFromReminderTag(tagStr);
+  var isHabitTag = tagStr.indexOf('hrd:') === 0;
+  var brandChain = brandIconDataUrl().catch(function () {
+    return rasterizeImageToDataUrl(scopeUrl('icons/evolve-logomark.svg'));
+  });
+  if (isHabitTag && emoji) {
+    return brandChain.then(function (brand) {
+      var badge = brand || brandBadgeUrl();
+      return emojiIconUrl(emoji).then(function (habitIcon) {
+        return { badge: badge, icon: habitIcon || badge };
+      }).catch(function () {
+        return { badge: badge, icon: badge };
+      });
     });
   }
-  return emojiIconUrl(emoji).then(function (habitIcon) {
-    return { badge: badge, icon: habitIcon || badge };
-  }).catch(function () {
-    return brandIconDataUrl().then(function (brand) {
-      return { badge: badge, icon: brand || badge };
-    }).catch(function () {
-      return { badge: badge, icon: badge };
-    });
+  return brandChain.then(function (brand) {
+    var icon = brand || brandBadgeUrl();
+    return { badge: icon, icon: icon };
   });
 }
 
@@ -228,8 +229,12 @@ self.addEventListener('push', function (event) {
         icon: icons.icon,
       });
     }).catch(function () {
-      var fallback = brandBadgeUrl();
-      return self.registration.showNotification(title, { body: body, tag: tag, badge: fallback, icon: fallback });
+      return brandIconDataUrl().then(function (brand) {
+        var icon = brand || brandBadgeUrl();
+        return self.registration.showNotification(title, { body: body, tag: tag, badge: icon, icon: icon });
+      }).catch(function () {
+        return self.registration.showNotification(title, { body: body, tag: tag });
+      });
     })
   );
 });
