@@ -98,98 +98,131 @@ async function loadUserRoot(
   return root
 }
 
-Deno.serve(async (req) => {
-  try {
-    if (!CRON_SECRET) return err(500, 'CRON_SECRET not configured')
-    if (req.headers.get('x-cron-secret') !== CRON_SECRET) {
-      console.warn('[push-reminders] 401: x-cron-secret mismatch')
-      return new Response('Unauthorized', { status: 401 })
+type DueRow = {
+  id: string
+  user_id: string
+  slot_key: string
+  title: string
+  body: string
+  tag: string
+  fire_at_utc: string
+}
+
+async function processDueReminders(
+  supa: ReturnType<typeof createClient>,
+  userIdFilter: string | null,
+): Promise<{ scanned: number; sent: number; mode: 'cron' | 'user' }> {
+  const now = Date.now()
+  const nowIso = new Date(now).toISOString()
+  const staleIso = new Date(now - STALE_MS).toISOString()
+
+  let q = supa
+    .from('reminder_schedule')
+    .select('id,user_id,slot_key,title,body,tag,fire_at_utc')
+    .is('sent_at', null)
+    .lte('fire_at_utc', nowIso)
+    .gte('fire_at_utc', staleIso)
+    .order('fire_at_utc', { ascending: true })
+    .limit(userIdFilter ? 80 : 300)
+
+  if (userIdFilter) q = q.eq('user_id', userIdFilter)
+
+  const { data: due, error: qErr } = await q
+  if (qErr) throw new Error(qErr.message)
+
+  let sent = 0
+  const rows = (due ?? []) as DueRow[]
+  const rootCache = new Map<string, Root | null>()
+
+  for (const row of rows) {
+    const { data: subs, error: sErr } = await supa
+      .from('push_subscriptions')
+      .select('id,endpoint,p256dh,auth')
+      .eq('user_id', row.user_id)
+
+    if (sErr) continue
+
+    const list = subs ?? []
+    if (!list.length) continue
+
+    let iconEmoji = ''
+    if (row.tag) {
+      if (String(row.tag).startsWith('hrd:') && !emojiFromHabitReminderTag(String(row.tag))) {
+        if (!rootCache.has(row.user_id)) {
+          rootCache.set(row.user_id, await loadUserRoot(supa, row.user_id))
+        }
+      }
+      iconEmoji = emojiForPushReminder(
+        rootCache.get(row.user_id) ?? null,
+        String(row.tag || ''),
+      )
     }
 
+    const payload = JSON.stringify({
+      title: row.title,
+      body: row.body,
+      tag: row.tag,
+      iconEmoji,
+    })
+
+    let delivered = false
+    for (const s of list) {
+      try {
+        await webpush.sendNotification(
+          { endpoint: s.endpoint, keys: { p256dh: s.p256dh, auth: s.auth } },
+          payload,
+          { TTL: 300 },
+        )
+        delivered = true
+      } catch (e: unknown) {
+        const status =
+          e && typeof e === 'object' && 'statusCode' in e
+            ? (e as { statusCode: number }).statusCode
+            : 0
+        if (status === 410 || status === 404) {
+          await supa.from('push_subscriptions').delete().eq('id', s.id)
+        }
+      }
+    }
+
+    if (delivered) {
+      await supa
+        .from('reminder_schedule')
+        .update({ sent_at: new Date().toISOString() })
+        .eq('id', row.id)
+      sent++
+    }
+  }
+
+  return { scanned: rows.length, sent, mode: userIdFilter ? 'user' : 'cron' }
+}
+
+Deno.serve(async (req) => {
+  try {
     if (!SUPABASE_URL || !SERVICE_KEY) return err(500, 'Missing SUPABASE_URL or SERVICE_ROLE')
     if (!VAPID_PUBLIC_KEY || !VAPID_PRIVATE_KEY) return err(500, 'VAPID keys not configured')
 
     const supa = createClient(SUPABASE_URL, SERVICE_KEY)
-    const now = Date.now()
-    const nowIso = new Date(now).toISOString()
-    const staleIso = new Date(now - STALE_MS).toISOString()
+    const cronOk = !!CRON_SECRET && req.headers.get('x-cron-secret') === CRON_SECRET
+    const authHeader = req.headers.get('Authorization') ?? ''
+    const bearer = authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : ''
 
-    const { data: due, error: qErr } = await supa
-      .from('reminder_schedule')
-      .select('id,user_id,slot_key,title,body,tag,fire_at_utc')
-      .is('sent_at', null)
-      .lte('fire_at_utc', nowIso)
-      .gte('fire_at_utc', staleIso)
-      .order('fire_at_utc', { ascending: true })
-      .limit(300)
-
-    if (qErr) return err(500, qErr.message)
-
-    let sent = 0
-    const rows = due ?? []
-    const rootCache = new Map<string, Root | null>()
-
-    for (const row of rows) {
-      const { data: subs, error: sErr } = await supa
-        .from('push_subscriptions')
-        .select('id,endpoint,p256dh,auth')
-        .eq('user_id', row.user_id)
-
-      if (sErr) continue
-
-      const list = subs ?? []
-      if (!list.length) continue
-
-      let iconEmoji = ''
-      if (row.tag) {
-        if (String(row.tag).startsWith('hrd:') && !emojiFromHabitReminderTag(String(row.tag))) {
-          if (!rootCache.has(row.user_id)) {
-            rootCache.set(row.user_id, await loadUserRoot(supa, row.user_id))
-          }
-        }
-        iconEmoji = emojiForPushReminder(
-          rootCache.get(row.user_id) ?? null,
-          String(row.tag || ''),
-        )
+    let userIdFilter: string | null = null
+    if (cronOk) {
+      userIdFilter = null
+    } else if (bearer) {
+      const { data: userData, error: userErr } = await supa.auth.getUser(bearer)
+      if (userErr || !userData?.user?.id) {
+        console.warn('[push-reminders] 401: invalid bearer token')
+        return new Response('Unauthorized', { status: 401 })
       }
-
-      const payload = JSON.stringify({
-        title: row.title,
-        body: row.body,
-        tag: row.tag,
-        iconEmoji,
-      })
-
-      let delivered = false
-      for (const s of list) {
-        try {
-          await webpush.sendNotification(
-            { endpoint: s.endpoint, keys: { p256dh: s.p256dh, auth: s.auth } },
-            payload,
-            { TTL: 300 },
-          )
-          delivered = true
-        } catch (e: unknown) {
-          const status =
-            e && typeof e === 'object' && 'statusCode' in e
-              ? (e as { statusCode: number }).statusCode
-              : 0
-          if (status === 410 || status === 404) {
-            await supa.from('push_subscriptions').delete().eq('id', s.id)
-          }
-        }
-      }
-
-      if (delivered) {
-        await supa
-          .from('reminder_schedule')
-          .update({ sent_at: new Date().toISOString() })
-          .eq('id', row.id)
-        sent++
-      }
+      userIdFilter = userData.user.id
+    } else {
+      console.warn('[push-reminders] 401: missing cron secret or bearer token')
+      return new Response('Unauthorized', { status: 401 })
     }
 
-    const body = { scanned: rows.length, sent }
+    const body = await processDueReminders(supa, userIdFilter)
     console.log('[push-reminders] ok', JSON.stringify(body))
     return new Response(JSON.stringify(body), {
       headers: { 'Content-Type': 'application/json' },

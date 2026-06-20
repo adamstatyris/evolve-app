@@ -3024,16 +3024,24 @@ async function pruneUserStateHistoryForUser(userId){
 }
 function userCloudRollTimeZone(){try{const tz=S&&S.user&&String(S.user.reminderTimeZone||'').trim();if(tz)return tz;}catch(e){}try{return Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC';}catch(e){return 'UTC';}}
 function ymdInTimeZone(d,tz){try{return new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit'}).format(d);}catch(e){return isoDate(d);}}
+function calendarDaysAgoYmd(daysAgo,tz){const seen=new Set();const now=Date.now();for(let i=0;i<60;i++){const ymd=ymdInTimeZone(new Date(now-i*86400000),tz);if(seen.has(ymd))continue;seen.add(ymd);if(seen.size===daysAgo+1)return ymd;}return ymdInTimeZone(new Date(now-daysAgo*86400000),tz);}
+function formatBackupSlotDisplayDate(slotKey,tz){const daysAgo=slotKey==='T-1'?1:slotKey==='T-2'?2:0;if(!daysAgo)return'—';const ymd=calendarDaysAgoYmd(daysAgo,tz||userCloudRollTimeZone());const p=ymd.split('-');if(p.length!==3)return formatBackupDateDdMmYyyy(ymd);return String(p[2]).padStart(2,'0')+'/'+String(p[1]).padStart(2,'0')+'/'+p[0];}
+function backupSlotSavedAtIso(slotKey,tz){const daysAgo=slotKey==='T-1'?1:slotKey==='T-2'?2:0;if(!daysAgo)return new Date().toISOString();const ymd=calendarDaysAgoYmd(daysAgo,tz||userCloudRollTimeZone());return ymd+'T00:15:00.000Z';}
+function backupSlotDisplayDateFromSavedAt(slotKey,savedAtIso,tz){const slotDate=formatBackupSlotDisplayDate(slotKey,tz);if(slotDate&&slotDate!=='—')return slotDate;return formatBackupDateDdMmYyyy(savedAtIso);}
 function minutesSinceMidnightInTz(d,tz){try{const parts=new Intl.DateTimeFormat('en-GB',{timeZone:tz,hour:'numeric',minute:'numeric',hour12:false}).formatToParts(d);const h=parseInt((parts.find(p=>p.type==='hour')||{}).value,10)||0;const m=parseInt((parts.find(p=>p.type==='minute')||{}).value,10)||0;return h*60+m;}catch(e){const x=new Date(d);return x.getHours()*60+x.getMinutes();}}
 function isPastDailyCloudRollTime(d,tz,hour,minute){return minutesSinceMidnightInTz(d,tz)>=hour*60+minute;}
 async function rollCloudHistorySlots(userId,livePayload,savedAtIso){
   if(!_supa||!userId||cloudSyncPayloadIsEmpty(livePayload))return{ok:false,reason:'empty'};
+  const tz=userCloudRollTimeZone();
   savedAtIso=savedAtIso||new Date().toISOString();
   try{
     const {data:t1Row,error:qErr}=await _supa.from('user_state_history').select('payload,saved_at').eq('user_id',userId).eq('slot','T-1').maybeSingle();
     if(qErr)throw qErr;
     if(t1Row&&t1Row.payload!=null&&!cloudSyncPayloadIsEmpty(t1Row.payload)){
-      const t2SavedAt=t1Row.saved_at||savedAtIso;
+      let t2SavedAt=t1Row.saved_at||savedAtIso;
+      const t1Day=ymdInTimeZone(new Date(t1Row.saved_at||savedAtIso),tz);
+      const t2Day=ymdInTimeZone(new Date(t2SavedAt),tz);
+      if(t1Day===t2Day)t2SavedAt=backupSlotSavedAtIso('T-2',tz);
       const {error:del2Err}=await _supa.from('user_state_history').delete().eq('user_id',userId).eq('slot','T-2');
       if(del2Err)throw del2Err;
       const {error:ins2Err}=await _supa.from('user_state_history').insert({user_id:userId,slot:'T-2',payload:t1Row.payload,saved_at:t2SavedAt});
@@ -3221,7 +3229,8 @@ async function syncCloudHistoryPanel(){
     mainBtn.type='button';
     mainBtn.className='btn btn-ghost btn-sm';
     mainBtn.style.cssText='text-align:left;justify-content:flex-start';
-    const when=row&&row.saved_at?formatBackupDateDdMmYyyy(row.saved_at):'';
+    const tz=userCloudRollTimeZone();
+    const when=row?backupSlotDisplayDateFromSavedAt(slotKey,row.saved_at,tz):'';
     mainBtn.textContent=when?label+' · '+when:label;
     mainBtn.disabled=disabled;
     if(!disabled&&row){
@@ -3274,7 +3283,7 @@ function promptRestoreCloudBackup(historyId,savedAtIso,backupLabel,slotKey){
   window._pendingRestoreCloudSavedAt=savedAtIso||'';
   window._pendingRestoreCloudSlot=(slotKey==='T-1'||slotKey==='T-2')?slotKey:null;
   const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();
-  const when=formatBackupDateDdMmYyyy(savedAtIso||0);
+  const when=window._pendingRestoreCloudSlot?formatBackupSlotDisplayDate(window._pendingRestoreCloudSlot,userCloudRollTimeZone()):backupSlotDisplayDateFromSavedAt(window._pendingRestoreCloudSlot||'',window._pendingRestoreCloudSavedAt||0,userCloudRollTimeZone());
   const title=document.getElementById('confirmRestoreCloudBackupTitle');
   const tx=document.getElementById('confirmRestoreCloudBackupText');
   const okBtn=document.getElementById('confirmRestoreCloudBackupOkBtn');
@@ -3292,7 +3301,7 @@ function confirmRestoreCloudBackupExecute(){
   if(!historyId&&!slotPass){cancelRestoreCloudBackup();return;}
   const skipSecond=!!(S&&S.user&&S.user.skipSecondLockConfirm);
   const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();
-  const when=formatBackupDateDdMmYyyy(window._pendingRestoreCloudSavedAt||0);
+  const when=window._pendingRestoreCloudSlot?formatBackupSlotDisplayDate(window._pendingRestoreCloudSlot,userCloudRollTimeZone()):backupSlotDisplayDateFromSavedAt(window._pendingRestoreCloudSlot||'',window._pendingRestoreCloudSavedAt||0,userCloudRollTimeZone());
   const title=document.getElementById('confirmRestoreCloudBackupTitle');
   const tx=document.getElementById('confirmRestoreCloudBackupText');
   const okBtn=document.getElementById('confirmRestoreCloudBackupOkBtn');
@@ -5041,7 +5050,7 @@ function reminderDebugHabitLabel(slot_key,tag){
   if(/^sun_/.test(tg)||/^sun_/.test(sk))return 'Sunday week-close';
   return String(tg||sk.split(':')[0]||'—');
 }
-function reminderDebugSyncNow(){if(typeof scheduleServiceWorkerReminderSync==='function')scheduleServiceWorkerReminderSync('full');setTimeout(function(){void renderReminderDebugTab();},900);}
+function reminderDebugSyncNow(){if(typeof scheduleServiceWorkerReminderSync==='function')scheduleServiceWorkerReminderSync('full');setTimeout(function(){void maybeFlushDuePushRemindersForUser();void renderReminderDebugTab();},900);}
 async function renderReminderDebugTab(){
   const mount=document.getElementById('reminderDebugBody');const meta=document.getElementById('reminderDebugMeta');const statusEl=document.getElementById('reminderDebugStatus');
   if(!mount)return;
@@ -5078,7 +5087,7 @@ async function renderReminderDebugTab(){
   else ok.push('VAPID public key set in client.');
   if(notifyOn&&perm==='granted'&&_authSession&&!pushErr&&!pushSubs.length)issues.push('No row in <code>push_subscriptions</code> — tap <strong>Sync now</strong>, keep this PWA open a few seconds, then refresh.');
   else if(pushSubs.length)ok.push(pushSubs.length+' push subscription(s) on server.');
-  if(overdue.length)issues.push('<strong>'+overdue.length+'</strong> reminder(s) are past due but still <code>pend</code> — the <code>push-reminders</code> cron is probably not calling the Edge Function (see checklist below).');
+  if(overdue.length)issues.push('<strong>'+overdue.length+'</strong> reminder(s) are past due but still <code>pend</code> — tap <strong>Sync now</strong> to flush them from this device, or configure the <code>push-reminders</code> cron for delivery while the app is closed.');
   else if(pending.length)ok.push(pending.length+' pending reminder(s) queued; none overdue yet.');
   if(statusEl){
     const esc=typeof escHTML==='function'?escHTML:function(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');};
@@ -5086,10 +5095,10 @@ async function renderReminderDebugTab(){
     issues.forEach(function(x){sh+='<li>'+x+'</li>';});
     ok.forEach(function(x){sh+='<li>'+esc(x)+'</li>';});
     if(issues.length){
-      sh+='</ul><p class="small-note" style="margin:var(--s3) 0 0;line-height:1.55">If rows show <code>Up ✓</code> but nothing rings: in Supabase Dashboard → Edge Functions → <code>push-reminders</code> → add a schedule (every 3–5 min) <strong>POST</strong> with header <code>x-cron-secret</code>. Also confirm secrets <code>VAPID_*</code> and <code>CRON_SECRET</code> match the app. See <code>supabase/setup/push-reminders-cron.sql</code>.</p>';
+      sh+='</ul><p class="small-note" style="margin:var(--s3) 0 0;line-height:1.55">While Evolve is open, <strong>Sync now</strong> also asks the server to send any due reminders for your account. For notifications when the app is closed, schedule <code>push-reminders</code> in Supabase (every 3–5 min) with header <code>x-cron-secret</code>. See <code>supabase/setup/push-reminders-cron.sql</code>.</p>';
       statusEl.className='reminder-debug-status reminder-debug-status--warn';
     }else{
-      sh+='</ul><p class="small-note" style="margin:var(--s3) 0 0">Client side looks ready. If a due time passes with no notification, verify the Supabase cron invokes <code>push-reminders</code>.</p>';
+      sh+='</ul><p class="small-note" style="margin:var(--s3) 0 0">Client side looks ready. Due reminders flush when you open Evolve or tap Sync; configure cron for background delivery.</p>';
       statusEl.className='reminder-debug-status reminder-debug-status--ok';
     }
     statusEl.innerHTML=sh;statusEl.hidden=false;
@@ -5408,7 +5417,7 @@ function scheduleServiceWorkerReminderSync(mode){
     _swReminderSyncTimer=null;
     const m=_swReminderPendingMode;
     _swReminderPendingMode='edit';
-    void syncReminderScheduleToSupabase(m);
+    void syncReminderScheduleToSupabase(m).finally(function(){void maybeFlushDuePushRemindersForUser();});
   },350);
 }
 var _utcReminderResyncTimer=null;
@@ -5520,10 +5529,29 @@ async function ensureWebPushSubscription(uid){if(!uid||!_supa||!_authSession)ret
 async function cleanupWebPushOnSignOut(userId){try{if(_swReminderSyncTimer)clearTimeout(_swReminderSyncTimer);_swReminderSyncTimer=null;_swReminderPendingMode='edit';if(_utcReminderResyncTimer){clearTimeout(_utcReminderResyncTimer);_utcReminderResyncTimer=null;}if(userId&&_supa&&_authSession){try{await _supa.from('reminder_schedule').delete().eq('user_id',userId);}catch(e){console.warn('[push] schedule cleanup',e);}try{await _supa.from('push_subscriptions').delete().eq('user_id',userId);}catch(e){console.warn('[push] sub cleanup',e);}}if('serviceWorker'in navigator&&navigator.serviceWorker.ready){const reg=await navigator.serviceWorker.ready;const sub=await reg.pushManager.getSubscription();if(sub)try{await sub.unsubscribe();}catch(e){}}}catch(e){console.warn('[push] cleanup',e);}}
 async function clearAllPushStateForUser(uid){if(!uid||!_supa)return;try{await _supa.from('reminder_schedule').delete().eq('user_id',uid);}catch(e){console.warn('[push] clear schedule',e);}try{await _supa.from('push_subscriptions').delete().eq('user_id',uid);}catch(e){console.warn('[push] clear subscriptions',e);}if('serviceWorker'in navigator&&navigator.serviceWorker.ready){try{const reg=await navigator.serviceWorker.ready;const sub=await reg.pushManager.getSubscription();if(sub)await sub.unsubscribe();}catch(e){}}}
 async function removeThisDevicePushSubscription(uid){if(!uid||!_supa||!_authSession)return;if(!('serviceWorker'in navigator))return;try{const reg=await navigator.serviceWorker.ready;const sub=await reg.pushManager.getSubscription();if(!sub)return;const ep=sub.endpoint;if(ep){try{await _supa.from('push_subscriptions').delete().eq('user_id',uid).eq('endpoint',ep);}catch(e){console.warn('[push] delete local subscription row',e);}}try{await sub.unsubscribe();}catch(e){}}catch(e){console.warn('[push] remove local subscription',e);}}
+var _pushFlushInFlight=false;var _pushFlushLastAt=0;
+async function maybeFlushDuePushRemindersForUser(){
+  if(!_supa||!_authSession)return;
+  const u=typeof authCurrentUser==='function'?authCurrentUser():null;
+  if(!u||!u.id)return;
+  if(!(S&&S.user&&S.user.browserNotifyEnabled))return;
+  if(typeof Notification!=='undefined'&&Notification.permission!=='granted')return;
+  const now=Date.now();
+  if(_pushFlushInFlight||now-_pushFlushLastAt<45000)return;
+  _pushFlushInFlight=true;
+  try{
+    const {data,error}=await _supa.functions.invoke('push-reminders');
+    if(error)console.warn('[push] flush due reminders',error);
+    else if(data&&data.sent>0)console.log('[push] flushed',data.sent,'due reminder(s)');
+    _pushFlushLastAt=Date.now();
+  }catch(e){console.warn('[push] flush due reminders',e);}
+  finally{_pushFlushInFlight=false;}
+}
 async function syncReminderScheduleToSupabase(mode){mode=mode||'edit';if(!_supa)return;const u=typeof authCurrentUser==='function'?authCurrentUser():null;if(!u||!u.id)return;const notify=!!(S&&S.user&&S.user.browserNotifyEnabled);const paused=!!(S&&S.user&&S.user.trackingPaused);const stopped=!!(S&&S.user&&S.user.trackingStopped);const ok=Notification.permission==='granted'&&!!_authSession;if(paused||stopped){await clearAllPushStateForUser(u.id);return;}if(!notify||!ok){await removeThisDevicePushSubscription(u.id);return;}const vapidOk=typeof CONSISTENCY_VAPID_PUBLIC_KEY==='string'&&CONSISTENCY_VAPID_PUBLIC_KEY.trim().length>0;if(!vapidOk){try{await _supa.from('reminder_schedule').delete().eq('user_id',u.id).is('sent_at',null);}catch(e){console.warn('[push] clear pending (no vapid)',e);}return;}try{await _supa.from('reminder_schedule').delete().eq('user_id',u.id).is('sent_at',null);}catch(e){console.warn('[push] delete pending',e);}await ensureWebPushSubscription(u.id);const rows=buildExactReminderScheduleRowsForSupabase(reminderSyncMaxFireMs(mode));if(!rows.length)return;const withUser=rows.map(r=>Object.assign({user_id:u.id},r));const seen=new Set();const deduped=withUser.filter(function(r){const k=String(r.slot_key||'')+'\0'+String(r.fire_at_utc||'');if(seen.has(k))return false;seen.add(k);return true;});const ins=await _supa.from('reminder_schedule').upsert(deduped,{onConflict:'user_id,slot_key,fire_at_utc',ignoreDuplicates:true});if(ins.error)console.warn('[push] insert schedule',ins.error);try{const dayStart=new Date();dayStart.setHours(0,0,0,0);const dayEnd=new Date();dayEnd.setHours(23,59,59,999);const stale=await _supa.from('reminder_schedule').select('id,fire_at_utc').eq('user_id',u.id).is('sent_at',null).like('slot_key','hrd:%');if(!stale.error&&stale.data&&stale.data.length){const drop=stale.data.filter(function(r){const t=new Date(r.fire_at_utc).getTime();return t<dayStart.getTime()||t>dayEnd.getTime();}).map(function(r){return r.id;});if(drop.length)await _supa.from('reminder_schedule').delete().in('id',drop);}}catch(e){console.warn('[push] prune stale habit rows',e);}}
 refreshAppClockSkew().then(()=>renderAll());
 setInterval(()=>{refreshAppClockSkew().then(()=>{if(document.getElementById('tab-tracker')?.classList.contains('active'))renderTracker();});},900000);
-try{document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'){if(typeof scheduleServiceWorkerReminderSync==='function')scheduleServiceWorkerReminderSync('edit');if(typeof maybeRepromptAfterPermissionRevoked==='function')setTimeout(maybeRepromptAfterPermissionRevoked,600);}},{passive:true});}catch(e){}
+try{document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'){if(typeof scheduleServiceWorkerReminderSync==='function')scheduleServiceWorkerReminderSync('edit');if(typeof maybeFlushDuePushRemindersForUser==='function')void maybeFlushDuePushRemindersForUser();if(typeof maybeRepromptAfterPermissionRevoked==='function')setTimeout(maybeRepromptAfterPermissionRevoked,600);}},{passive:true});}catch(e){}
+try{setInterval(function(){if(document.visibilityState==='visible'&&typeof maybeFlushDuePushRemindersForUser==='function')void maybeFlushDuePushRemindersForUser();},180000);}catch(e){}
 try{armUtc0010ReminderScheduleResync();}catch(e){}
 
 /* ===========================

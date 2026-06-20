@@ -15,6 +15,25 @@ function payloadEligibleForBackup(payload: unknown): boolean {
   return true
 }
 
+function ymdUtcFromIso(iso: string): string {
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return iso.slice(0, 10)
+  return d.toISOString().slice(0, 10)
+}
+
+function calendarDaysAgoIso(daysAgo: number): string {
+  const seen = new Set<string>()
+  const now = Date.now()
+  for (let i = 0; i < 60; i++) {
+    const ymd = new Date(now - i * 86400000).toISOString().slice(0, 10)
+    if (seen.has(ymd)) continue
+    seen.add(ymd)
+    if (seen.size === daysAgo + 1) return `${ymd}T00:15:00.000Z`
+  }
+  const ymd = new Date(now - daysAgo * 86400000).toISOString().slice(0, 10)
+  return `${ymd}T00:15:00.000Z`
+}
+
 Deno.serve(async (req) => {
   if (!CRON_SECRET) {
     return new Response(JSON.stringify({ error: 'CRON_SECRET not configured' }), {
@@ -65,7 +84,10 @@ Deno.serve(async (req) => {
         .maybeSingle()
 
       if (t1Row && t1Row.payload !== null && t1Row.payload !== undefined) {
-        const t2SavedAt = (t1Row as { saved_at?: string }).saved_at ?? nowIso
+        let t2SavedAt = (t1Row as { saved_at?: string }).saved_at ?? nowIso
+        const t1Day = ymdUtcFromIso(t1Row.saved_at ?? nowIso)
+        const t2Day = ymdUtcFromIso(t2SavedAt)
+        if (t1Day === t2Day) t2SavedAt = calendarDaysAgoIso(2)
         const del2 = await supa.from('user_state_history').delete().eq('user_id', uid).eq('slot', 'T-2')
         if (del2.error) throw del2.error
         const ins2 = await supa.from('user_state_history').insert({
