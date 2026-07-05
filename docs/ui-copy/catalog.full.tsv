@@ -335,9 +335,7 @@ Automatic is not the enemy — it is the finish line."		no
 insight.adult.F6.sourceText	insights_adult		Libet et al., 1983		no
 insight.adult.F6.sourceUrl	insights_adult		https://pubmed.ncbi.nlm.nih.gov/6875817/		no
 insight.adult.F7.title	insights_adult		Made beds, clearer heads		no
-insight.adult.F7.body	insights_adult		"Many people who make the bed say the day feels a little easier to start. Research is mixed on how much the bed itself matters — but a tiny win before breakfast can set a calm tone.
-
-Two minutes, one clear done — small, but real."		no
+insight.adult.F7.body	insights_adult		Many people who make the bed say the day feels a little easier to start. Research is mixed on how much the bed itself matters — but a tiny win before breakfast can set a calm tone.		no
 insight.adult.F7.sourceText	insights_adult		Popular psychology summaries		no
 insight.adult.F7.sourceUrl	insights_adult		https://www.psychologytoday.com/		no
 insight.adult.F8.title	insights_adult		Phones trained you well		no
@@ -587,35 +585,35 @@ insight.adult.NH12.sourceUrl	insights_adult		https://www.penguinrandomhouse.com/
 insight.adult.MX1.title	insights_adult		Mastery I — rhythm holds		no
 insight.adult.MX1.body	insights_adult		"Research on habit formation shows “automaticity” emerges over weeks to months, with wide individual differences — not a single fixed number for everyone.
 
-Earning this tier means your logged behaviour met the bar over roughly a month of calendar days for this habit — celebrate showing up."		no
+Earning Mastery Level 1 means your logged behaviour met the bar over roughly a month of calendar days for this habit — celebrate showing up."		no
 insight.adult.MX1.sourceText	insights_adult		Lally et al. — habit formation (overview)		no
 insight.adult.MX1.sourceUrl	insights_adult		https://pubmed.ncbi.nlm.nih.gov/19827987/		no
 insight.adult.MX2.title	insights_adult		Mastery II — deeper pattern		no
 insight.adult.MX2.body	insights_adult		"As windows lengthen, off-days age out of the lookback while you keep accumulating proof you can return.
 
-This tier is about sustaining the pattern on the Log across roughly two months of calendar days."		no
+Mastery Level 2 is about sustaining the pattern on the Log across roughly two months of calendar days."		no
 insight.adult.MX2.sourceText	insights_adult		Wood & Neal — habits (overview)		no
 insight.adult.MX2.sourceUrl	insights_adult		https://pubmed.ncbi.nlm.nih.gov/17685980/		no
 insight.adult.MX3.title	insights_adult		Mastery III — you own this here		no
-insight.adult.MX3.body	insights_adult		"Meeting a high bar over the longest mastery window (calendar days) in this app is rare air — you have built real consistency with this habit here.
+insight.adult.MX3.body	insights_adult		"Mastery Level 3 means about three months of strong consistency on this habit — roughly 90% of eligible days across an 81-day window.
 
-Consider banking it for now and revisiting in 6–12 months if you want to reinforce it again."		no
+The habit is yours now. You can move it to Saved habits if you like, and Evolve can ask in six to twelve months if you want a Legendary maintenance round."		no
 insight.adult.MX3.sourceText	insights_adult		Evolve — mastery framing		no
 insight.adult.MX3.sourceUrl	insights_adult				no
 insight.adult.MX4.title	insights_adult		Legendary Maintenance — back on purpose		no
-insight.adult.MX4.body	insights_adult		A long pause after mastery is normal life. Choosing to return and meet the maintenance bar shows the habit is still yours — a deliberate reunion, not a rescue mission.		no
+insight.adult.MX4.body	insights_adult		A long pause after Mastery Level 3 is normal life. Choosing to return and meet the maintenance bar for Mastery Level 4 shows the habit is still yours — a deliberate reunion, not a rescue mission.		no
 insight.adult.MX4.sourceText	insights_adult		Evolve — legendary framing		no
 insight.adult.MX4.sourceUrl	insights_adult				no
 insight.adult.MX5.title	insights_adult		Timeless —still showing up		no
-insight.adult.MX5.body	insights_adult		Years later, the signal is not perfection. It is that you came back and let the weeks add up again — quiet proof that the identity stuck.		no
+insight.adult.MX5.body	insights_adult		Years later at Mastery Level 5, the signal is not perfection. It is that you came back and let the weeks add up again — quiet proof that the identity stuck.		no
 insight.adult.MX5.sourceText	insights_adult		Evolve — timeless framing		no
 insight.adult.MX5.sourceUrl	insights_adult				no
 insight.adult.MX6.title	insights_adult		Eternal — depth over drama		no
-insight.adult.MX6.body	insights_adult		Half a decade is enough seasons to fail, wander, and restart. Earning this means the pattern survived real life — not a streak fantasy.		no
+insight.adult.MX6.body	insights_adult		Half a decade is enough seasons to fail, wander, and restart. Earning Mastery Level 6 means the pattern survived real life — not a streak fantasy.		no
 insight.adult.MX6.sourceText	insights_adult		Evolve — eternal framing		no
 insight.adult.MX6.sourceUrl	insights_adult				no
 insight.adult.MX7.title	insights_adult		Immortal — a lifetime stitch		no
-insight.adult.MX7.body	insights_adult		A decade marker is as much about values as behaviour: some practices deserve to stay loosely tethered across everything else that changes.		no
+insight.adult.MX7.body	insights_adult		Reaching Mastery Level 7 — a decade marker — is as much about values as behaviour: some practices deserve to stay loosely tethered across everything else that changes.		no
 insight.adult.MX7.sourceText	insights_adult		Evolve — immortal framing		no
 insight.adult.MX7.sourceUrl	insights_adult				no
 insight.adult.BK_SM1.title	insights_adult		Only now and not-yet		no
