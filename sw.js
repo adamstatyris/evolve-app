@@ -1,7 +1,7 @@
 /* Service worker: Web Push only (no asset caching).
  * Do NOT intercept fetch — pass-through avoids Response.error() breaking PWA loads on flaky mobile networks.
  */
-var EVOLVE_SW_CACHE = 'evolve-sw-v86';
+var EVOLVE_SW_CACHE = 'evolve-sw-v88';
 
 var _brandIconDataUrl = null;
 var _emojiIconCache = Object.create(null);
@@ -117,21 +117,30 @@ function emojiFromReminderTag(tag) {
   return '';
 }
 
-function emojiIconUrl(rawEmoji) {
+function emojiIconUrl(rawEmoji, tagOpt) {
   var emoji = String(rawEmoji || '').trim();
+  var tag = String(tagOpt || '').trim();
   if (!emoji) return Promise.resolve('');
-  if (_emojiIconCache[emoji]) return Promise.resolve(_emojiIconCache[emoji]);
+  var cacheKey = emoji + '|' + tag;
+  if (_emojiIconCache[cacheKey]) return Promise.resolve(_emojiIconCache[cacheKey]);
   var size = 192;
   var glyphs = Array.from(emoji);
   var multi = glyphs.length > 1;
+  var isMorning = tag === 'habits_morning' || emoji === '☀️';
   var canvas = new OffscreenCanvas(size, size);
   var ctx = canvas.getContext('2d');
   ctx.fillStyle = '#ffffff';
   ctx.fillRect(0, 0, size, size);
   roundedRectPath(ctx, 20, 20, size - 40, size - 40, 28);
-  ctx.fillStyle = '#eef3f8';
+  if (isMorning) {
+    var grd = ctx.createLinearGradient(20, 20, size - 20, size - 20);
+    grd.addColorStop(0, '#ffe566');
+    grd.addColorStop(1, '#ffb703');
+    ctx.fillStyle = grd;
+  } else {
+    ctx.fillStyle = '#f4f7fb';
+  }
   ctx.fill();
-  ctx.fillStyle = '#1a2332';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   if (multi) {
@@ -149,36 +158,21 @@ function emojiIconUrl(rawEmoji) {
       x += w + gap;
     });
   } else {
-    ctx.font = '600 96px system-ui, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
+    ctx.font = '600 ' + (isMorning ? '112' : '96') + 'px system-ui, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
     ctx.fillText(emoji, size / 2, size / 2 + 4);
   }
   return canvasToDataUrl(canvas).then(function (url) {
-    _emojiIconCache[emoji] = url;
+    _emojiIconCache[cacheKey] = url;
     return url;
   });
 }
 
 function resolveNotificationIcons(iconEmoji, tag) {
-  var tagStr = String(tag || '');
-  var emoji = String(iconEmoji || '').trim();
-  if (!emoji) emoji = emojiFromReminderTag(tagStr);
-  var isHabitTag = tagStr.indexOf('hrd:') === 0;
   var brandChain = brandIconDataUrl().catch(function () {
     return rasterizeImageToDataUrl(scopeUrl('icons/evolve-logomark.svg'));
   });
-  if (isHabitTag && emoji) {
-    return brandChain.then(function (brand) {
-      var badge = brand || brandBadgeUrl();
-      return emojiIconUrl(emoji).then(function (habitIcon) {
-        return { badge: badge, icon: habitIcon || badge };
-      }).catch(function () {
-        return { badge: badge, icon: badge };
-      });
-    });
-  }
   return brandChain.then(function (brand) {
-    var icon = brand || brandBadgeUrl();
-    return { badge: icon, icon: icon };
+    return { badge: brand || brandBadgeUrl(), icon: null };
   });
 }
 
@@ -222,16 +216,12 @@ self.addEventListener('push', function (event) {
   }
   event.waitUntil(
     resolveNotificationIcons(iconEmoji, tag).then(function (icons) {
-      return self.registration.showNotification(title, {
-        body: body,
-        tag: tag,
-        badge: icons.badge,
-        icon: icons.icon,
-      });
+      var opts = { body: body, tag: tag, badge: icons.badge };
+      return self.registration.showNotification(title, opts);
     }).catch(function () {
       return brandIconDataUrl().then(function (brand) {
-        var icon = brand || brandBadgeUrl();
-        return self.registration.showNotification(title, { body: body, tag: tag, badge: icon, icon: icon });
+        var badge = brand || brandBadgeUrl();
+        return self.registration.showNotification(title, { body: body, tag: tag, badge: badge });
       }).catch(function () {
         return self.registration.showNotification(title, { body: body, tag: tag });
       });

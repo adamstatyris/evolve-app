@@ -840,7 +840,7 @@
       "category": "insights_adult",
       "insight_id": "I17",
       "field": "title",
-      "adult": "Stress loves the old playlist",
+      "adult": "When stress hits, old habits win",
       "kid": null,
       "html": false,
       "meta": {
@@ -853,7 +853,7 @@
       "category": "insights_adult",
       "insight_id": "I17",
       "field": "body",
-      "adult": "Under pressure, the brain defaults to its most familiar routines — fast. If those routines are good ones, great. If not, stress will find that out quickly.\n\nSimplify the plan before stress does it for you.",
+      "adult": "When stress hits, your brain reaches for whatever habit loop is already wired in — helpful or not.\n\nThat is why a simple, clear plan beats a clever one on hard days. Fewer choices, same good defaults.",
       "kid": null,
       "html": false,
       "meta": {
@@ -2933,7 +2933,7 @@
       "category": "insights_adult",
       "insight_id": "F7",
       "field": "body",
-      "adult": "People who make the bed often report feeling more on top of the day. Causation is fuzzy; the easy win is not.\n\nTwo minutes for a visible “already done” badge.",
+      "adult": "Many people who make the bed say the day feels a little easier to start. Research is mixed on how much the bed itself matters — but a tiny win before breakfast can set a calm tone.\n\nTwo minutes, one clear done — small, but real.",
       "kid": null,
       "html": false,
       "meta": {
@@ -3024,7 +3024,7 @@
       "category": "insights_adult",
       "insight_id": "F9",
       "field": "title",
-      "adult": "Miles and pastries",
+      "adult": "Movement and treats",
       "kid": null,
       "html": false,
       "meta": {
@@ -3037,7 +3037,7 @@
       "category": "insights_adult",
       "insight_id": "F9",
       "field": "body",
-      "adult": "A mile of jogging burns less energy than a fancy pastry contains — annoying math, true math.\n\nStill worth it for heart, mood, and bones; health is not a spreadsheet duel.",
+      "adult": "A mile of jogging often burns fewer calories than a rich pastry contains. Annoying but true — before you eat a treat, it helps to translate its calories into the effort you would need to burn them.",
       "kid": null,
       "html": false,
       "meta": {
@@ -7521,7 +7521,7 @@
       "insight_id": "F9",
       "field": "title",
       "adult": null,
-      "kid": "Miles and treats",
+      "kid": "Runs and treats",
       "html": false,
       "source_part": "_INSIGHT_KID_PART3"
     },
@@ -7531,7 +7531,7 @@
       "insight_id": "F9",
       "field": "body",
       "adult": null,
-      "kid": "A run burns less energy than a fancy pastry — annoying math.\n\nStill worth it for heart, mood, and bones.",
+      "kid": "A mile of jogging often uses less energy than a big treat has. Annoying but true — before you eat a treat, it helps to think about how much moving it would take to use that energy.",
       "html": false,
       "source_part": "_INSIGHT_KID_PART3"
     },
@@ -8938,6 +8938,33 @@
       "html": false
     },
     {
+      "id": "settings.dynamic.lblDefaultStartTabHeading",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:lblDefaultStartTabHeading",
+      "elementId": "lblDefaultStartTabHeading",
+      "adult": "Opening tab",
+      "kid": "First tab",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.lblDefaultStartTab",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:lblDefaultStartTab",
+      "elementId": "lblDefaultStartTab",
+      "adult": "Open Log tab by default (Home otherwise)",
+      "kid": "Open Log first (otherwise Home)",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.defaultStartTabHint",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:defaultStartTabHint",
+      "elementId": "defaultStartTabHint",
+      "adult": "Applies when you open the app or switch profiles. Manage and other tabs are unchanged.",
+      "kid": "When you open the app or switch people, this picks Home or Log. Other tabs stay the same.",
+      "html": false
+    },
+    {
       "id": "settings.dynamic.lblKidAnimationsSettings",
       "category": "settings_kid_toggle",
       "locator": "syncSettingsPanelsKidCopy:setTxt:lblKidAnimationsSettings",
@@ -8989,6 +9016,60 @@
       "elementId": "importProfileSectionLabel",
       "adult": "Profiles to add from file",
       "kid": "People to add from the file",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.exportBackupDoneTitle",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:exportBackupDoneTitle",
+      "elementId": "exportBackupDoneTitle",
+      "adult": "Backup saved",
+      "kid": "All set!",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.exportBackupDoneBody",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:exportBackupDoneBody",
+      "elementId": "exportBackupDoneBody",
+      "adult": "You can see your download in your notification bar.",
+      "kid": "You can see the download in your notification bar.",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.exportBackupAgainTitle",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:exportBackupAgainTitle",
+      "elementId": "exportBackupAgainTitle",
+      "adult": "Download again?",
+      "kid": "Save it again?",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.exportBackupAgainBody",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:exportBackupAgainBody",
+      "elementId": "exportBackupAgainBody",
+      "adult": "You already downloaded a backup. Do you want to download it again?",
+      "kid": "You already saved a backup file. Do you want to save it again?",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.exportBackupAgainCancelBtn",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:exportBackupAgainCancelBtn",
+      "elementId": "exportBackupAgainCancelBtn",
+      "adult": "Cancel",
+      "kid": "Not now",
+      "html": false
+    },
+    {
+      "id": "settings.dynamic.exportBackupAgainOkBtn",
+      "category": "settings_kid_toggle",
+      "locator": "syncSettingsPanelsKidCopy:setTxt:exportBackupAgainOkBtn",
+      "elementId": "exportBackupAgainOkBtn",
+      "adult": "Download again",
+      "kid": "Save again",
       "html": false
     },
     {
@@ -10174,7 +10255,7 @@
       "id": "habitPreset.journal.label",
       "category": "habit_preset",
       "preset_key": "journal",
-      "adult": "Journaling session",
+      "adult": "Journaling",
       "kid": null,
       "html": false
     },
@@ -10182,7 +10263,7 @@
       "id": "habitPreset.journal.title",
       "category": "habit_preset",
       "preset_key": "journal",
-      "adult": "Journal session",
+      "adult": "Journaling",
       "kid": null,
       "html": false
     },

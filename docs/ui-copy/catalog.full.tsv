@@ -95,10 +95,10 @@ insight.adult.I16.body	insights_adult		"Knowing someone is loosely watching — 
 Sometimes one text buddy is enough."		no
 insight.adult.I16.sourceText	insights_adult		Health behaviour trials (overview)		no
 insight.adult.I16.sourceUrl	insights_adult		https://pubmed.ncbi.nlm.nih.gov/		no
-insight.adult.I17.title	insights_adult		Stress loves the old playlist		no
-insight.adult.I17.body	insights_adult		"Under pressure, the brain defaults to its most familiar routines — fast. If those routines are good ones, great. If not, stress will find that out quickly.
+insight.adult.I17.title	insights_adult		When stress hits, old habits win		no
+insight.adult.I17.body	insights_adult		"When stress hits, your brain reaches for whatever habit loop is already wired in — helpful or not.
 
-Simplify the plan before stress does it for you."		no
+That is why a simple, clear plan beats a clever one on hard days. Fewer choices, same good defaults."		no
 insight.adult.I17.sourceText	insights_adult		Schwabe & Wolf — stress & habits		no
 insight.adult.I17.sourceUrl	insights_adult		https://pubmed.ncbi.nlm.nih.gov/		no
 insight.adult.I18.title	insights_adult		Sleep debt hits your brakes		no
@@ -335,9 +335,9 @@ Automatic is not the enemy — it is the finish line."		no
 insight.adult.F6.sourceText	insights_adult		Libet et al., 1983		no
 insight.adult.F6.sourceUrl	insights_adult		https://pubmed.ncbi.nlm.nih.gov/6875817/		no
 insight.adult.F7.title	insights_adult		Made beds, clearer heads		no
-insight.adult.F7.body	insights_adult		"People who make the bed often report feeling more on top of the day. Causation is fuzzy; the easy win is not.
+insight.adult.F7.body	insights_adult		"Many people who make the bed say the day feels a little easier to start. Research is mixed on how much the bed itself matters — but a tiny win before breakfast can set a calm tone.
 
-Two minutes for a visible “already done” badge."		no
+Two minutes, one clear done — small, but real."		no
 insight.adult.F7.sourceText	insights_adult		Popular psychology summaries		no
 insight.adult.F7.sourceUrl	insights_adult		https://www.psychologytoday.com/		no
 insight.adult.F8.title	insights_adult		Phones trained you well		no
@@ -346,10 +346,8 @@ insight.adult.F8.body	insights_adult		"Some surveys find phones checked nearly a
 If your habit app feels sticky, you are competing with world-class designers. Fair fight."		no
 insight.adult.F8.sourceText	insights_adult		Asurion survey		no
 insight.adult.F8.sourceUrl	insights_adult		https://www.asurion.com/connect/news/tech-usage/		no
-insight.adult.F9.title	insights_adult		Miles and pastries		no
-insight.adult.F9.body	insights_adult		"A mile of jogging burns less energy than a fancy pastry contains — annoying math, true math.
-
-Still worth it for heart, mood, and bones; health is not a spreadsheet duel."		no
+insight.adult.F9.title	insights_adult		Movement and treats		no
+insight.adult.F9.body	insights_adult		A mile of jogging often burns fewer calories than a rich pastry contains. Annoying but true — before you eat a treat, it helps to translate its calories into the effort you would need to burn them.		no
 insight.adult.F9.sourceText	insights_adult		Harvard Health — activity & calories		no
 insight.adult.F9.sourceUrl	insights_adult		https://www.health.harvard.edu/diet-and-weight-loss/calories-burned-in-30-minutes-for-people-of-three-different-weights		no
 insight.adult.F10.title	insights_adult		Deadline used to be literal		no
@@ -940,10 +938,8 @@ insight.kid.F8.body	insights_kid			"Some people check phones nearly a hundred ti
 
 Your habit app competes with world-class designers — fair fight."	no
 insight.kid.F8.sourceText	insights_kid			Fun read (grown-ups)	no
-insight.kid.F9.title	insights_kid			Miles and treats	no
-insight.kid.F9.body	insights_kid			"A run burns less energy than a fancy pastry — annoying math.
-
-Still worth it for heart, mood, and bones."	no
+insight.kid.F9.title	insights_kid			Runs and treats	no
+insight.kid.F9.body	insights_kid			A mile of jogging often uses less energy than a big treat has. Annoying but true — before you eat a treat, it helps to think about how much moving it would take to use that energy.	no
 insight.kid.F9.sourceText	insights_kid			Fun read (grown-ups)	no
 insight.kid.F10.title	insights_kid			“Deadline” used to be scarier	no
 insight.kid.F10.body	insights_kid			"Long ago a “deadline” was a line you must not cross — serious trouble.
@@ -1167,12 +1163,21 @@ settings.dynamic.settingsAccountCloudLabel	settings_kid_toggle		Sync this device
 settings.dynamic.settingsAdvancedBackupHeading	settings_kid_toggle		Manual backup & restore	Save / add a backup file	no
 settings.dynamic.settingsAboutBlurb	settings_kid_toggle		A personal habit-tracking tool built around weekly consistency. Made for those who want to meet their better self and keep it.	A friendly habit app for weekly habits. For anyone who wants to meet their better self and keep it.	no
 settings.dynamic.settingsPreferencesIntro	settings_kid_toggle		Profile-specific options. Kid profiles can switch extra reminder and animation behaviour here.	Kid extras: fun animations, and (with a grown-up) whether habits can ring at special times.	no
+settings.dynamic.lblDefaultStartTabHeading	settings_kid_toggle		Opening tab	First tab	no
+settings.dynamic.lblDefaultStartTab	settings_kid_toggle		Open Log tab by default (Home otherwise)	Open Log first (otherwise Home)	no
+settings.dynamic.defaultStartTabHint	settings_kid_toggle		Applies when you open the app or switch profiles. Manage and other tabs are unchanged.	When you open the app or switch people, this picks Home or Log. Other tabs stay the same.	no
 settings.dynamic.lblKidAnimationsSettings	settings_kid_toggle		Animations	Fun animations	no
 settings.dynamic.lblKidHabitTimeRemindersHeading	settings_kid_toggle		Habit time reminders	Habit time reminders	no
 settings.dynamic.kidHabitTimeRemindersHelp	settings_kid_toggle		When this is on, you can set clock times for each habit (with a grown-up’s help). Turn it off to only get gentle week reminders — not a ping at a special time for each habit.	When this is on, you can set clock times for each habit (with a grown-up’s help). Turn it off to only get gentle week reminders — not a ping at a special time for each habit.	no
 settings.dynamic.lblKidHabitTimeReminders	settings_kid_toggle		Allow clock-time reminders per habit	Allow clock-time reminders per habit	no
 settings.dynamic.settingsPreferencesAdultNote	settings_kid_toggle		No extra preferences for this profile. Switch to a kid profile to adjust animations and per-habit reminder times.		no
 settings.dynamic.importProfileSectionLabel	settings_kid_toggle		Profiles to add from file	People to add from the file	no
+settings.dynamic.exportBackupDoneTitle	settings_kid_toggle		Backup saved	All set!	no
+settings.dynamic.exportBackupDoneBody	settings_kid_toggle		You can see your download in your notification bar.	You can see the download in your notification bar.	no
+settings.dynamic.exportBackupAgainTitle	settings_kid_toggle		Download again?	Save it again?	no
+settings.dynamic.exportBackupAgainBody	settings_kid_toggle		You already downloaded a backup. Do you want to download it again?	You already saved a backup file. Do you want to save it again?	no
+settings.dynamic.exportBackupAgainCancelBtn	settings_kid_toggle		Cancel	Not now	no
+settings.dynamic.exportBackupAgainOkBtn	settings_kid_toggle		Download again	Save again	no
 settings.dynamic.lblSettingsDisplayName	settings_kid_toggle		Display name	Your name	no
 settings.dynamic.advancedCloudHistoryHeading	settings_kid_toggle		Automatic cloud backups	Cloud backups (automatic)	no
 settings.dynamic.lblSkipSecondLockConfirm	settings_kid_toggle		Skip the second “are you sure you are sure?” step on profile delete, goal delete, and restoring an automatic cloud backup	Skip the extra “really sure?” step when deleting something big or restoring a cloud backup (ask a grown-up).	no
@@ -1326,8 +1331,8 @@ habitPreset.hiit.label	habit_preset		HIIT session		no
 habitPreset.hiit.title	habit_preset		HIIT session		no
 habitPreset.mobility.label	habit_preset		Mobility / physio routine		no
 habitPreset.mobility.title	habit_preset		Mobility routine		no
-habitPreset.journal.label	habit_preset		Journaling session		no
-habitPreset.journal.title	habit_preset		Journal session		no
+habitPreset.journal.label	habit_preset		Journaling		no
+habitPreset.journal.title	habit_preset		Journaling		no
 habitPreset.reading.label	habit_preset		Reading session		no
 habitPreset.reading.title	habit_preset		Reading (30 min)		no
 habitPreset.meditation.label	habit_preset		Meditation / mindfulness		no

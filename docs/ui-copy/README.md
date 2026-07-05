@@ -57,6 +57,16 @@ You are editing **user-facing copy** for **Evolve**, a browser-based weekly habi
 - **Tabs:** Dashboard, Log, Habits, History, Habit Bank. **Settings** includes Account (profiles + sign-in/sync), Appearance, Tracking, Advanced (backup / cloud snapshots), Help (tours, Tips), About.
 - **Insights / “fun facts”:** Short optional reads; kid variants must stay **non-frightening**, non-clinical, and **not** promise medical outcomes.
 
+### Tone (required — see also `.cursor/rules/evolve-copy-tone.mdc`)
+
+- **Educational, concise, easily digestible** — one clear takeaway per insight.
+- **Relatable to Evolve** — habits, weekly logging, goals, pots, treats, recovery, consistency.
+- **Adult:** slightly richer vocabulary, calm and informative.
+- **Kid:** simpler words; warm and plain; light fun OK, not required.
+- **Avoid:** snark, advert/hype voice, cocky bravado, guilt/nagging, and **punchline closers** (wild analogies or mic-drop lines that do not teach, e.g. “health is not a spreadsheet duel”).
+- **Insight shape:** paragraph 1 = fact; paragraph 2 = why it matters for someone using the app (no gimmick).
+- **Dashboard overview sublines** (`_buildSublinePool*`): one grounded sentence about this week; actionable or reassuring, not poster slogans.
+
 ### Your task
 
 1. Open the attached **`catalog.json`** (or **`catalog.full.tsv`**).

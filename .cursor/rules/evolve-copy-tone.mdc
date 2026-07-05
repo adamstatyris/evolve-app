@@ -1,0 +1,57 @@
+---
+description: Tone and style for Evolve insights and dashboard overview sublines
+globs: index.html, docs/ui-copy/**, tools/*ui-copy*
+alwaysApply: true
+---
+
+# Evolve copy tone (insights + overview sublines)
+
+Apply whenever writing or editing **insights** (`INSIGHT_LIBRARY`, `_INSIGHT_KID_PART*`), **dashboard overview sublines** (`_buildSublinePool`, `_buildSublinePoolKid`, `dashboardMotivationExtras`), or related ui-copy exports.
+
+## Voice
+
+- **Educational first** — one clear fact or idea the user can take away.
+- **Concise and digestible** — short sentences; two short paragraphs max for insight bodies (fact, then why it matters here).
+- **Relatable to Evolve** — tie to habits, weekly logging, goals, pots, treats, recovery, or consistency where natural. Do not force a product plug every time.
+- **Calm and respectful** — speak to the user as a capable adult (kid mode: warm, plain, never condescending).
+
+## Adult vs kid
+
+| | Adult | Kid |
+|---|--------|-----|
+| Vocabulary | Slightly richer; precise but not academic | Simple, concrete words |
+| Tone | Steady, informative | Warm; light playfulness OK, not required |
+| Length | Same structure, can be one sentence longer | Shorter sentences; no clinical detail |
+
+## Avoid
+
+- **Snark** — e.g. “annoying math, true math”, sarcastic asides.
+- **Cocky or advert voice** — hype, slogan stacks, “fair fight” bravado.
+- **Punchline closers** — wild analogies or mic-drop lines that do not teach (e.g. “health is not a spreadsheet duel”, “instead of pretending you are a spreadsheet”).
+- **Guilt, shame, or nagging** — especially in sublines that rotate on Home.
+- **Medical promises** — kid copy stays non-frightening; cite sources in `sourceText`, not fear in the body.
+
+## Insight body shape
+
+1. **Paragraph 1** — the fact (accurate, plain).
+2. **Paragraph 2** — why it matters for someone building habits in Evolve (or a gentle “so what” without a gimmick).
+
+## Overview subline shape
+
+- One sentence (two only if essential).
+- Grounded in **this week’s state** (on track, recovery, days left, logging nudge).
+- Actionable or reassuring — not motivational poster copy.
+
+## Examples
+
+**Insight — bad**
+> A mile of jogging burns less energy than a fancy pastry contains — annoying math, true math. Still worth it for heart, mood, and bones; health is not a spreadsheet duel.
+
+**Insight — good**
+> A mile of jogging often burns fewer calories than a rich pastry contains. Annoying but true — before you eat a treat, it helps to translate its calories into the effort you would need to burn them.
+
+**Subline — bad**
+> Motivation ghosted you? Fine. Tea and a calendar rarely do.
+
+**Subline — good**
+> You do not need to feel inspired — pick one habit and log it when you have a few minutes.
