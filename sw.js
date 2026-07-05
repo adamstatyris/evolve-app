@@ -1,9 +1,10 @@
 /* Service worker: Web Push only (no asset caching).
  * Do NOT intercept fetch — pass-through avoids Response.error() breaking PWA loads on flaky mobile networks.
  */
-var EVOLVE_SW_CACHE = 'evolve-sw-v88';
+var EVOLVE_SW_CACHE = 'evolve-sw-v89';
 
-var _brandIconDataUrl = null;
+var _brandColorIconDataUrl = null;
+var _brandMonoBadgeDataUrl = null;
 var _emojiIconCache = Object.create(null);
 
 function scopeUrl(rel) {
@@ -12,10 +13,6 @@ function scopeUrl(rel) {
   } catch (e) {
     return rel;
   }
-}
-
-function brandBadgeUrl() {
-  return scopeUrl('icons/evolve-logomark.svg');
 }
 
 function roundedRectPath(ctx, x, y, w, h, r) {
@@ -50,6 +47,13 @@ function canvasToDataUrl(canvas) {
   return Promise.reject(new Error('canvas export unavailable'));
 }
 
+function fetchAssetAsDataUrl(rel) {
+  return fetch(scopeUrl(rel)).then(function (res) {
+    if (!res.ok) throw new Error('asset fetch failed: ' + rel);
+    return res.blob();
+  }).then(blobToDataUrl);
+}
+
 function rasterizeImageToDataUrl(src, size) {
   size = size || 192;
   return new Promise(function (resolve, reject) {
@@ -78,21 +82,57 @@ function rasterizeImageToDataUrl(src, size) {
   });
 }
 
-function brandIconDataUrl() {
-  if (_brandIconDataUrl) return Promise.resolve(_brandIconDataUrl);
-  var candidates = [
-    'icons/Evolve Logomark Bright.svg',
-    'icons/evolve-logomark.svg',
-    'icons/icon-192.png?v=5',
-  ];
-  var chain = Promise.reject();
-  candidates.forEach(function (path) {
-    chain = chain.catch(function () {
-      return rasterizeImageToDataUrl(scopeUrl(path));
-    });
+function colorIconToMonochromeBadgeDataUrl(colorDataUrl) {
+  return new Promise(function (resolve, reject) {
+    var img = new Image();
+    img.onload = function () {
+      try {
+        var size = 96;
+        var canvas = new OffscreenCanvas(size, size);
+        var ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, size, size);
+        ctx.drawImage(img, 0, 0, size, size);
+        var id = ctx.getImageData(0, 0, size, size);
+        var d = id.data;
+        for (var i = 0; i < d.length; i += 4) {
+          var a = d[i + 3];
+          if (a < 12) {
+            d[i + 3] = 0;
+            continue;
+          }
+          d[i] = 255;
+          d[i + 1] = 255;
+          d[i + 2] = 255;
+          d[i + 3] = Math.min(255, Math.round(a * 0.95));
+        }
+        ctx.putImageData(id, 0, 0);
+        canvasToDataUrl(canvas).then(resolve, reject);
+      } catch (e) {
+        reject(e);
+      }
+    };
+    img.onerror = reject;
+    img.src = colorDataUrl;
+  });
+}
+
+function brandColorIconDataUrl() {
+  if (_brandColorIconDataUrl) return Promise.resolve(_brandColorIconDataUrl);
+  var chain = fetchAssetAsDataUrl('icons/icon-192.png').catch(function () {
+    return fetchAssetAsDataUrl('icons/apple-touch-icon.png');
+  }).catch(function () {
+    return rasterizeImageToDataUrl(scopeUrl('icons/evolve-logomark.svg'));
   });
   return chain.then(function (url) {
-    _brandIconDataUrl = url;
+    _brandColorIconDataUrl = url;
+    return url;
+  });
+}
+
+function brandMonochromeBadgeDataUrl() {
+  if (_brandMonoBadgeDataUrl) return Promise.resolve(_brandMonoBadgeDataUrl);
+  return brandColorIconDataUrl().then(colorIconToMonochromeBadgeDataUrl).then(function (url) {
+    _brandMonoBadgeDataUrl = url;
     return url;
   });
 }
@@ -168,12 +208,36 @@ function emojiIconUrl(rawEmoji, tagOpt) {
 }
 
 function resolveNotificationIcons(iconEmoji, tag) {
-  var brandChain = brandIconDataUrl().catch(function () {
-    return rasterizeImageToDataUrl(scopeUrl('icons/evolve-logomark.svg'));
+  var tagStr = String(tag || '');
+  var emoji = String(iconEmoji || '').trim();
+  if (!emoji) emoji = emojiFromReminderTag(tagStr);
+  var isHabitTag = tagStr.indexOf('hrd:') === 0;
+  var badgeChain = brandMonochromeBadgeDataUrl();
+  return badgeChain.then(function (badge) {
+    if (isHabitTag && emoji) {
+      return emojiIconUrl(emoji, tagStr).then(function (habitIcon) {
+        return { badge: badge, icon: habitIcon || null };
+      }).catch(function () {
+        return { badge: badge, icon: null };
+      });
+    }
+    return { badge: badge, icon: null };
+  }).catch(function () {
+    return brandColorIconDataUrl().then(function (fallback) {
+      return { badge: fallback, icon: null };
+    });
   });
-  return brandChain.then(function (brand) {
-    return { badge: brand || brandBadgeUrl(), icon: null };
-  });
+}
+
+function showPushNotification(title, body, tag, icons) {
+  var opts = {
+    body: body,
+    tag: tag,
+    badge: icons.badge,
+    data: { tag: tag },
+  };
+  if (icons.icon) opts.icon = icons.icon;
+  return self.registration.showNotification(title, opts);
 }
 
 self.addEventListener('install', function (e) {
@@ -216,12 +280,10 @@ self.addEventListener('push', function (event) {
   }
   event.waitUntil(
     resolveNotificationIcons(iconEmoji, tag).then(function (icons) {
-      var opts = { body: body, tag: tag, badge: icons.badge };
-      return self.registration.showNotification(title, opts);
+      return showPushNotification(title, body, tag, icons);
     }).catch(function () {
-      return brandIconDataUrl().then(function (brand) {
-        var badge = brand || brandBadgeUrl();
-        return self.registration.showNotification(title, { body: body, tag: tag, badge: badge });
+      return brandMonochromeBadgeDataUrl().then(function (badge) {
+        return showPushNotification(title, body, tag, { badge: badge, icon: null });
       }).catch(function () {
         return self.registration.showNotification(title, { body: body, tag: tag });
       });

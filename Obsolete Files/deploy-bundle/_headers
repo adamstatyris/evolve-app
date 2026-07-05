@@ -1,0 +1,21 @@
+# Cloudflare Pages headers
+# https://developers.cloudflare.com/pages/configuration/headers/
+
+# Service worker must always revalidate so users never get stuck on a stale SW.
+/sw.js
+  Cache-Control: no-cache
+  Service-Worker-Allowed: /
+
+# Manifest is small and tied to app identity; revalidate often.
+/manifest.webmanifest
+  Cache-Control: public, max-age=300
+
+# Icons rarely change; allow longer browser cache.
+/icons/*
+  Cache-Control: public, max-age=86400
+
+# HTML entry: revalidate often so habit editor / reminders UI updates aren’t stale on phones.
+/
+  Cache-Control: public, max-age=0, must-revalidate
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
