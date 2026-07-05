@@ -8,6 +8,6 @@ Contents:
 - index - Copy.txt        Old index.html backup
 - icons/1.*, icons/2.*    Unused duplicate icon experiments
 - tools/*.mjs             One-off patch/extract scripts from earlier fix batches
-- Summary PDF             External notes file
 
 Do not deploy from this folder. Edit and commit files at the repo root instead.
+Only put superseded old copies here — not active project documents.
