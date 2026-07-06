@@ -67,7 +67,7 @@
   /* Space below fixed topbar before first card on every tab */
   --panel-top-gap-default:var(--s4);
   --log-tab-top-gap:var(--s5);
-  --overlay-backdrop:rgba(6,10,18,.2);
+  --overlay-backdrop:rgba(6,10,18,.1);
 }
 [data-theme="light"]{
   --bg:#eef3f8;
@@ -99,7 +99,7 @@
   --shadow-lg:0 24px 80px rgba(0,0,0,.18);
   --header-mark-bg-themed:var(--blue-strong);
   --header-mark-tree-themed:#fff;
-  --overlay-backdrop:rgba(238,243,248,.2);
+  --overlay-backdrop:rgba(238,243,248,.1);
 }
 /* Accent palettes: calm neutrals + purple, burgundy, navy, graphite, greyscale, teal, sage, rose — each tuned for dark and light. */
 [data-theme="dark"][data-palette="purple"]{
@@ -403,7 +403,7 @@ html[data-theme="light"] .goals-tab-pill--cooldown.goals-tab-pill--growth{border
 .sync-issue-banner[hidden]{display:none!important}
 .sync-issue-banner__text{font-size:var(--sm);color:var(--text);line-height:1.55;margin:0 0 var(--s3)}
 .sync-issue-banner__actions{display:flex;justify-content:flex-end;gap:var(--s2)}
-.pot-reset-float{position:fixed;left:50%;bottom:calc(var(--app-chrome-bottom) + 16px);transform:translateX(-50%) translateY(120%);z-index:10039;max-width:min(92vw,400px);padding:var(--s4) var(--s5);border-radius:var(--r-xl);background:linear-gradient(180deg,color-mix(in srgb,var(--surface-2) 100%,var(--amber) 6%),var(--surface));border:1px solid color-mix(in srgb,var(--border) 70%,var(--amber) 35%);border-left:4px solid var(--blue-strong);box-shadow:0 12px 40px rgba(0,0,0,.35),0 0 0 1px color-mix(in srgb,var(--amber) 25%,transparent);transition:transform .42s cubic-bezier(0.22,1,0.36,1),opacity .32s ease;opacity:0;pointer-events:none;text-align:center}
+.pot-reset-float{position:fixed;left:50%;bottom:calc(var(--app-chrome-bottom) + 16px);transform:translateX(-50%) translateY(120%);z-index:10039;max-width:min(92vw,400px);padding:var(--s4) var(--s5);border-radius:var(--r-xl);background:linear-gradient(180deg,var(--surface-2),var(--surface));border:1px solid color-mix(in srgb,var(--border) 72%,var(--blue-strong) 28%);box-shadow:0 12px 40px rgba(0,0,0,.35),0 0 0 1px color-mix(in srgb,var(--blue-strong) 55%,transparent);transition:transform .42s cubic-bezier(0.22,1,0.36,1),opacity .32s ease;opacity:0;pointer-events:none;text-align:center}
 .pot-reset-float.show{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
 .pot-reset-float .prf-emoji{font-size:2.1rem;line-height:1;margin-bottom:var(--s2)}
 .pot-reset-float .prf-title{font-size:var(--sm);font-weight:800;color:var(--text)}
@@ -1627,7 +1627,7 @@ html.evolve-auth-intro body{overflow:hidden}
 <div class="pot-reset-float" id="potResetFloat" hidden role="status" aria-live="polite">
   <button type="button" class="btn btn-ghost btn-sm" style="position:absolute;top:var(--s2);right:var(--s2);padding:var(--s1) var(--s2)" onclick="hidePotResetSupportFloat()" aria-label="Dismiss">×</button>
   <div class="prf-emoji" id="prfEmoji">💙</div>
-  <div class="prf-title" id="prfTitle">Pot reset</div>
+  <div class="prf-title" id="prfTitle">Your goal's Pot is reset</div>
   <div class="prf-body" id="prfBody"></div>
 </div>
 
@@ -4359,7 +4359,7 @@ function hideWhatsNewFloat(){const el=document.getElementById('whatsNewFloat');i
 function hideGoalCompleteCelebration(){const act=document.getElementById('gcfActions');if(act){act.innerHTML='';act.hidden=true;}if(_goalCompleteFloatKind==='pot'&&_goalCompletePotGoalId&&!_goalCompletePotConfirmed){const g=goalById(_goalCompletePotGoalId);if(g){g.potTargetCelebrationSnoozeUntil=Date.now()+3600000;save();}}_goalCompleteFloatKind=null;_goalCompletePotGoalId=null;_goalCompletePotConfirmed=false;const el=document.getElementById('goalCompleteFloat');if(el){el.classList.remove('show');syncUiScrollLock();setTimeout(()=>{if(el)el.hidden=true;syncUiScrollLock();},420);}const fu=_goalCompleteFollowUp;_goalCompleteFollowUp=null;if(fu&&fu.kind==='completed')scheduleNextGoalAfterCompleteFlow(fu);else{maybeScheduleWhatsNewVersionModal();maybeScheduleLegendaryReFloat();maybeScheduleWhatsNewFloat();}}
 let _potResetSupportQueue=[];
 function hidePotResetSupportFloat(){const el=document.getElementById('potResetFloat');if(el){el.classList.remove('show');syncUiScrollLock();setTimeout(()=>{if(el)el.hidden=true;flushPotResetSupportQueue();maybeScheduleHabitFailRecoveryFloat();maybeScheduleGrowthTrialEndFloat();syncUiScrollLock();},420);}}
-function showPotResetSupportFloat(entry){const el=document.getElementById('potResetFloat');if(!el||!entry)return;const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();const em=document.getElementById('prfEmoji');const tt=document.getElementById('prfTitle');const bd=document.getElementById('prfBody');const nm=String(entry.name||'Goal').replace(/</g,'');if(em)em.textContent=kid?'💙':'💙';if(tt)tt.textContent=kid?'Your jar had a setback':'Pot progress reset';if(bd)bd.textContent=kid?`Your score dipped again for “${nm}”. That happens — tough weeks pass. Keep going!\n\nTip: the real win is getting good at each habit.`:`Unfortunately, your % dropped even more for the “${nm}” goal. It’s ok. Some weeks are harder than others, but they pass. It’s ok — consistency is trying again.\n\nPro tip: The real work is done in the habit masteries.`;el.hidden=false;requestAnimationFrame(()=>{el.classList.add('show');syncUiScrollLock();});}
+function showPotResetSupportFloat(entry){const el=document.getElementById('potResetFloat');if(!el||!entry)return;const kid=typeof useKidsLanguage==='function'&&useKidsLanguage();const em=document.getElementById('prfEmoji');const tt=document.getElementById('prfTitle');const bd=document.getElementById('prfBody');const nm=String(entry.name||'Goal').replace(/</g,'');if(em)em.textContent=kid?'💙':'💙';if(tt)tt.textContent=kid?'Your jar had a setback':"Your goal's Pot is reset";if(bd)bd.textContent=kid?`Your score dipped again for “${nm}”. That happens — tough weeks pass. Keep going!\n\nTip: the real win is getting good at each habit.`:`Unfortunately, your % dropped even more for the “${nm}” goal. It’s ok. Some weeks are harder than others, but they pass. It’s ok — consistency is trying again.\n\nPro tip: The real work is done in the habit masteries.`;el.hidden=false;requestAnimationFrame(()=>{el.classList.add('show');syncUiScrollLock();});}
 function flushPotResetSupportQueue(){if(!_potResetSupportQueue.length)return;if(adultWhatsNewVersionNotePending())return;if(typeof milestoneAnyOverlayActive==='function'&&milestoneAnyOverlayActive())return;const gcf=document.getElementById('goalCompleteFloat');if(gcf&&gcf.classList.contains('show'))return;const prf=document.getElementById('potResetFloat');if(prf&&prf.classList.contains('show'))return;const hfr=document.getElementById('habitFailRecoveryFloat');if(hfr&&!hfr.hidden&&hfr.classList.contains('show'))return;const gte=document.getElementById('growthTrialEndFloat');if(gte&&!gte.hidden&&gte.classList.contains('show'))return;if(document.querySelector('.overlay.open'))return;const next=_potResetSupportQueue.shift();if(next)showPotResetSupportFloat(next);}
 function showGoalCompleteCelebration(goalSnap){
   const el=document.getElementById('goalCompleteFloat');
