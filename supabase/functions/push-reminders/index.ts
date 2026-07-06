@@ -70,7 +70,20 @@ function emojiFromGeneralReminderTag(tag: string): string {
   if (t === 'habits_morning') return '☀️'
   if (t.startsWith('sun_')) return '🗓️'
   if (t === '_tempPushTest') return '🔔'
+  if (t.startsWith('hfr_nudge:')) return '💬'
   return ''
+}
+
+function emojiForFailRecoveryNudge(root: Root | null, tag: string): string {
+  const t = String(tag || '')
+  if (!t.startsWith('hfr_nudge:')) return ''
+  const hid = t.slice(10).split('|')[0]
+  if (!hid || !root?.profiles) return '💬'
+  for (const profile of Object.values(root.profiles)) {
+    const h = profile?.habits?.find((x) => x && x.id === hid)
+    if (h?.emoji) return String(h.emoji).trim()
+  }
+  return '💬'
 }
 
 function emojiForPushReminder(root: Root | null, tag: string): string {
@@ -80,6 +93,7 @@ function emojiForPushReminder(root: Root | null, tag: string): string {
     if (fromTag) return fromTag
     return emojiForHabitReminder(root, t)
   }
+  if (t.startsWith('hfr_nudge:')) return emojiForFailRecoveryNudge(root, t)
   return emojiFromGeneralReminderTag(t)
 }
 
@@ -147,14 +161,16 @@ async function processDueReminders(
 
     let iconEmoji = ''
     if (row.tag) {
-      if (String(row.tag).startsWith('hrd:') && !emojiFromHabitReminderTag(String(row.tag))) {
-        if (!rootCache.has(row.user_id)) {
-          rootCache.set(row.user_id, await loadUserRoot(supa, row.user_id))
-        }
+      const tagStr = String(row.tag)
+      const needsRoot =
+        (tagStr.startsWith('hrd:') && !emojiFromHabitReminderTag(tagStr)) ||
+        tagStr.startsWith('hfr_nudge:')
+      if (needsRoot && !rootCache.has(row.user_id)) {
+        rootCache.set(row.user_id, await loadUserRoot(supa, row.user_id))
       }
       iconEmoji = emojiForPushReminder(
         rootCache.get(row.user_id) ?? null,
-        String(row.tag || ''),
+        tagStr,
       )
     }
 

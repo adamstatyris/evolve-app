@@ -1,11 +1,14 @@
 /* Service worker: Web Push only (no asset caching).
- * Do NOT intercept fetch — pass-through avoids Response.error() breaking PWA loads on flaky mobile networks.
+ * Fetch is intercepted ONLY for _evolve-notify-icon (PNG icons for Android notifications).
+ * All other requests pass through — avoids Response.error() breaking PWA loads on flaky mobile networks.
  */
-var EVOLVE_SW_CACHE = 'evolve-sw-v89';
+var EVOLVE_SW_CACHE = 'evolve-sw-v91';
 
 var _brandColorIconDataUrl = null;
 var _brandMonoBadgeDataUrl = null;
 var _emojiIconCache = Object.create(null);
+var _notifyIconBlobCache = Object.create(null);
+var NOTIFY_ICON_PATH = '_evolve-notify-icon';
 
 function scopeUrl(rel) {
   try {
@@ -100,6 +103,10 @@ function colorIconToMonochromeBadgeDataUrl(colorDataUrl) {
             d[i + 3] = 0;
             continue;
           }
+          if (d[i] > 240 && d[i + 1] > 240 && d[i + 2] > 240) {
+            d[i + 3] = 0;
+            continue;
+          }
           d[i] = 255;
           d[i + 1] = 255;
           d[i + 2] = 255;
@@ -143,6 +150,7 @@ function emojiFromGeneralReminderTag(tag) {
   if (t === 'habits_morning') return '☀️';
   if (t.indexOf('sun_') === 0) return '🗓️';
   if (t === '_tempPushTest') return '🔔';
+  if (t.indexOf('hfr_nudge:') === 0) return '💬';
   return '';
 }
 
@@ -157,12 +165,10 @@ function emojiFromReminderTag(tag) {
   return '';
 }
 
-function emojiIconUrl(rawEmoji, tagOpt) {
+function drawEmojiIconCanvas(rawEmoji, tagOpt) {
   var emoji = String(rawEmoji || '').trim();
   var tag = String(tagOpt || '').trim();
-  if (!emoji) return Promise.resolve('');
-  var cacheKey = emoji + '|' + tag;
-  if (_emojiIconCache[cacheKey]) return Promise.resolve(_emojiIconCache[cacheKey]);
+  if (!emoji) return null;
   var size = 192;
   var glyphs = Array.from(emoji);
   var multi = glyphs.length > 1;
@@ -201,32 +207,94 @@ function emojiIconUrl(rawEmoji, tagOpt) {
     ctx.font = '600 ' + (isMorning ? '112' : '96') + 'px system-ui, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
     ctx.fillText(emoji, size / 2, size / 2 + 4);
   }
+  return canvas;
+}
+
+function emojiIconUrl(rawEmoji, tagOpt) {
+  var emoji = String(rawEmoji || '').trim();
+  var tag = String(tagOpt || '').trim();
+  if (!emoji) return Promise.resolve('');
+  var cacheKey = emoji + '|' + tag;
+  if (_emojiIconCache[cacheKey]) return Promise.resolve(_emojiIconCache[cacheKey]);
+  var canvas = drawEmojiIconCanvas(emoji, tag);
+  if (!canvas) return Promise.resolve('');
   return canvasToDataUrl(canvas).then(function (url) {
     _emojiIconCache[cacheKey] = url;
     return url;
   });
 }
 
-function resolveNotificationIcons(iconEmoji, tag) {
+function dataUrlToBlob(dataUrl) {
+  return fetch(dataUrl).then(function (res) {
+    return res.blob();
+  });
+}
+
+function notifyIconRequestUrl(kind, emoji, tag) {
+  var u = new URL(scopeUrl(NOTIFY_ICON_PATH));
+  u.searchParams.set('kind', kind || 'emoji');
+  if (emoji) u.searchParams.set('emoji', emoji);
+  if (tag) u.searchParams.set('tag', tag);
+  return u.href;
+}
+
+function isNotifyIconRequest(url) {
+  try {
+    var u = typeof url === 'string' ? new URL(url) : url;
+    return u.pathname.slice(-NOTIFY_ICON_PATH.length) === NOTIFY_ICON_PATH;
+  } catch (e) {
+    return false;
+  }
+}
+
+function renderNotifyIconBlob(kind, emoji, tag) {
+  var cacheKey = String(kind || '') + '|' + String(emoji || '') + '|' + String(tag || '');
+  if (_notifyIconBlobCache[cacheKey]) return Promise.resolve(_notifyIconBlobCache[cacheKey]);
+  var chain;
+  if (kind === 'badge') {
+    chain = brandMonochromeBadgeDataUrl().then(dataUrlToBlob);
+  } else if (kind === 'brand') {
+    chain = brandColorIconDataUrl().then(dataUrlToBlob);
+  } else {
+    chain = emojiIconUrl(emoji, tag).then(function (url) {
+      if (!url) throw new Error('emoji icon unavailable');
+      return dataUrlToBlob(url);
+    });
+  }
+  return chain.then(function (blob) {
+    _notifyIconBlobCache[cacheKey] = blob;
+    return blob;
+  });
+}
+
+function renderNotifyIconResponse(kind, emoji, tag) {
+  return renderNotifyIconBlob(kind, emoji, tag).then(function (blob) {
+    return new Response(blob, {
+      headers: {
+        'Content-Type': 'image/png',
+        'Cache-Control': 'public, max-age=604800',
+      },
+    });
+  });
+}
+
+function resolveSecondaryEmoji(iconEmoji, tag) {
   var tagStr = String(tag || '');
   var emoji = String(iconEmoji || '').trim();
   if (!emoji) emoji = emojiFromReminderTag(tagStr);
-  var isHabitTag = tagStr.indexOf('hrd:') === 0;
-  var badgeChain = brandMonochromeBadgeDataUrl();
-  return badgeChain.then(function (badge) {
-    if (isHabitTag && emoji) {
-      return emojiIconUrl(emoji, tagStr).then(function (habitIcon) {
-        return { badge: badge, icon: habitIcon || null };
-      }).catch(function () {
-        return { badge: badge, icon: null };
-      });
-    }
-    return { badge: badge, icon: null };
-  }).catch(function () {
-    return brandColorIconDataUrl().then(function (fallback) {
-      return { badge: fallback, icon: null };
-    });
-  });
+  if (!emoji) emoji = emojiFromGeneralReminderTag(tagStr);
+  return emoji;
+}
+
+function resolveNotificationIcons(iconEmoji, tag) {
+  var tagStr = String(tag || '');
+  var emoji = resolveSecondaryEmoji(iconEmoji, tagStr);
+  var icons = {
+    badge: notifyIconRequestUrl('badge'),
+    icon: null,
+  };
+  if (emoji) icons.icon = notifyIconRequestUrl('emoji', emoji, tagStr);
+  return Promise.resolve(icons);
 }
 
 function showPushNotification(title, body, tag, icons) {
@@ -239,6 +307,23 @@ function showPushNotification(title, body, tag, icons) {
   if (icons.icon) opts.icon = icons.icon;
   return self.registration.showNotification(title, opts);
 }
+
+self.addEventListener('fetch', function (event) {
+  if (event.request.method !== 'GET') return;
+  if (!isNotifyIconRequest(event.request.url)) return;
+  var url = new URL(event.request.url);
+  var kind = url.searchParams.get('kind') || 'emoji';
+  var emoji = url.searchParams.get('emoji') || '';
+  var tag = url.searchParams.get('tag') || '';
+  event.respondWith(
+    renderNotifyIconResponse(kind, emoji, tag).catch(function () {
+      if (kind === 'badge' || kind === 'brand') {
+        return fetch(scopeUrl('icons/icon-192.png'));
+      }
+      return new Response('', { status: 404 });
+    })
+  );
+});
 
 self.addEventListener('install', function (e) {
   self.skipWaiting();
@@ -280,12 +365,24 @@ self.addEventListener('push', function (event) {
   }
   event.waitUntil(
     resolveNotificationIcons(iconEmoji, tag).then(function (icons) {
-      return showPushNotification(title, body, tag, icons);
+      var warm = [renderNotifyIconBlob('badge')];
+      if (icons.icon) {
+        try {
+          var iu = new URL(icons.icon);
+          warm.push(renderNotifyIconBlob(
+            iu.searchParams.get('kind') || 'emoji',
+            iu.searchParams.get('emoji') || '',
+            iu.searchParams.get('tag') || ''
+          ));
+        } catch (e) {}
+      }
+      return Promise.all(warm).then(function () {
+        return showPushNotification(title, body, tag, icons);
+      });
     }).catch(function () {
-      return brandMonochromeBadgeDataUrl().then(function (badge) {
-        return showPushNotification(title, body, tag, { badge: badge, icon: null });
-      }).catch(function () {
-        return self.registration.showNotification(title, { body: body, tag: tag });
+      return showPushNotification(title, body, tag, {
+        badge: notifyIconRequestUrl('badge'),
+        icon: null,
       });
     })
   );
