@@ -101,7 +101,7 @@
   --header-mark-tree-themed:#fff;
   --overlay-backdrop:rgba(238,243,248,.75);
 }
-/* Accent palettes: calm neutrals + purple, burgundy, navy, graphite, teal, sage, rose — each tuned for dark and light. */
+/* Accent palettes: calm neutrals + purple, burgundy, navy, graphite, greyscale, teal, sage, rose — each tuned for dark and light. */
 [data-theme="dark"][data-palette="purple"]{
   --bg:#0e0c14;--bg-2:#15121c;--surface:#18152a;--surface-2:#1f1a32;--surface-3:#2a2440;--surface-4:#342c4e;
   --blue:#a78bfa;--blue-strong:#8b6cf0;--blue-bg:rgba(167,139,250,.16);--blue-glow:rgba(167,139,250,.38);--blue-glow-strong:rgba(167,139,250,.55);
@@ -143,6 +143,24 @@
   --blue:#2563eb;--blue-strong:#1d4ed8;--blue-bg:rgba(37,99,235,.1);--blue-glow:rgba(37,99,235,.18);--blue-glow-strong:rgba(37,99,235,.28);
   --teal:#0e7490;
   --header-mark-bg-themed:#3f3f46;
+}
+[data-theme="dark"][data-palette="greyscale"]{
+  --bg:#070707;--bg-2:#0c0c0c;--surface:#111111;--surface-2:#171717;--surface-3:#212121;--surface-4:#2b2b2b;
+  --text:#f5f5f5;--text-muted:#a3a3a3;--text-faint:#737373;
+  --blue:#d4d4d4;--blue-strong:#fafafa;--blue-bg:rgba(255,255,255,.08);--blue-glow:rgba(255,255,255,.16);--blue-glow-strong:rgba(255,255,255,.26);
+  --teal:#b5b5b5;--green:#e5e5e5;--green-bg:rgba(255,255,255,.10);--green-glow:rgba(255,255,255,.18);
+  --gold:#c4c4c4;--amber:#a3a3a3;--amber-bg:rgba(163,163,163,.12);
+  --red:#737373;--red-bg:rgba(115,115,115,.14);
+  --header-mark-bg-themed:#525252;--header-mark-tree-themed:#e5e5e5;--evolve-green-dark:#525252;
+}
+[data-theme="light"][data-palette="greyscale"]{
+  --bg:#f5f5f5;--bg-2:#fafafa;--surface:#fff;--surface-2:#f0f0f0;--surface-3:#e5e5e5;--surface-4:#d4d4d4;
+  --text:#171717;--text-muted:#525252;--text-faint:#737373;
+  --blue:#404040;--blue-strong:#171717;--blue-bg:rgba(23,23,23,.08);--blue-glow:rgba(23,23,23,.12);--blue-glow-strong:rgba(23,23,23,.2);
+  --teal:#525252;--green:#262626;--green-bg:rgba(38,38,38,.10);--green-glow:rgba(38,38,38,.14);
+  --gold:#525252;--amber:#525252;--amber-bg:rgba(82,82,82,.10);
+  --red:#737373;--red-bg:rgba(115,115,115,.10);
+  --header-mark-bg-themed:#404040;--header-mark-tree-themed:#fff;
 }
 [data-theme="dark"][data-palette="teal"]{
   --bg:#071416;--bg-2:#0c1c1f;--surface:#0f2226;--surface-2:#132a2f;--surface-3:#1a363c;--surface-4:#22424a;
@@ -3394,7 +3412,7 @@ function toggleCloudSyncFromUI(){
   if(ROOT._sync.cloudEnabled)void cloudPushNow();
   else syncCloudSyncPanelUI();
 }
-const UI_PALETTE_OPTIONS=[{id:'neutral',label:'Slate',sub:'Neutral & calm',darkBg:'linear-gradient(135deg,#1e293b,#334155)',lightBg:'linear-gradient(135deg,#cbd5e1,#94a3b8)'},{id:'navy',label:'Navy',sub:'Deep blue focus',darkBg:'linear-gradient(135deg,#0c4a6e,#1e3a5f)',lightBg:'linear-gradient(135deg,#7dd3fc,#38bdf8)'},{id:'graphite',label:'Graphite',sub:'Black & gray',darkBg:'linear-gradient(135deg,#27272a,#3f3f46)',lightBg:'linear-gradient(135deg,#d4d4d8,#a1a1aa)'},{id:'burgundy',label:'Burgundy',sub:'Warm wine tone',darkBg:'linear-gradient(135deg,#4a1520,#7f1d1d)',lightBg:'linear-gradient(135deg,#fda4af,#fb7185)'},{id:'teal',label:'Teal',sub:'Fresh aqua',darkBg:'linear-gradient(135deg,#115e59,#0f766e)',lightBg:'linear-gradient(135deg,#5eead4,#2dd4bf)'},{id:'purple',label:'Purple',sub:'Soft lilac',darkBg:'linear-gradient(135deg,#4c1d95,#6d28d9)',lightBg:'linear-gradient(135deg,#c4b5fd,#a78bfa)'},{id:'sage',label:'Sage',sub:'Muted green',darkBg:'linear-gradient(135deg,#1a2e24,#365314)',lightBg:'linear-gradient(135deg,#bbf7d0,#86efac)'},{id:'rose',label:'Rose',sub:'Dusty mauve',darkBg:'linear-gradient(135deg,#4a1942,#831843)',lightBg:'linear-gradient(135deg,#fbcfe8,#f472b6)'}];
+const UI_PALETTE_OPTIONS=[{id:'neutral',label:'Slate',sub:'Neutral & calm',darkBg:'linear-gradient(135deg,#1e293b,#334155)',lightBg:'linear-gradient(135deg,#cbd5e1,#94a3b8)'},{id:'navy',label:'Navy',sub:'Deep blue focus',darkBg:'linear-gradient(135deg,#0c4a6e,#1e3a5f)',lightBg:'linear-gradient(135deg,#7dd3fc,#38bdf8)'},{id:'graphite',label:'Graphite',sub:'Black & gray',darkBg:'linear-gradient(135deg,#27272a,#3f3f46)',lightBg:'linear-gradient(135deg,#d4d4d8,#a1a1aa)'},{id:'greyscale',label:'Greyscale',sub:'Minimal & focused',darkBg:'linear-gradient(135deg,#0a0a0a,#525252)',lightBg:'linear-gradient(135deg,#e5e5e5,#737373)'},{id:'burgundy',label:'Burgundy',sub:'Warm wine tone',darkBg:'linear-gradient(135deg,#4a1520,#7f1d1d)',lightBg:'linear-gradient(135deg,#fda4af,#fb7185)'},{id:'teal',label:'Teal',sub:'Fresh aqua',darkBg:'linear-gradient(135deg,#115e59,#0f766e)',lightBg:'linear-gradient(135deg,#5eead4,#2dd4bf)'},{id:'purple',label:'Purple',sub:'Soft lilac',darkBg:'linear-gradient(135deg,#4c1d95,#6d28d9)',lightBg:'linear-gradient(135deg,#c4b5fd,#a78bfa)'},{id:'sage',label:'Sage',sub:'Muted green',darkBg:'linear-gradient(135deg,#1a2e24,#365314)',lightBg:'linear-gradient(135deg,#bbf7d0,#86efac)'},{id:'rose',label:'Rose',sub:'Dusty mauve',darkBg:'linear-gradient(135deg,#4a1942,#831843)',lightBg:'linear-gradient(135deg,#fbcfe8,#f472b6)'}];
 function normalizeUiPaletteId(p){const id=String(p||'').trim();return UI_PALETTE_OPTIONS.some(x=>x.id===id)?id:'neutral';}
 function applyUiPalette(){if(!S||!S.user)return;document.documentElement.setAttribute('data-palette',normalizeUiPaletteId(S.user.uiPalette));}
 let _headerMarkThemeTimer=null;

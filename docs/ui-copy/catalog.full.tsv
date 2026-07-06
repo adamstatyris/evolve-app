@@ -1415,6 +1415,8 @@ uiPalette.navy.label	ui_palette		Navy		no
 uiPalette.navy.sub	ui_palette		Deep blue focus		no
 uiPalette.graphite.label	ui_palette		Graphite		no
 uiPalette.graphite.sub	ui_palette		Black & gray		no
+uiPalette.greyscale.label	ui_palette		Greyscale		no
+uiPalette.greyscale.sub	ui_palette		Minimal & focused		no
 uiPalette.burgundy.label	ui_palette		Burgundy		no
 uiPalette.burgundy.sub	ui_palette		Warm wine tone		no
 uiPalette.teal.label	ui_palette		Teal		no

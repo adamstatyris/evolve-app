@@ -10940,6 +10940,22 @@
       "html": false
     },
     {
+      "id": "uiPalette.greyscale.label",
+      "category": "ui_palette",
+      "palette_id": "greyscale",
+      "adult": "Greyscale",
+      "kid": null,
+      "html": false
+    },
+    {
+      "id": "uiPalette.greyscale.sub",
+      "category": "ui_palette",
+      "palette_id": "greyscale",
+      "adult": "Minimal & focused",
+      "kid": null,
+      "html": false
+    },
+    {
       "id": "uiPalette.burgundy.label",
       "category": "ui_palette",
       "palette_id": "burgundy",
