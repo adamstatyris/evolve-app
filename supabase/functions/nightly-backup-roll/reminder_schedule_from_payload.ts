@@ -34,11 +34,12 @@ type User = Record<string, unknown> & {
   kidHabitSpecificRemindersEnabled?: boolean
 }
 type Profile = { user?: User; habits?: Habit[]; goals?: Goal[]; weeks?: Record<string, WeekData> }
+type ProfileMeta = { isChildProfile?: boolean; name?: string }
 type Root = {
   storageVersion?: number
   activeProfileId?: string
   profiles?: Record<string, Profile>
-  profileMeta?: Record<string, { isChildProfile?: boolean }>
+  profileMeta?: Record<string, ProfileMeta>
 }
 
 const TITLE = 'Consistency'
@@ -222,9 +223,26 @@ function todayIsoWeekDayIndexZ(nowMs: number, tz: string): number {
   return -1
 }
 
-function notificationBodySimple(h: Habit): string {
-  const t = (String(h.emoji || '🎯').trim() || '🎯') + ' ' + String(h.title || 'Habit').trim()
-  return t.length > 60 ? t.slice(0, 57) + '…' : t
+function profileDisplayName(S: Profile, meta?: ProfileMeta): string {
+  const fromUser = String(S.user?.name || '').trim()
+  if (fromUser) return fromUser.replace(/"/g, "'")
+  const fromMeta = String(meta?.name || '').trim()
+  if (fromMeta && fromMeta !== 'Primary' && fromMeta !== 'Profile') return fromMeta.replace(/"/g, "'")
+  return ''
+}
+
+function notificationBodyWithProfileName(S: Profile, meta: ProfileMeta | undefined, body: string): string {
+  const text = String(body || '').trim()
+  if (!text) return ''
+  const name = profileDisplayName(S, meta)
+  if (!name) return text
+  return name + ', ' + text.charAt(0).toLowerCase() + text.slice(1)
+}
+
+function notificationBodyForHabitReminder(S: Profile, meta: ProfileMeta | undefined, h: Habit): string {
+  const raw = (String(h.title || 'Habit').trim() || 'Habit')
+  const safe = raw.replace(/"/g, "'")
+  return notificationBodyWithProfileName(S, meta, `Your "${safe}" habit needs your attention.`)
 }
 
 function jsDayOfWeek(nowMs: number, tz: string): number {
@@ -269,7 +287,7 @@ export function buildReminderScheduleRowsFromRoot(
       slot_key: `${tag}:${ymd}:${hmFlat}`,
       fire_at_utc: fire.toUTC().toISO()!,
       title: TITLE,
-      body: body || '',
+      body: notificationBodyWithProfileName(S, meta as ProfileMeta | undefined, body),
       tag,
     })
   }
@@ -293,7 +311,7 @@ export function buildReminderScheduleRowsFromRoot(
             slot_key: `hrd:${h.id}:${hmFlat}:${todayYmd}`,
             fire_at_utc: fire.toUTC().toISO()!,
             title: TITLE,
-            body: notificationBodySimple(h),
+            body: notificationBodyForHabitReminder(S, meta as ProfileMeta | undefined, h),
             tag,
           })
         }
