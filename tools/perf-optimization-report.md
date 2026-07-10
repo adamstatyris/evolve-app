@@ -68,3 +68,19 @@ App felt sluggish after recent updates: tab switches, logging days, and dashboar
 3. **Lightweight `patchDashboardAfterLogChange()`** — updates “Your week” KPIs only; skips goal-card rebuild when fingerprint unchanged.
 4. **`maybeApplyHabitAutoLocks()` / `maybeSyncGoalRecoveryAndPotNotices()`** — skip when profile/week state unchanged.
 5. **Deferred week summary** — habit rows paint first; summary + log-reveal on next frame.
+
+---
+
+## Round 3 (2026-07-10) — Batched log side effects
+
+### Problem
+Each tap still triggered week summary, dashboard KPIs, and insight/mastery work — noticeable when logging several days quickly.
+
+### Approach
+**Instant path:** day button / card patch, sounds, debounced save (300ms).
+
+**Batched path (900ms after last log action):** week summary, Home “Your week” section, history table (if open), mastery/insights deferred effects. Week-complete confetti runs once in the batch flush, not per tap.
+
+**Metric typing:** weekly number inputs debounce 450ms before patch + batch scheduling.
+
+**Safety flush:** tab switch, profile switch, and app backgrounding flush pending batch immediately so nothing is stale when leaving Log.
