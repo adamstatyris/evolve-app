@@ -84,3 +84,16 @@ Each tap still triggered week summary, dashboard KPIs, and insight/mastery work 
 **Metric typing:** weekly number inputs debounce 450ms before patch + batch scheduling.
 
 **Safety flush:** tab switch, profile switch, and app backgrounding flush pending batch immediately so nothing is stale when leaving Log.
+
+---
+
+## Round 4 (2026-07-10) — Startup deferral + splash timing
+
+### Problem
+Cold start rendered both Home and Log heavy paths before the user saw anything. Large profiles (~15 habits) paid double cost on launch. Log batch delay felt too aggressive at 900ms.
+
+### Changes
+1. **`LOG_BATCH_MS` → 2000ms** — longer pause before batched Home/summary/mastery work after rapid logging.
+2. **Preferred start tab only during splash** — `runInitialAppRender()` activates Home or Log per `defaultStartTab` and renders only that tab while splash B is visible.
+3. **Deferred tab prewarm** — after splash dismiss (`onLaunchSplashDismissed`), idle-time render of the other heavy tab (Home ↔ Log).
+4. **Splash B = 3000ms** — branded pulse/glow screen; splash A (OS/PWA icon) ends on first paint of splash B via early `evolve-auth-intro` removal.
