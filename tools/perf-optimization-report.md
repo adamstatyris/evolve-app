@@ -43,3 +43,28 @@ App felt sluggish after recent updates: tab switches, logging days, and dashboar
 - Dashboard goal-card render fingerprint (partial DOM updates).
 - Run mastery sync on ISO week close event instead of daily dirty flag only.
 - Profile with Chrome Performance tab if further regression appears.
+
+---
+
+## Round 2 (2026-07-10) — Home + numeric log slowness
+
+### Symptoms
+- Home tab still slow on load with ~15 habits / 2 goals.
+- Log tab slow on first open after app load.
+- km / sessions day-modal saves and weekly metric inputs triggered full re-renders.
+
+### Root causes
+| Issue | Impact |
+|-------|--------|
+| `effectivePotResetCutoffForGoal` bypassed timeline cache | Recomputed full recovery timeline on every pot cutoff read |
+| No DOM patch for km/sessions/instances (only boolean days) | Every numeric save rebuilt all 15 habit cards + dashboard |
+| `renderAfterLogChange` always ran full `renderDashboard()` | Heavy goal stats even when user was on Log tab |
+| Auto-lock + recovery sync on every tracker paint | Scanned all weeks even when nothing changed |
+| Week summary blocked first tracker paint | User waited for summary + 15 cards in one frame |
+
+### Changes
+1. **`getRecoveryTimeline()` in pot cutoff path** — cache hits during renders.
+2. **`patchLogHabitCardUI()`** — in-place updates for days, km, sessions, instances, and weekly metric inputs (mirrors existing day-toggle patch).
+3. **Lightweight `patchDashboardAfterLogChange()`** — updates “Your week” KPIs only; skips goal-card rebuild when fingerprint unchanged.
+4. **`maybeApplyHabitAutoLocks()` / `maybeSyncGoalRecoveryAndPotNotices()`** — skip when profile/week state unchanged.
+5. **Deferred week summary** — habit rows paint first; summary + log-reveal on next frame.
